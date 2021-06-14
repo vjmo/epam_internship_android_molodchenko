@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">epam-internship-android-molodchenko</string>
+    <string name="some_id">
+
+\u00D0\u0097\u00D0\u00B0\u00D0\u00B3\u00D0\u00BE\u00D0\u00BB\u00D0\u00BE\u00D0\u00B2\u00D0\u00BE\u00D0\u00BA \u00D1\u008D\u00D0\u00BA\u00D1\u0080\u00D0\u00B0\u00D0\u00BD\u00D0\u00B0
+</string>
 </resources>

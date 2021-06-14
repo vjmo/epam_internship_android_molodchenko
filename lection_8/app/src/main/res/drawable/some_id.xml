@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- drawable/surface.xml -->
+    <Vector xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:aapt="http://schemas.android.com/aapt"
+        android:width="360dp"
+        android:height="56dp"
+        android:viewportWidth="360"
+        android:viewportHeight="56">
+        <group>
+
+            <clip-path android:pathData="M0 0H360V56H0V0Z" />
+
+            <path
+                android:fillColor="#F5F2FC"
+                android:pathData="M0 0V56H360V0" />
+        </group>
+    </Vector>
+
+
+    <vector xmlns:android="http://schemas.android.com/apk/res/android" xmlns:aapt="http://schemas.android.com/aapt" android:width="64dp" android:height="64dp" android:viewportWidth="64" android:viewportHeight="64">
+
+        <group>
+            <clip-path android:pathData="M16 0H48C56.8366 0 64 7.16344 64 16V48C64 56.8366 56.8366 64 48 64H16C7.16344 64 0 56.8366 0 48V16C0 7.16344 7.16344 0 16 0Z" />
+
+            <path android:fillColor="#FF7070" android:pathData="M0 0V64H64V0" />
+
+        </group>
+
+    </vector>
+</selector>
