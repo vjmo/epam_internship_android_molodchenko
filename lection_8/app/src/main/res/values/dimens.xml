@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="tv_list_margin_start">68dp</dimen>
+    <dimen name="tv_list_margin_end">68dp</dimen>
+    <dimen name="lay_margin_top">8dp</dimen>
+    <dimen name="lay_constraint_horizontal_bias">0.506</dimen>
+    <dimen name="iv_padding">16dp</dimen>
+    <dimen name="iv_editor_absoluteY">97dp</dimen>
+    <dimen name="iv_layout_width">100dp</dimen>
+    <dimen name="iv_layout_height">100dp</dimen>
+    <dimen name="iv_layout_marginLeft">124dp</dimen>
+    <dimen name="iv_layout_marginTop">12dp</dimen>
+    <dimen name="iv_lineSpacingExtra">3sp</dimen>
+    <dimen name="lin_layout_width">411dp</dimen>
+    <dimen name="lin_layout_height">726dp</dimen>
+    <dimen name="iv_elevation">20dp</dimen>
+    <dimen name="scr_layout_width">417dp</dimen>
+    <dimen name="scr_layout_height">268dp</dimen>
+    <dimen name="scr_layout_marginTop">460dp</dimen>
+    <dimen name="tv_paddingLeft">20dp</dimen>
+    <dimen name="tv_paddingTop">22dp</dimen>
+    <dimen name="tv_text_size">13sp</dimen>
+    <dimen name="tv_lineSpacingExtra">5sp</dimen>
+    <dimen name="tv_lineSpacingExtra_two">15sp</dimen>
+    <dimen name="tv_paddingLeft_two">20dp</dimen>
+    <dimen name="layout_marginStart_details">4dp</dimen>
+    <dimen name="layout_marginTop_details">10dp</dimen>
+    <dimen name="video_layout_marginTop">162dp</dimen>
+</resources>

@@ -8,8 +8,8 @@
 
     <LinearLayout
         android:id="@+id/linearLayout"
-        android:layout_width="411dp"
-        android:layout_height="726dp"
+        android:layout_width="@dimen/lin_layout_width"
+        android:layout_height="@dimen/lin_layout_height"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -32,14 +32,14 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
             android:background="@drawable/swipe"
-            android:elevation="20dp" />
+            android:elevation="@dimen/iv_elevation" />
 
     </LinearLayout>
 
     <ScrollView
-        android:layout_width="417dp"
-        android:layout_height="268dp"
-        android:layout_marginTop="460dp"
+        android:layout_width="@dimen/scr_layout_width"
+        android:layout_height="@dimen/scr_layout_height"
+        android:layout_marginTop="@dimen/scr_layout_marginTop"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/linearLayout">
 
@@ -54,12 +54,12 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/roboto_medium"
                 android:gravity="center_vertical"
-                android:lineSpacingExtra="5sp"
-                android:paddingLeft="20dp"
-                android:paddingTop="22dp"
+                android:lineSpacingExtra="@dimen/tv_lineSpacingExtra"
+                android:paddingLeft="@dimen/tv_paddingLeft"
+                android:paddingTop="@dimen/tv_paddingTop"
                 android:text="@string/country_kitch"
                 android:textColor="@color/country_color"
-                android:textSize="13dp" />
+                android:textSize="@dimen/tv_text_size" />
 
             <TextView
                 android:id="@+id/ter_chic_txt"
@@ -71,8 +71,8 @@
                 android:layout_alignParentBottom="true"
                 android:fontFamily="@font/roboto_medium"
                 android:gravity="top"
-                android:lineSpacingExtra="15sp"
-                android:paddingLeft="20dp"
+                android:lineSpacingExtra="@dimen/tv_lineSpacingExtra_two"
+                android:paddingLeft="@dimen/tv_paddingLeft"
                 android:text="@string/name_meals_ter"
                 android:textColor="@color/ter_color"
                 android:textSize="18dp"
@@ -101,9 +101,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignBottom="@id/meat_txt"
-                    android:layout_marginStart="4dp"
-                    android:layout_marginLeft="4dp"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginStart="@dimen/layout_marginStart_details"
+                    android:layout_marginLeft="@dimen/layout_marginStart_details"
+                    android:layout_marginTop="@dimen/layout_marginTop_details"
                     android:background="@drawable/btn_ter"
                     android:fontFamily="@font/roboto_medium"
                     android:text="@string/casserole_txt_str"
@@ -115,19 +115,16 @@
                     android:id="@+id/txt_ingr"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="21dp"
-                    android:layout_marginLeft="21dp"
-                    android:layout_marginEnd="304dp"
-                    android:layout_marginRight="304dp"
                     android:text="@string/ingr_txt_str"
                     app:layout_constraintBottom_toTopOf="@+id/rec_txt"
                     app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.064"
                     app:layout_constraintStart_toStartOf="parent" />
 
                 <TextView
                     android:id="@+id/rec_txt"
-                    android:layout_width="330dp"
-                    android:layout_height="0dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:text="@string/rec_str"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.25"
@@ -139,7 +136,7 @@
                     android:id="@+id/video_img_id"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="162dp"
+                    android:layout_marginTop="@dimen/video_layout_marginTop"
                     app:layout_constraintTop_toTopOf="@+id/rec_txt"
                     app:srcCompat="@drawable/details_video"
                     tools:layout_editor_absoluteX="28dp" />
