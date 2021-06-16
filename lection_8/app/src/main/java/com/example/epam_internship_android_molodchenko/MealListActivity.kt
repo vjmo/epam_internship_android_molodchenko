@@ -21,15 +21,28 @@ class MealListActivity : AppCompatActivity() {
 
         val imageView: ImageView = findViewById(R.id.meal_one_img)
         val textView: TextView = findViewById(R.id.txt_itm_meal_one)
+        val mealOne = Meal(
+            1, "Teriyaki Chicken Casserole", "JAPANESE",
+            " ", " Soy sauce - 3/4 cup\n" +
+                    "        Water - 1/2 cup\n" +
+                    "        Brown sugar - 1/4 cup\n" +
+                    "        Ground ginger - 1/2 teaspoon\n" +
+                    "        Minced garlic - 1/2 teaspoon\n" +
+                    "        Cornstarch - 4 tablespoons\n" +
+                    "        Chicken breasts - 2\n" +
+                    "        Stir-fry vegetables - 1 (12 oz.)\n" +
+                    "        Brown rice - 3 cups"
+        )
 
-        val intent = Intent(this, MealDetailsActivity::class.java)
+        val itemMealList: List<Meal> = listOf(mealOne)
 
-        imageView.setOnClickListener {
-            startActivity(intent)
-        }
         textView.setOnClickListener {
-            startActivity(intent)
+            startActivity(MealDetailsActivity.getIntent(this, mealOne.name, mealOne.country))
         }
+        imageView.setOnClickListener {
+            startActivity(MealDetailsActivity.getIntent(this, mealOne.name, mealOne.country))
+        }
+
     }
 
 }
