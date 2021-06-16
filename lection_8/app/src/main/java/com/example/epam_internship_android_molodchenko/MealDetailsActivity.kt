@@ -4,11 +4,18 @@ import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.TextView
 
 class MealDetailsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_meal_details)
+
+        val textViewCountryMeal: TextView = findViewById(R.id.txt_japanese)
+        val textViewName: TextView = findViewById(R.id.ter_chic_txt)
+
+        textViewCountryMeal.text = intent.getStringExtra(COUNTRY_MEAL)
+        textViewName.text = intent.getStringExtra(NAME)
     }
     companion object{
         const val COUNTRY_MEAL = "Japanese"
