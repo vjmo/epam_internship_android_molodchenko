@@ -1,3 +1,20 @@
 <resources>
     <string name="app_name">epam-internship-android-molodchenko</string>
+    <string name="meal_act_list">Заголовок экрана</string>
+    <string name="name_meal_one">Soy-Glazed Meatloaves with Wasabi Mashed Potatoes &amp; Roasted Carrots</string>
+    <string name="name_meal_two">Steak Diane</string>
+    <string name="country_kitch">JAPANESE</string>
+    <string name="name_meals_ter">Teriyaki Chicken Casserole</string>
+    <string name="meat_txt_str">Meat</string>
+    <string name="casserole_txt_str">Casserole</string>
+    <string name="ingr_txt_str">INGREDIENTS</string>
+    <string name="rec_str">Soy sauce - 3/4 cup
+        Water - 1/2 cup
+        Brown sugar - 1/4 cup
+        Ground ginger - 1/2 teaspoon
+        Minced garlic - 1/2 teaspoon
+        Cornstarch - 4 tablespoons
+        Chicken breasts - 2
+        Stir-fry vegetables - 1 (12 oz.)
+        Brown rice - 3 cups</string>
 </resources>
