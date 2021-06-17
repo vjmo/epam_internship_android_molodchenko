@@ -26,4 +26,7 @@
     <dimen name="layout_marginStart_details">4dp</dimen>
     <dimen name="layout_marginTop_details">10dp</dimen>
     <dimen name="video_layout_marginTop">162dp</dimen>
+    <dimen name="tv_size_vosemn">18sp</dimen>
+    <dimen name="tv_start_magrin_left">20dp</dimen>
+    <dimen name="tv_margin_bottom">35dp</dimen>
 </resources>

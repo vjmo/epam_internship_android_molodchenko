@@ -8,8 +8,8 @@
 
     <LinearLayout
         android:id="@+id/linearLayout"
-        android:layout_width="@dimen/lin_layout_width"
-        android:layout_height="@dimen/lin_layout_height"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -75,7 +75,7 @@
                 android:paddingLeft="@dimen/tv_paddingLeft"
                 android:text="@string/name_meals_ter"
                 android:textColor="@color/ter_color"
-                android:textSize="18dp"
+                android:textSize="@dimen/tv_size_vosemn"
                 android:translationY="-0.45sp" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -86,9 +86,9 @@
                     android:id="@+id/meat_txt"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="21dp"
-                    android:layout_marginLeft="21dp"
-                    android:layout_marginBottom="34dp"
+                    android:layout_marginStart="@dimen/tv_start_magrin_left"
+                    android:layout_marginLeft="@dimen/tv_start_magrin_left"
+                    android:layout_marginBottom="@dimen/tv_margin_bottom"
                     android:background="@drawable/btn_ter"
                     android:fontFamily="@font/roboto_medium"
                     android:text="@string/meat_txt_str"
@@ -109,7 +109,7 @@
                     android:text="@string/casserole_txt_str"
                     android:textAlignment="center"
                     app:layout_constraintStart_toEndOf="@+id/meat_txt"
-                    app:layout_constraintTop_toTopOf="parent"/>
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
                     android:id="@+id/txt_ingr"
