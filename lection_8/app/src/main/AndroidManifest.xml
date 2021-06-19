@@ -11,8 +11,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Epaminternshipandroidmolodchenko"
         tools:replace="android:appComponentFactory">
-
         <activity android:name=".MealListActivity">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -20,6 +20,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".MealDetailsActivity"></activity>
+
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
