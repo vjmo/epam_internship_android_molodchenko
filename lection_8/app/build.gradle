@@ -9,7 +9,7 @@ android {
 
     defaultConfig {
         applicationId "com.example.epam_internship_android_molodchenko"
-        minSdkVersion 16//21
+        minSdkVersion 21//21
         targetSdkVersion 30
         versionCode 1
         versionName "1.0"
