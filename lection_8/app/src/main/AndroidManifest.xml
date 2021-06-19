@@ -11,15 +11,16 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Epaminternshipandroidmolodchenko"
         tools:replace="android:appComponentFactory">
-
-        <activity android:name=".MealListActivity">
+        <activity android:name="com.example.epam_internship_android_molodchenko.HostMainActivity"></activity>
+        <activity android:name=".MealListFragment">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MealDetailsActivity"></activity>
+        <activity android:name=".MealDetailsFragment"></activity>
+
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
