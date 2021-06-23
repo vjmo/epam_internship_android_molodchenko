@@ -1,2 +1,2 @@
-# epam_internship_android_molodchenko
+# epam-internship-android-molodchenko
 Repository for EPAM's Android Education Course.
