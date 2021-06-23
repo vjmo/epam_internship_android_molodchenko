@@ -10,7 +10,10 @@ class HostMainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_host_main)
         if (savedInstanceState != null) {
             val fragmentManager: FragmentManager = supportFragmentManager
-            fragmentManager.beginTransaction().replace(R.id.host_activity, HostFragment()).commit()
+            fragmentManager
+                .beginTransaction()
+                .replace(R.id.host_activity, HostFragment())
+                .commit()
         }
     }
 }

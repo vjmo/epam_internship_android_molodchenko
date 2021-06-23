@@ -5,8 +5,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 
-class HostFragment : Fragment() {
+class HostFragment : Fragment((R.layout.fragment_host)) {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -17,7 +18,13 @@ class HostFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        parentFragmentManager.beginTransaction().replace(R.id.host_fragment, MealListFragment())
+        parentFragmentManager
+            .beginTransaction()
+            .replace(R.id.host_fragment, MealListFragment())
             .commit()
+    }
+
+    companion object {
+        fun newInstance() = HostFragment()
     }
 }
