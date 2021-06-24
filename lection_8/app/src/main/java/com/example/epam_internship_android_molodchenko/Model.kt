@@ -4,5 +4,5 @@ import androidx.annotation.DrawableRes
 
 data class Model(
     val title: String,
-    @DrawableRes val img: Int
+    val imgRes: Int
 )
