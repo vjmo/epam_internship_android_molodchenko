@@ -18,16 +18,43 @@ class HostMainActivity : AppCompatActivity() {
                 .commit()
         }
 
-        val recyclerView = findViewById<RecyclerView>(R.id.rv_one)
-        val recyclerViewAdapter = MyAdapter()
+        val recyclerViewMeal = findViewById<RecyclerView>(R.id.rv_one)
+        val recyclerViewAdapterMeal = MealAdapter()
 
-        recyclerView.layoutManager = LinearLayoutManager(this)
-        recyclerView.adapter = recyclerViewAdapter
+        recyclerViewMeal.layoutManager = LinearLayoutManager(this)
+        recyclerViewMeal.adapter = recyclerViewAdapterMeal
 
-        recyclerViewAdapter.clickListener
-        recyclerViewAdapter.setList(
-            listOf(Model("Soy-Glazed Meatloaves with Wasabi Mashed Potatoes & Roasted Carrots", R.drawable.meal_one),
-                Model("Steak Diane", R.drawable.meal_two))
+        recyclerViewAdapterMeal.clickListener
+        recyclerViewAdapterMeal.setList(
+            listOf(
+                ModelMeal(
+                    "Soy-Glazed Meatloaves with Wasabi Mashed Potatoes & Roasted Carrots",
+                    R.drawable.meal_one
+                ),
+                ModelMeal("Steak Diane", R.drawable.meal_two)
+            )
+        )
+
+        val recyclerViewCategory = findViewById<RecyclerView>(R.id.rv_category)
+        val recyclerViewAdapterCategory = CategoryAdapter()
+
+        recyclerViewCategory.layoutManager = LinearLayoutManager(this)
+        recyclerViewCategory.adapter = recyclerViewAdapterCategory
+
+        recyclerViewAdapterCategory.clickListener
+        recyclerViewAdapterCategory.setList(
+            listOf(
+                ModelCategory
+                    (1, R.drawable.tb_one, true),
+                ModelCategory
+                    (2, R.drawable.tb_two, false),
+                ModelCategory
+                    (3, R.drawable.tb_three, false),
+                ModelCategory
+                    (4, R.drawable.tb_four, false),
+                ModelCategory
+                    (5, R.drawable.tb_five, false)
+            )
         )
     }
 }

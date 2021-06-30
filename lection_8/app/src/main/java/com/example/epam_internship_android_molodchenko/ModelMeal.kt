@@ -2,7 +2,7 @@ package com.example.epam_internship_android_molodchenko
 
 import androidx.annotation.DrawableRes
 
-data class Model(
+data class ModelMeal(
     val title: String,
-    val imgRes: Int
+    @DrawableRes val imgRes: Int
 )

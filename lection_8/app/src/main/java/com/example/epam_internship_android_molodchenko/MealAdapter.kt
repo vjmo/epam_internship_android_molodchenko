@@ -2,26 +2,26 @@ package com.example.epam_internship_android_molodchenko
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 
-class MyAdapter : RecyclerView.Adapter<MyViewHolder>() {
+class MealAdapter : RecyclerView.Adapter<MealViewHolder>() {
 
-    private val list: MutableList<Model> = mutableListOf()
-    val clickListener: (Model) -> Unit = {}
+    private val list: MutableList<ModelMeal> = mutableListOf()
+    val clickListener: (ModelMeal) -> Unit = {}
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MealViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_list, parent, false)
-        return MyViewHolder(view, clickListener)
+        return MealViewHolder(view, clickListener)
     }
 
-    override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: MealViewHolder, position: Int) {
         holder.bind(list[position])
+        //holder.itemView.
     }
 
     override fun getItemCount(): Int = list.size
 
-    fun setList(list: List<Model>) {
+    fun setList(list: List<ModelMeal>) {
         this.list.clear()
         this.list.addAll(list)
         notifyDataSetChanged()
