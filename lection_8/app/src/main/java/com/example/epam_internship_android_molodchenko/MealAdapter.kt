@@ -16,7 +16,8 @@ class MealAdapter : RecyclerView.Adapter<MealViewHolder>() {
 
     override fun onBindViewHolder(holder: MealViewHolder, position: Int) {
         holder.bind(list[position])
-        //holder.itemView.
+        holder.title.text = list[position].title
+        //holder.image.setImageDrawable()
     }
 
     override fun getItemCount(): Int = list.size

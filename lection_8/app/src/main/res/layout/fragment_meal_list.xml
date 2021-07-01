@@ -13,11 +13,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/tv_list_margin_start"
-        android:layout_marginLeft="@dimen/tv_list_margin_start"
         android:layout_marginEnd="@dimen/tv_list_margin_end"
+        android:layout_marginBottom="712dp"
         android:fontFamily="@font/roboto_medium"
         android:gravity="center"
         android:text="@string/meal_act_list"
+        app:layout_constraintBottom_toBottomOf="@+id/linearLayout2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -30,28 +31,30 @@
         android:layout_height="wrap_content"
         android:foregroundGravity="center"
         android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="@+id/textView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.492"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView"
-        tools:itemCount="1"
+        tools:itemCount="5"
         tools:listitem="@layout/category_item_list" />
 
     <LinearLayout
+        android:id="@+id/linearLayout2"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_gravity="center_horizontal"
         android:orientation="vertical"
-        android:padding="@dimen/iv_padding"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="97dp">
+        tools:layout_editor_absoluteY="155dp">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_one"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:itemCount="4"
+            tools:itemCount="2"
             tools:listitem="@layout/item_list" />
 
     </LinearLayout>

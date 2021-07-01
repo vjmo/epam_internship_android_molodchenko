@@ -7,6 +7,8 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 
 class MealListFragment : Fragment() {
 
@@ -18,50 +20,77 @@ class MealListFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_meal_list, container, false)
     }
 
-    val mealOne = Meal(
-        1, "Teriyaki Chicken Casserole", "JAPANESE",
-        " ", " Soy sauce - 3/4 cup\n" +
-                "        Water - 1/2 cup\n" +
-                "        Brown sugar - 1/4 cup\n" +
-                "        Ground ginger - 1/2 teaspoon\n" +
-                "        Minced garlic - 1/2 teaspoon\n" +
-                "        Cornstarch - 4 tablespoons\n" +
-                "        Chicken breasts - 2\n" +
-                "        Stir-fry vegetables - 1 (12 oz.)\n" +
-                "        Brown rice - 3 cups"
+    val modelMealOne = ModelMeal(
+        "Soy-Glazed Meatloaves with Wasabi Mashed Potatoes & Roasted Carrots",
+        R.drawable.meal_one
     )
+    val modelMealTwo = ModelMeal("Steak Diane", R.drawable.meal_two)
 
-    val itemMealList: List<Meal> = listOf(mealOne)
+    val modelCategoryOne = ModelCategory(1, R.drawable.tb_one, false)
+    val modelCategoryTwo = ModelCategory(2, R.drawable.tb_two, false)
+    val modelCategoryThree = ModelCategory(3, R.drawable.tb_three, false)
+    val modelCategoryFour = ModelCategory(4, R.drawable.tb_four, false)
+    val modelCategoryFive = ModelCategory(5, R.drawable.tb_five, false)
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val imageView: ImageView = view.findViewById(R.id.meal_one_img)
-        val textView: TextView = view.findViewById(R.id.txt_itm_meal_one)
-
-        textView.setOnClickListener {
-            setOnClickParentFrMan()
+//1
+        object : OnItemClickListenerMeal {
+            override fun onItemClick(modelMeal: ModelMeal) {
+                parentFragmentManager.beginTransaction()
+                    .replace(
+                        R.id.host_fragment, MealDetailsFragment.newInstance(modelMeal.title))
+                    .addToBackStack(null)
+                    .commit()
+            }
         }
-        imageView.setOnClickListener {
-            setOnClickParentFrMan()
-        }
 
+        val recyclerViewMeal = view.findViewById<RecyclerView>(R.id.rv_one)
+        val recyclerViewAdapterMeal = MealAdapter()
+
+        recyclerViewMeal.layoutManager = LinearLayoutManager(context)
+        recyclerViewMeal.adapter = recyclerViewAdapterMeal
+
+        recyclerViewAdapterMeal.clickListener
+        recyclerViewAdapterMeal.setList(listOf(modelMealOne, modelMealTwo))
+
+
+        // 2
+
+        val recyclerViewCategory = view.findViewById<RecyclerView>(R.id.rv_category)
+        val recyclerViewAdapterCategory = CategoryAdapter()
+
+        recyclerViewCategory.layoutManager = LinearLayoutManager(context)
+        recyclerViewCategory.adapter = recyclerViewAdapterCategory
+
+        recyclerViewAdapterCategory.clickListener
+        recyclerViewAdapterCategory.setList(
+            listOf(
+                modelCategoryOne,
+                modelCategoryTwo,
+                modelCategoryThree,
+                modelCategoryFour,
+                modelCategoryFive
+            )
+        )
     }
 
-    private fun setOnClickParentFrMan() {
+   /* private fun setOnClickParentFrMan() {
         parentFragmentManager
             .beginTransaction()
             .replace(
                 R.id.host_fragment,
-                MealDetailsFragment.newInstance(mealOne.name, mealOne.country),
+                MealDetailsFragment.newInstance(modelMealOne.title),
                 ""
             )
             .addToBackStack(null)
             .commit()
-    }
+    }*/
 
-    companion object{
-        fun newInstance() = MealListFragment()
+    companion object {
+        fun newInstance(): MealListFragment = MealListFragment()
     }
 
 }

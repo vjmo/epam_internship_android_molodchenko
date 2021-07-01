@@ -22,19 +22,15 @@ class MealDetailsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val textViewCountryMeal: TextView = view.findViewById(R.id.txt_japanese)
         val textViewName: TextView = view.findViewById(R.id.ter_chic_txt)
-
-        textViewCountryMeal.text = arguments?.getString(COUNTRY_MEAL)
         textViewName.text = arguments?.getString(NAME)
     }
 
     companion object {
-        private const val COUNTRY_MEAL = "Japanese"
         private const val NAME = "Teriyaki Chicken Casserole"
-        fun newInstance(name: String, countryMeal: String) =
+        fun newInstance(name: String) =
             MealDetailsFragment().apply {
-                val args = bundleOf(NAME to name, COUNTRY_MEAL to countryMeal)
+                val args = bundleOf(NAME to name)
             }
     }
 }
