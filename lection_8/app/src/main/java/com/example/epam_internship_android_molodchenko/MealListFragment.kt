@@ -62,7 +62,7 @@ class MealListFragment : Fragment() {
         val recyclerViewCategory = view.findViewById<RecyclerView>(R.id.rv_category)
         val recyclerViewAdapterCategory = CategoryAdapter()
 
-        recyclerViewCategory.layoutManager = LinearLayoutManager(context)
+        recyclerViewCategory.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false )
         recyclerViewCategory.adapter = recyclerViewAdapterCategory
 
         recyclerViewAdapterCategory.clickListener

@@ -12,7 +12,7 @@ class MealViewHolder(view: View, private val clickListener: (ModelMeal) -> Unit)
 
     fun bind(modelMeal: ModelMeal){
         title.text = modelMeal.title
-        image.setBackgroundResource(modelMeal.imgRes)
+        image.setImageResource(modelMeal.imgRes)
         itemView.setOnClickListener {
             clickListener.invoke(modelMeal)
         }
