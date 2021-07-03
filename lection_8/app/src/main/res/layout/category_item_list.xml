@@ -9,17 +9,17 @@
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardCategory"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="@dimen/lay_w_h_for_categcard"
+        android:layout_height="@dimen/lay_w_h_for_categcard"
         android:layout_gravity="center"
         app:cardBackgroundColor="@color/btn_meat_casserole"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:cardCornerRadius="10dp"
-        app:cardElevation="5dp"
-        >
+        app:cardCornerRadius="@dimen/cardCornerRadius"
+        app:cardElevation="@dimen/cardElevation"
+        android:layout_margin="@dimen/paddingForConstItemList">
 
         <ImageView
             android:id="@+id/imgCategory"

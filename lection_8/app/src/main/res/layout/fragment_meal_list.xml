@@ -12,9 +12,7 @@
         android:id="@+id/textView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/tv_list_margin_start"
-        android:layout_marginEnd="@dimen/tv_list_margin_end"
-        android:layout_marginBottom="712dp"
+        android:background="@color/btn_meat_casserole"
         android:fontFamily="@font/roboto_medium"
         android:gravity="center"
         android:text="@string/meal_act_list"
@@ -28,28 +26,39 @@
         android:id="@+id/rv_category"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="4dp"
+        android:layout_marginTop="@dimen/layout_marginStart_details"
         android:foregroundGravity="center"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView"
         tools:itemCount="1"
-        tools:listitem="@layout/category_item_list" />
+        tools:listitem="@layout/category_item_list"
+        android:layout_marginLeft="@dimen/layout_marginLeft_for_rv_cat"
+        android:layout_marginRight="@dimen/layout_marginRight_for_rv_cat"/>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_one"
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/rv_category"
-        app:layout_constraintVertical_bias="0.0"
-        tools:itemCount="5"
-        tools:listitem="@layout/item_list" />
+        app:cardBackgroundColor="@color/white"
+        app:layout_constraintTop_toBottomOf="@+id/rv_category">
 
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_one"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/rv_category"
+            app:layout_constraintVertical_bias="0.0"
+            tools:itemCount="2"
+            tools:listitem="@layout/item_list" />
+    </androidx.cardview.widget.CardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

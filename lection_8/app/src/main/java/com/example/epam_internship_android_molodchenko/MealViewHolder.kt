@@ -5,7 +5,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
-class MealViewHolder(view: View, private val clickListener: (ModelMeal) -> Unit) :
+class MealViewHolder(view: View, private val clickListener: OnItemClickListenerMeal) :
     RecyclerView.ViewHolder(view) {
     val title = view.findViewById<TextView>(R.id.txt_itm_meal_one)
     val image = view.findViewById<ImageView>(R.id.meal_one_img)
@@ -14,7 +14,7 @@ class MealViewHolder(view: View, private val clickListener: (ModelMeal) -> Unit)
         title.text = modelMeal.title
         image.setImageResource(modelMeal.imgRes)
         itemView.setOnClickListener {
-            clickListener.invoke(modelMeal)
+            clickListener.onItemClick(modelMeal)
         }
     }
 }
