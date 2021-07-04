@@ -17,7 +17,6 @@ class MealAdapter(var clickListener: OnItemClickListenerMeal) : RecyclerView.Ada
     override fun onBindViewHolder(holder: MealViewHolder, position: Int) {
         holder.bind(list[position])
         holder.title.text = list[position].title
-        //holder.image.setImageDrawable()
     }
 
     override fun getItemCount(): Int = list.size

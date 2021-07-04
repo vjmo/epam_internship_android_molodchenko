@@ -36,8 +36,7 @@ class MealListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-//1
-        var clickListenerMeal = object : OnItemClickListenerMeal {
+        val clickListenerMeal = object : OnItemClickListenerMeal {
             override fun onItemClick(modelMeal: ModelMeal)  {
                     parentFragmentManager.beginTransaction()
                         .replace(
@@ -59,8 +58,6 @@ class MealListFragment : Fragment() {
 
         recyclerViewAdapterMeal.clickListener = clickListenerMeal
 
-        // 2
-
         val recyclerViewCategory = view.findViewById<RecyclerView>(R.id.rv_category)
         val recyclerViewAdapterCategory = CategoryAdapter()
 
@@ -78,18 +75,6 @@ class MealListFragment : Fragment() {
             )
         )
     }
-
-   /* private fun setOnClickParentFrMan() {
-        parentFragmentManager
-            .beginTransaction()
-            .replace(
-                R.id.host_fragment,
-                MealDetailsFragment.newInstance(modelMealOne.title),
-                ""
-            )
-            .addToBackStack(null)
-            .commit()
-    }*/
 
     companion object {
         fun newInstance(): MealListFragment = MealListFragment()

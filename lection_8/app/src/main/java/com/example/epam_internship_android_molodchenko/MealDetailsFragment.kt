@@ -21,16 +21,14 @@ class MealDetailsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        val textViewName: TextView = view.findViewById(R.id.ter_chic_txt)
-        textViewName.text = arguments?.getString(NAME)
+        view.findViewById<TextView>(R.id.ter_chic_txt).text = arguments?.getString(NAME)
     }
 
     companion object {
-        private const val NAME = "Teriyaki Chicken Casserole"
+        private const val NAME = "Title"
         fun newInstance(name: String) =
             MealDetailsFragment().apply {
-                val args = bundleOf(NAME to name)
+                arguments = bundleOf(NAME to name)
             }
     }
 }
