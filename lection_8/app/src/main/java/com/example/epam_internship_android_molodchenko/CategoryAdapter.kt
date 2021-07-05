@@ -1,11 +1,10 @@
 package com.example.epam_internship_android_molodchenko
 
-import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
+import com.example.epam_internship_android_molodchenko.models.ModelCategory
 
 class CategoryAdapter : RecyclerView.Adapter<CategoryViewHolder>() {
 
