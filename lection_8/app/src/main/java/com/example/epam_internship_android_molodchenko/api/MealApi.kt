@@ -13,11 +13,11 @@ import retrofit2.http.QueryMap
 
 interface MealApi {
     @GET("categories.php")
-    suspend fun getCategories(): Call<ModelCategoryList>
+    fun getCategories(): Call<ModelCategoryList>
 
     @GET("filter.php")
-    suspend fun getMeals(@Query("c") strCategory: String): Call<ModelMealList>
+    fun getMeals(@Query("c") strCategory: String): Call<ModelMealList>
 
     @GET("lookup.php")
-    suspend fun getDetails(@Query("i") idMeal: Int): Call<ModelMealDetailsList>
+    fun getDetails(@Query("i") idMeal: Int): Call<ModelMealDetailsList>
 }

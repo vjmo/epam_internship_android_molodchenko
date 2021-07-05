@@ -9,7 +9,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.epam_internship_android_molodchenko.models.ModelMeal
-import com.example.epam_internship_android_molodchenko.repository.Repository
+import com.example.epam_internship_android_molodchenko.repository.CategoryRepository
 import com.example.epam_internship_android_molodchenko.view_model.MainViewModel
 import com.example.epam_internship_android_molodchenko.view_model.MainViewModelFactory
 
@@ -22,7 +22,7 @@ class MealListFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-        val repository = Repository()
+        val repository = CategoryRepository()
         val viewModelFactory = MainViewModelFactory(repository)
         viewModel = ViewModelProvider(this, viewModelFactory).get(MainViewModel::class.java)
         viewModel.getCategories()
