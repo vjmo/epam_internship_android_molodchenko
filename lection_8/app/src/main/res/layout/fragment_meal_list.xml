@@ -2,151 +2,60 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="wrap_content"
-    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
     tools:context=".MealListFragment"
     tools:ignore="ExtraText">
+
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/tv_list_margin_start"
-        android:layout_marginEnd="@dimen/tv_list_margin_end"
+        android:background="@color/btn_meat_casserole"
         android:fontFamily="@font/roboto_medium"
         android:gravity="center"
         android:text="@string/meal_act_list"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="MissingConstraints"
-        android:layout_marginLeft="@dimen/tv_list_margin_start" />
+        tools:ignore="MissingConstraints" />
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbarMealList"
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_category"
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:layout_marginTop="@dimen/lay_margin_top"
-        android:background="@color/white"
+        android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/layout_marginStart_details"
+        android:foregroundGravity="center"
+        android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView">
+        app:layout_constraintTop_toBottomOf="@+id/textView"
+        tools:itemCount="1"
+        tools:listitem="@layout/category_item_list"
+        android:layout_marginLeft="@dimen/layout_marginLeft_for_rv_cat"
+        android:layout_marginRight="@dimen/layout_marginRight_for_rv_cat"/>
 
-        <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <ImageView
-                android:id="@+id/beef_tb"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/tb_pink"
-                android:src="@drawable/tb_one" />
-        </androidx.cardview.widget.CardView>
-
-        <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <ImageView
-                android:id="@+id/desert_tb"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/tb_white"
-                android:src="@drawable/tb_two" />
-        </androidx.cardview.widget.CardView>
-
-        <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <ImageView
-                android:id="@+id/pasta_tb"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/tb_white"
-                android:src="@drawable/tb_three" />
-        </androidx.cardview.widget.CardView>
-
-        <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <ImageView
-                android:id="@+id/misc_tb"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/tb_white"
-                android:src="@drawable/tb_four" />
-        </androidx.cardview.widget.CardView>
-
-        <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <ImageView
-                android:id="@+id/lamb_tb"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/tb_white"
-                android:src="@drawable/tb_five" />
-        </androidx.cardview.widget.CardView>
-    </androidx.appcompat.widget.Toolbar>
-
-
-    <LinearLayout
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:orientation="vertical"
-        android:padding="@dimen/iv_padding"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="97dp">
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:cardBackgroundColor="@color/white"
+        app:layout_constraintTop_toBottomOf="@+id/rv_category">
 
-        <ImageView
-            android:id="@+id/meal_one_img"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:src="@drawable/meal_one" />
-
-        <TextView
-            android:id="@+id/txt_itm_meal_one"
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/iv_layout_height"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginLeft="@dimen/iv_layout_marginLeft"
-            android:layout_marginTop="@dimen/iv_layout_marginTop"
-            android:fontFamily="@font/roboto_medium"
-            android:text="@string/name_meal_one" />
-
-        <ImageView
-            android:id="@+id/meal_two_img"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:gravity="center_horizontal|center_vertical"
-            android:lineSpacingExtra="@dimen/iv_lineSpacingExtra"
-            android:src="@drawable/meal_two" />
-
-        <TextView
-            android:id="@+id/txt_itm_meal_two"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_one"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginLeft="@dimen/iv_layout_marginLeft"
-            android:layout_marginTop="@dimen/iv_layout_marginTop"
-            android:fontFamily="@font/roboto_medium"
-            android:gravity="center_horizontal|center_vertical"
-            android:lineSpacingExtra="@dimen/iv_lineSpacingExtra"
-            android:text="@string/name_meal_two" />
-    </LinearLayout>
-
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/rv_category"
+            tools:itemCount="2"
+            tools:listitem="@layout/item_list" />
+    </androidx.cardview.widget.CardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

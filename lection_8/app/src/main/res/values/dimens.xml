@@ -29,4 +29,17 @@
     <dimen name="tv_size_vosemn">18sp</dimen>
     <dimen name="tv_start_magrin_left">20dp</dimen>
     <dimen name="tv_margin_bottom">35dp</dimen>
+    <dimen name="layout_marginBottom_fr_meal_list">712dp</dimen>
+    <dimen name="lay_w_h_for_categcard">64dp</dimen>
+    <dimen name="cardCornerRadius">10dp</dimen>
+    <dimen name="cardElevation">6dp</dimen>
+    <dimen name="paddingForConstItemList">2dp</dimen>
+    <dimen name="layout_margin_for_card_category">10dp</dimen>
+    <dimen name="layout_marginLeft_for_rv_cat">20dp</dimen>
+    <dimen name="layout_marginRight_for_rv_cat">10dp</dimen>
+    <dimen name="paddingConstItemCategory">2dp</dimen>
+    <dimen name="layout_marginBottomTextViewDetails">94dp</dimen>
+    <dimen name="layout_marginStartTextViewDetails">16dp</dimen>
+    <dimen name="paddingTextViewDetails">290dp</dimen>
+    <dimen name="layout_marginEndDetailsText">196dp</dimen>
 </resources>
