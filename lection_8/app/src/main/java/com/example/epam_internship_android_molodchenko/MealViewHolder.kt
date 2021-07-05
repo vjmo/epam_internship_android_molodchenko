@@ -10,7 +10,7 @@ class MealViewHolder(view: View, private val clickListener: OnItemClickListenerM
     val title: TextView = view.findViewById<TextView>(R.id.txt_itm_meal_one)
     val image = view.findViewById<ImageView>(R.id.meal_one_img)
 
-    fun bind(modelMeal: ModelMeal){
+    fun bind(modelMeal: ModelMeal) {
         title.text = modelMeal.title
         image.setImageResource(modelMeal.imgRes)
         itemView.setOnClickListener {

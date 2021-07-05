@@ -16,10 +16,9 @@ class CategoryViewHolder(view: View) :
         imageCategory.setImageResource(modelCategory.imgCategory)
         itemView.setOnClickListener {
             cardCategory.isSelected = !cardCategory.isSelected
-            if (modelCategory.selectCategory)//?
+            if (modelCategory.selectCategory)
                 cardCategory.setBackgroundResource(R.color.pink)
             else cardCategory.setBackgroundResource(R.color.white)
-            //clickListener.invoke(modelCategory)
             clickListener.onItemClick(modelCategory)
         }
     }

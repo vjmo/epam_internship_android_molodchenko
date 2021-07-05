@@ -37,14 +37,14 @@ class MealListFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val clickListenerMeal = object : OnItemClickListenerMeal {
-            override fun onItemClick(modelMeal: ModelMeal)  {
-                    parentFragmentManager.beginTransaction()
-                        .replace(
-                            R.id.host_fragment, MealDetailsFragment.newInstance(modelMeal.title)
-                        )
-                        .addToBackStack(null)
-                        .commit()
-                }
+            override fun onItemClick(modelMeal: ModelMeal) {
+                parentFragmentManager.beginTransaction()
+                    .replace(
+                        R.id.host_fragment, MealDetailsFragment.newInstance(modelMeal.title)
+                    )
+                    .addToBackStack(null)
+                    .commit()
+            }
         }
 
         val recyclerViewMeal = view.findViewById<RecyclerView>(R.id.rv_one)
@@ -53,7 +53,6 @@ class MealListFragment : Fragment() {
         recyclerViewMeal.layoutManager = LinearLayoutManager(context)
         recyclerViewMeal.adapter = recyclerViewAdapterMeal
 
-        recyclerViewAdapterMeal.clickListener
         recyclerViewAdapterMeal.setList(listOf(modelMealOne, modelMealTwo))
 
         recyclerViewAdapterMeal.clickListener = clickListenerMeal
@@ -61,10 +60,10 @@ class MealListFragment : Fragment() {
         val recyclerViewCategory = view.findViewById<RecyclerView>(R.id.rv_category)
         val recyclerViewAdapterCategory = CategoryAdapter()
 
-        recyclerViewCategory.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false )
+        recyclerViewCategory.layoutManager =
+            LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         recyclerViewCategory.adapter = recyclerViewAdapterCategory
 
-        recyclerViewAdapterCategory.clickListener
         recyclerViewAdapterCategory.setList(
             listOf(
                 modelCategoryOne,

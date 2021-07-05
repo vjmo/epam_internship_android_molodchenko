@@ -28,24 +28,23 @@ class CategoryAdapter : RecyclerView.Adapter<CategoryViewHolder>() {
         selectPosition = holder.adapterPosition
         holder.cardCategory.isSelected = !holder.cardCategory.isSelected
         holder.cardCategory.setOnClickListener {
-                if (selectPosition == position) holder.cardCategory.setCardBackgroundColor(
+            if (selectPosition == position) holder.cardCategory.setCardBackgroundColor(
+                ContextCompat.getColor(
+                    holder.itemView.context,
+                    R.color.pink
+                )
+            ) else {
+                holder.cardCategory.setCardBackgroundColor(
                     ContextCompat.getColor(
                         holder.itemView.context,
-                        R.color.pink
+                        R.color.btn_meat_casserole
                     )
-                ) else {
-                    holder.cardCategory.setCardBackgroundColor(
-                        ContextCompat.getColor(
-                            holder.itemView.context,
-                            R.color.btn_meat_casserole
-                        )
-                    )
-                }
-            notifyItemChanged(position)
+                )
             }
-
+            notifyItemChanged(position)
         }
-        //clickListener.apply { notifyDataSetChanged() }
+
+    }
 
     override fun getItemCount(): Int = list.size
 
