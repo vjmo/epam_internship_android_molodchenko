@@ -3,6 +3,7 @@ package com.example.epam_internship_android_molodchenko
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.example.epam_internship_android_molodchenko.models.ModelMeal
 
 class MealAdapter(var clickListener: OnItemClickListenerMeal) : RecyclerView.Adapter<MealViewHolder>() {
 

@@ -4,6 +4,7 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.epam_internship_android_molodchenko.models.ModelMeal
 
 class MealViewHolder(view: View, private val clickListener: OnItemClickListenerMeal) :
     RecyclerView.ViewHolder(view) {

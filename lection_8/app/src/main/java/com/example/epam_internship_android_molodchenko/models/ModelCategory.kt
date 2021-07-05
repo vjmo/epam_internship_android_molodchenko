@@ -1,4 +1,4 @@
-package com.example.epam_internship_android_molodchenko
+package com.example.epam_internship_android_molodchenko.models
 
 import androidx.annotation.DrawableRes
 import com.google.gson.annotations.SerializedName

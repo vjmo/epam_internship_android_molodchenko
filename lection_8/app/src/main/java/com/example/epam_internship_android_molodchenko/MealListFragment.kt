@@ -1,17 +1,14 @@
 package com.example.epam_internship_android_molodchenko
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.epam_internship_android_molodchenko.models.ModelMeal
 import com.example.epam_internship_android_molodchenko.repository.Repository
 import com.example.epam_internship_android_molodchenko.view_model.MainViewModel
 import com.example.epam_internship_android_molodchenko.view_model.MainViewModelFactory

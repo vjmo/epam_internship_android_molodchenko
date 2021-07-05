@@ -2,9 +2,9 @@ package com.example.epam_internship_android_molodchenko
 
 import android.view.View
 import android.widget.ImageView
-import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.epam_internship_android_molodchenko.models.ModelCategory
 
 class CategoryViewHolder(view: View) :
     RecyclerView.ViewHolder(view) {

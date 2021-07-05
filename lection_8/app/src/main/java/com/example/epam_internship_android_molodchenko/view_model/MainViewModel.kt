@@ -3,8 +3,7 @@ package com.example.epam_internship_android_molodchenko.view_model
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.epam_internship_android_molodchenko.ModelCategory
-import com.example.epam_internship_android_molodchenko.ModelCategoryList
+import com.example.epam_internship_android_molodchenko.models.ModelCategory
 
 import com.example.epam_internship_android_molodchenko.repository.Repository
 import kotlinx.coroutines.launch
@@ -24,7 +23,7 @@ class MainViewModel(private val repository: Repository) : ViewModel() {
 
     fun getCustomCategory(){
         viewModelScope.launch {
-            val response = repository.get
+            val response = repository.getCustomCategory()
         }
     }
 }

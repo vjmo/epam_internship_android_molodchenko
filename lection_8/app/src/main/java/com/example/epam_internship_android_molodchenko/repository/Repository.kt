@@ -1,9 +1,7 @@
 package com.example.epam_internship_android_molodchenko.repository
 
-import com.example.epam_internship_android_molodchenko.ModelCategory
-import com.example.epam_internship_android_molodchenko.ModelCategoryList
+import com.example.epam_internship_android_molodchenko.models.ModelCategory
 import com.example.epam_internship_android_molodchenko.RetrofitInstance
-import retrofit2.Call
 import retrofit2.Response
 
 class Repository {
