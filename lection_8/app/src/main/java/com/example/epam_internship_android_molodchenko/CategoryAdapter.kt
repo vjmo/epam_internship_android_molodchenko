@@ -10,7 +10,9 @@ import androidx.recyclerview.widget.RecyclerView
 class CategoryAdapter : RecyclerView.Adapter<CategoryViewHolder>() {
 
     private val list: MutableList<ModelCategory> = mutableListOf()
+    private var listCategory = emptyList<ModelCategory>()
     private var selectPosition = -1
+
     val clickListener: OnItemClickListenerCategory = object : OnItemClickListenerCategory {
         override fun onItemClick(modelCategory: ModelCategory) {
         }
@@ -23,7 +25,7 @@ class CategoryAdapter : RecyclerView.Adapter<CategoryViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: CategoryViewHolder, position: Int) {
-        holder.bind(list[position], clickListener)
+        holder.bind(listCategory[position], clickListener)
 
         selectPosition = holder.adapterPosition
         holder.cardCategory.isSelected = !holder.cardCategory.isSelected
@@ -47,10 +49,10 @@ class CategoryAdapter : RecyclerView.Adapter<CategoryViewHolder>() {
         }
         //clickListener.apply { notifyDataSetChanged() }
 
-    override fun getItemCount(): Int = list.size
+    override fun getItemCount(): Int = listCategory.size
 
     fun setList(list: List<ModelCategory>) {
-        this.list.clear()
+        //this.listCategory.clear()
         this.list.addAll(list)
         notifyDataSetChanged()
     }
