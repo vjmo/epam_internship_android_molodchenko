@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 class CategoryViewHolder(view: View) :
     RecyclerView.ViewHolder(view) {
 
-    val cardCategory = view.findViewById<CardView>(R.id.cardCategory)
+    var cardCategory = view.findViewById<CardView>(R.id.cardCategory)
     val imageCategory = view.findViewById<ImageView>(R.id.imgCategory)
 
     fun bind(modelCategory: ModelCategory, clickListener: OnItemClickListenerCategory) {
