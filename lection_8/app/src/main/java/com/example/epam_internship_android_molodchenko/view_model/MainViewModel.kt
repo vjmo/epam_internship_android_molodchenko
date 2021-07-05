@@ -5,10 +5,10 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.epam_internship_android_molodchenko.models.ModelCategory
 
-import com.example.epam_internship_android_molodchenko.repository.Repository
+import com.example.epam_internship_android_molodchenko.repository.CategoryRepository
 import kotlinx.coroutines.launch
 
-class MainViewModel(private val repository: Repository) : ViewModel() {
+class MainViewModel(private val repository: CategoryRepository) : ViewModel() {
     var myResponse: MutableLiveData<ModelCategory> = MutableLiveData()
 
     var myCustomCategory: MutableLiveData<ModelCategory> = MutableLiveData()
@@ -21,9 +21,9 @@ class MainViewModel(private val repository: Repository) : ViewModel() {
         }
     }
 
-    fun getCustomCategory(){
+    /*fun getCustomCategory(){
         viewModelScope.launch {
             val response = repository.getCustomCategory()
         }
-    }
+    }*/
 }

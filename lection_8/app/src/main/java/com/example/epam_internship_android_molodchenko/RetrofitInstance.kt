@@ -1,6 +1,6 @@
 package com.example.epam_internship_android_molodchenko
 
-import com.example.epam_internship_android_molodchenko.Constants.Companion.BASE_URL
+import com.example.epam_internship_android_molodchenko.repository.Constants.Companion.BASE_URL
 import com.example.epam_internship_android_molodchenko.api.MealApi
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -13,7 +13,7 @@ object RetrofitInstance {
             .build()
     }
 
-    val api: MealApi by lazy {
+    val mealApi: MealApi by lazy {
         retrofit.create(MealApi::class.java)
     }
 }

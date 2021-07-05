@@ -1,4 +1,4 @@
-package com.example.epam_internship_android_molodchenko
+package com.example.epam_internship_android_molodchenko.repository
 
 class Constants {
     companion object{
