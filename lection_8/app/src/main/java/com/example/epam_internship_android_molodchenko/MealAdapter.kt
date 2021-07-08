@@ -5,10 +5,10 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.epam_internship_android_molodchenko.models.ModelMeal
 
-class MealAdapter(var clickListener: OnItemClickListenerMeal) :
-    RecyclerView.Adapter<MealViewHolder>() {
+class MealAdapter(var clickListener: OnItemClickListenerMeal) : RecyclerView.Adapter<MealViewHolder>() {
 
     private val list: MutableList<ModelMeal> = mutableListOf()
+    //var clickListener: (ModelMeal) -> Unit = {}
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MealViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_list, parent, false)

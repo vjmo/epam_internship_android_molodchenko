@@ -13,7 +13,7 @@ public class HostMainActivity : AppCompatActivity() {
         val fragmentManager: FragmentManager = supportFragmentManager
         fragmentManager
             .beginTransaction()
-            .replace(R.id.host_activity, HostFragment())
+            .replace(R.id.host_activity, HostFragment.newInstance())
             .commit()
     }
 }
