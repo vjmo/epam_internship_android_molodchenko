@@ -8,12 +8,11 @@ import com.example.epam_internship_android_molodchenko.models.ModelCategory
 
 class CategoryAdapter : RecyclerView.Adapter<CategoryViewHolder>() {
 
-    private val list: MutableList<ModelCategory> = mutableListOf()
-    private var listCategory = emptyList<ModelCategory>()
+    private val list: MutableList<Category> = mutableListOf()
     private var selectPosition = -1
 
     val clickListener: OnItemClickListenerCategory = object : OnItemClickListenerCategory {
-        override fun onItemClick(modelCategory: ModelCategory) {
+        override fun onItemClick(category: Category) {
         }
     }
 
@@ -24,7 +23,7 @@ class CategoryAdapter : RecyclerView.Adapter<CategoryViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: CategoryViewHolder, position: Int) {
-        holder.bind(listCategory[position], clickListener)
+        holder.bind(list[position], clickListener)
 
         selectPosition = holder.adapterPosition
         holder.cardCategory.isSelected = !holder.cardCategory.isSelected
@@ -46,12 +45,10 @@ class CategoryAdapter : RecyclerView.Adapter<CategoryViewHolder>() {
             }
 
         }
-        //clickListener.apply { notifyDataSetChanged() }
 
-    override fun getItemCount(): Int = listCategory.size
+    override fun getItemCount(): Int = list.size
 
-    fun setList(list: List<ModelCategory>) {
-        //this.listCategory.clear()
+    fun setList(list: List<Category>) {
         this.list.addAll(list)
         notifyDataSetChanged()
     }

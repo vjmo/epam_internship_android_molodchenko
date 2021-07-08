@@ -10,7 +10,4 @@ data class ModelMeal(
     val strMeal: String,
     @SerializedName("strMealThumb")
     val strMealThumb: String,
-
-    val title: String,
-    @DrawableRes val imgRes: Int
 )

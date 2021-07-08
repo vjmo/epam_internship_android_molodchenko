@@ -9,7 +9,7 @@ import com.example.epam_internship_android_molodchenko.repository.CategoryReposi
 import kotlinx.coroutines.launch
 
 class MainViewModel(private val repository: CategoryRepository) : ViewModel() {
-    var myResponse: MutableLiveData<ModelCategory> = MutableLiveData()
+   /* var myResponse: MutableLiveData<ModelCategory> = MutableLiveData()
 
     var myCustomCategory: MutableLiveData<ModelCategory> = MutableLiveData()
     var myCustomCategoryTwo: MutableLiveData<ModelCategory> = MutableLiveData()
@@ -20,7 +20,7 @@ class MainViewModel(private val repository: CategoryRepository) : ViewModel() {
             myResponse.value = response
         }
     }
-
+*/
     /*fun getCustomCategory(){
         viewModelScope.launch {
             val response = repository.getCustomCategory()

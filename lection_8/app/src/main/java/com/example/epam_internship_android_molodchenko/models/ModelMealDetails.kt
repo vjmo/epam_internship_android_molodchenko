@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName
 
 data class ModelMealDetails(
     @SerializedName("idMeal")
-    val idMeal: String,
+    val idMeal: Int,
     @SerializedName("strMeal")
     val strMeal: String,
     @SerializedName("strDrinkAlternate")

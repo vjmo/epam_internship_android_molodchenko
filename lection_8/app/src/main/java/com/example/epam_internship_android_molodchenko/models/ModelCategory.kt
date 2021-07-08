@@ -7,13 +7,11 @@ data class ModelCategory(
     @SerializedName("idCategory")
     val idCategory: Int,
     @SerializedName("strCategory")
-    val strCategory: String,
+    val nameCategory: String,
     @SerializedName("strCategoryThumb")
     val strCategoryThumb: String,
     @SerializedName("strCategoryDescription")
     val strCategoryDescription: String,
-    //
-    @DrawableRes
-    val imgCategory: Int,
-    val selectCategory: Boolean
+
+    var selectCategory: Boolean
 )

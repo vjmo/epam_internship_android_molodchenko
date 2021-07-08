@@ -7,8 +7,7 @@ import com.example.epam_internship_android_molodchenko.models.ModelMeal
 
 class MealAdapter(var clickListener: OnItemClickListenerMeal) : RecyclerView.Adapter<MealViewHolder>() {
 
-    private val list: MutableList<ModelMeal> = mutableListOf()
-    //var clickListener: (ModelMeal) -> Unit = {}
+    private val list: MutableList<Meal> = mutableListOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MealViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_list, parent, false)
@@ -22,7 +21,7 @@ class MealAdapter(var clickListener: OnItemClickListenerMeal) : RecyclerView.Ada
 
     override fun getItemCount(): Int = list.size
 
-    fun setList(list: List<ModelMeal>) {
+    fun setList(list: List<Meal>) {
         this.list.clear()
         this.list.addAll(list)
         notifyDataSetChanged()

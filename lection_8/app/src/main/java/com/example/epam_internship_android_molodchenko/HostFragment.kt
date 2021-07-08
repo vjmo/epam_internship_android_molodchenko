@@ -20,7 +20,7 @@ class HostFragment : Fragment((R.layout.fragment_host)) {
         super.onViewCreated(view, savedInstanceState)
         parentFragmentManager
             .beginTransaction()
-            .replace(R.id.host_fragment, MealListFragment())
+            .replace(R.id.host_fragment, MealListFragment.newInstance())
             .commit()
     }
 
