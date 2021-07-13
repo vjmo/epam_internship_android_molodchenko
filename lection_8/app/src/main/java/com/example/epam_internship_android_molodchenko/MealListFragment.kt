@@ -1,90 +1,75 @@
 package com.example.epam_internship_android_molodchenko
 
+import android.os.Build.ID
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.epam_internship_android_molodchenko.models.ModelMeal
 import com.example.epam_internship_android_molodchenko.repository.CategoryRepository
-import com.example.epam_internship_android_molodchenko.view_model.MainViewModel
-import com.example.epam_internship_android_molodchenko.view_model.MainViewModelFactory
+import com.example.epam_internship_android_molodchenko.repository.MealsRepository
 
 class MealListFragment : Fragment() {
-    private lateinit var viewModel: MainViewModel
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
-        val repository = CategoryRepository()
-        val viewModelFactory = MainViewModelFactory(repository)
-        viewModel = ViewModelProvider(this, viewModelFactory).get(MainViewModel::class.java)
-        viewModel.getCategories()
-
         return inflater.inflate(R.layout.fragment_meal_list, container, false)
     }
-
-
-    val modelMealOne = ModelMeal(
-        "Soy-Glazed Meatloaves with Wasabi Mashed Potatoes & Roasted Carrots",
-        R.drawable.meal_one
-    )
-    val modelMealTwo = ModelMeal("Steak Diane", R.drawable.meal_two)
-
-    /*val modelCategoryOne = ModelCategory(1, R.drawable.tb_one, false)
-    val modelCategoryTwo = ModelCategory(2, R.drawable.tb_two, false)
-    val modelCategoryThree = ModelCategory(3, R.drawable.tb_three, false)
-    val modelCategoryFour = ModelCategory(4, R.drawable.tb_four, false)
-    val modelCategoryFive = ModelCategory(5, R.drawable.tb_five, false)*/
-
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         val clickListenerMeal = object : OnItemClickListenerMeal {
-            override fun onItemClick(modelMeal: ModelMeal)  {
-                    parentFragmentManager.beginTransaction()
-                        .replace(
-                            R.id.host_fragment, MealDetailsFragment.newInstance(modelMeal.title)
-                        )
-                        .addToBackStack(null)
-                        .commit()
-                }
+            override fun onItemClick(meal: Meal) {
+                parentFragmentManager.beginTransaction()
+                    .replace(
+                        R.id.host_fragment, MealDetailsFragment.newInstance(meal.id)
+                    )
+                    .addToBackStack(null)
+                    .commit()
+            }
+        }
+        fun mealsRV(){
+            val recyclerViewMeal = view.findViewById<RecyclerView>(R.id.rv_one)
+            val recyclerViewAdapterMeal = MealAdapter(clickListenerMeal)
+
+            recyclerViewMeal.layoutManager = LinearLayoutManager(context)
+            recyclerViewMeal.adapter = recyclerViewAdapterMeal
+
+            recyclerViewAdapterMeal.clickListener
+            recyclerViewAdapterMeal.setList(listOf())
+
+            recyclerViewAdapterMeal.clickListener = clickListenerMeal
         }
 
-        val recyclerViewMeal = view.findViewById<RecyclerView>(R.id.rv_one)
-        val recyclerViewAdapterMeal = MealAdapter(clickListenerMeal)
+        fun categoriesRV(){
+            val recyclerViewCategory = view.findViewById<RecyclerView>(R.id.rv_category)
+            val recyclerViewAdapterCategory = CategoryAdapter()
 
-        recyclerViewMeal.layoutManager = LinearLayoutManager(context)
-        recyclerViewMeal.adapter = recyclerViewAdapterMeal
+            recyclerViewCategory.layoutManager =
+                LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+            recyclerViewCategory.adapter = recyclerViewAdapterCategory
 
-        recyclerViewAdapterMeal.clickListener
-        recyclerViewAdapterMeal.setList(listOf(modelMealOne, modelMealTwo))
-
-        recyclerViewAdapterMeal.clickListener = clickListenerMeal
-
-        val recyclerViewCategory = view.findViewById<RecyclerView>(R.id.rv_category)
-        val recyclerViewAdapterCategory = CategoryAdapter()
-
-        recyclerViewCategory.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false )
-        recyclerViewCategory.adapter = recyclerViewAdapterCategory
-
-        recyclerViewAdapterCategory.clickListener
-        recyclerViewAdapterCategory.setList(
-            listOf(
-                /*modelCategoryOne,
-                modelCategoryTwo,
-                modelCategoryThree,
-                modelCategoryFour,
-                modelCategoryFive*/
+            recyclerViewAdapterCategory.clickListener
+            recyclerViewAdapterCategory.setList(
+                listOf()
             )
-        )
+        }
+        fun categoryNet(){
+            val categoryRepository = CategoryRepository()
+            categoryRepository.initCategoriesData()
+        }
+
+        fun mealNet(){
+            val mealRepository = MealsRepository()
+            val mealAdapter = MealAdapter(clickListenerMeal)
+        }
+
+
     }
 
     companion object {
