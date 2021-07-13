@@ -6,7 +6,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class MealsDetailsRepository {
+class MealsDetailsRepository /*{
     fun initDetailsData(idMeal: Int) {
         val detailsData = RetrofitInstance.mealApi
             .getDetails(idMeal)
@@ -25,4 +25,4 @@ class MealsDetailsRepository {
                 }
             )
     }
-}
+}*/

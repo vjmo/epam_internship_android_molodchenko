@@ -5,15 +5,26 @@ import com.example.epam_internship_android_molodchenko.models.ModelCategory
 import com.example.epam_internship_android_molodchenko.models.ModelCategoryList
 import com.example.epam_internship_android_molodchenko.models.ModelMealDetailsList
 import com.example.epam_internship_android_molodchenko.models.ModelMealList
+import com.example.epam_internship_android_molodchenko.repository.Constants
 import retrofit2.Call
-import retrofit2.Response
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Query
-import retrofit2.http.QueryMap
 
 interface MealApi {
     @GET("categories.php")
-    fun getCategories(): Call<ModelCategoryList>
+    fun getCategories(): Call<MutableList<ModelCategory>>
+
+    companion object{
+       fun create(): MealApi {
+           val retrofit =  Retrofit.Builder()
+               .baseUrl(Constants.BASE_URL)
+               .addConverterFactory(GsonConverterFactory.create())
+               .build()
+           return  retrofit.create(MealApi::class.java)
+       }
+   }
 
     @GET("filter.php")
     fun getMeals(@Query("c") strCategory: String): Call<ModelMealList>

@@ -1,8 +1,15 @@
 package com.example.epam_internship_android_molodchenko.exten_fun
 
+import com.example.epam_internship_android_molodchenko.Category
 import com.example.epam_internship_android_molodchenko.MealDetails
+import com.example.epam_internship_android_molodchenko.models.ModelCategoryList
 import com.example.epam_internship_android_molodchenko.models.ModelMealDetails
-
+fun ModelCategoryList.toCategoryList(){
+    for (category in this.categories){
+        val categoryList: MutableList<Category> = mutableListOf()
+       // categoryList.addAll(Category(category.id`, category.nameCategory, category.ima))
+    }
+}
 fun ModelMealDetails.toMealDetails(): MealDetails {
 
     val ingredientsListMap = mapOf(

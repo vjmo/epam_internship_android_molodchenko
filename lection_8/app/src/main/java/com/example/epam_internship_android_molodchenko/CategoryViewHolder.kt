@@ -11,11 +11,11 @@ import com.example.epam_internship_android_molodchenko.models.ModelCategory
 class CategoryViewHolder(view: View) :
     RecyclerView.ViewHolder(view) {
 
-    internal var cardCategory = view.findViewById<CardView>(R.id.cardCategory)
+    var cardCategory = view.findViewById<CardView>(R.id.cardCategory)
     private val imageCategory = view.findViewById<ImageView>(R.id.imgCategory)
 
-    fun bind(category: Category, clickListener: OnItemClickListenerCategory) {
-        Glide.with(itemView.context).load(category.imgCategory).into(imageCategory)
+    fun bind(category: ModelCategory, clickListener: OnItemClickListenerCategory) {
+        Glide.with(itemView.context).load(category.strCategoryThumb).into(imageCategory)
         itemView.setOnClickListener {
             cardCategory.isSelected = !cardCategory.isSelected
             if (category.selectCategory)
