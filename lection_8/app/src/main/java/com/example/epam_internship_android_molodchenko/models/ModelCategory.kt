@@ -12,6 +12,4 @@ data class ModelCategory(
     val strCategoryThumb: String,
     @SerializedName("strCategoryDescription")
     val strCategoryDescription: String,
-
-    var selectCategory: Boolean
 )

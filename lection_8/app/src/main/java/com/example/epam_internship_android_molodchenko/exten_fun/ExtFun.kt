@@ -1,18 +1,12 @@
 package com.example.epam_internship_android_molodchenko.exten_fun
 
-import com.example.epam_internship_android_molodchenko.Category
-import com.example.epam_internship_android_molodchenko.MealDetails
+import com.example.epam_internship_android_molodchenko.uimodel.CategoryUIModel
+import com.example.epam_internship_android_molodchenko.uimodel.MealDetailsUIModel
 import com.example.epam_internship_android_molodchenko.models.ModelCategoryList
 import com.example.epam_internship_android_molodchenko.models.ModelMealDetails
-fun ModelCategoryList.toCategoryList(){
-    for (category in this.categories){
-        val categoryList: MutableList<Category> = mutableListOf()
-       // categoryList.addAll(Category(category.id`, category.nameCategory, category.ima))
-    }
-}
-fun ModelMealDetails.toMealDetails(): MealDetails {
 
-    val ingredientsListMap = mapOf(
+fun ModelMealDetails.toMealDetailsUIModel(): MealDetailsUIModel {
+    val ingredientsMap = mapOf(
         strIngredient1 to strMeasure1,
         strIngredient2 to strMeasure2,
         strIngredient3 to strMeasure3,
@@ -33,14 +27,13 @@ fun ModelMealDetails.toMealDetails(): MealDetails {
         strIngredient18 to strMeasure18,
         strIngredient19 to strMeasure19,
         strIngredient20 to strMeasure20,
-    )
-    return MealDetails(
+    ).filterKeys { !it.isNullOrEmpty() }.toString()
+
+    return MealDetailsUIModel(
         idMealDetails = idMeal,
         nameMealDetails = strMeal,
         area = strArea,
-        youtube = strYoutube,
-        imgUrl = strImageSource,
-        ingredients = ingredientsListMap.filter { it.key.isNullOrEmpty() }.toString()
-    )
+        ingredients = ingredientsMap)
+
 }
 

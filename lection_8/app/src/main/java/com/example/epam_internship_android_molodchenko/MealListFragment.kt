@@ -4,16 +4,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.epam_internship_android_molodchenko.api.MealApi
-import com.example.epam_internship_android_molodchenko.models.ModelCategory
-import com.example.epam_internship_android_molodchenko.repository.MealsRepository
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+import com.example.epam_internship_android_molodchenko.uimodel.MealUIModel
 
 class MealListFragment : Fragment() {
 
@@ -31,10 +26,10 @@ class MealListFragment : Fragment() {
     }
 
     private val clickListenerMeal = object : OnItemClickListenerMeal {
-        override fun onItemClick(meal: Meal) {
+        override fun onItemClick(mealUIModel: MealUIModel) {
             parentFragmentManager.beginTransaction()
                 .replace(
-                    R.id.host_fragment, MealDetailsFragment.newInstance(meal.id)
+                    R.id.host_fragment, MealDetailsFragment.newInstance(mealUIModel.id)
                 )
                 .addToBackStack(null)
                 .commit()
@@ -72,54 +67,44 @@ class MealListFragment : Fragment() {
     }*/
 
     private fun categoryNet() {
-        //var recyclerViewAdapterCategory: CategoryAdapter
+        var recyclerViewAdapterCategory: CategoryAdapter? = null
         recyclerViewCategory?.layoutManager =
             LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         //recyclerViewCategory?.adapter = recyclerViewAdapterCategory
 
         //recyclerViewAdapterCategory.clickListener
-        myApi = Common.mealApi
+       // myApi = Common.mealApi
         myApi.getCategories().enqueue(
-            object : Callback<MutableList<ModelCategory>> {
+            /*object : Callback<MutableList<ModelCategory>> {
                 override fun onResponse(
                     call: Call<MutableList<ModelCategory>>,
                     response: Response<MutableList<ModelCategory>>
                 ) {
-                    var recyclerViewAdapterCategory =
+                    recyclerViewAdapterCategory =
                         CategoryAdapter(context, response.body() as MutableList<ModelCategory>)
-                    recyclerViewAdapterCategory.notifyDataSetChanged()
+                    //recyclerViewAdapterCategory.notifyDataSetChanged()
                     recyclerViewCategory?.adapter = recyclerViewAdapterCategory
                     //recyclerViewAdapterCategory.setList(response.body()!!)
                 }
 
                 override fun onFailure(call: Call<MutableList<ModelCategory>>, t: Throwable) {
                     toast("e r r o r!!!!!!!!")
-                }
+                }*/
             }
         )
         /* val apiInCat = MealApi.create().getCategories()
          apiInCat.enqueue(
-             object : retrofit2.Callback<List<Category>> {
+             object : retrofit2.Callback<List<CategoryUIModel>> {
                  override fun onResponse(
-                     call: Call<List<Category>>,
-                     response: Response<List<Category>>
+                     call: Call<List<CategoryUIModel>>,
+                     response: Response<List<CategoryUIModel>>
                  ) {
                      recyclerViewAdapterCategory.setList(response.body()!!)
                  }
 
-                 override fun onFailure(call: Call<List<Category>>, t: Throwable) {
-                     toast("e r r o r!!!!!!!!")
-                 }*/
-    }
-
-    private fun mealNet() {
-        val mealRepository = MealsRepository()
-        val mealAdapter = MealAdapter(clickListenerMeal)
-    }
-
-    private fun toast(str: String) {
-        Toast.makeText(requireContext(), str, Toast.LENGTH_SHORT).show()
-    }
+                 override fun onFailure(call: Call<List<CategoryUIModel>>, t: Throwable) {
+                     toast("e r r o r!!!!!!!!")*/
+                 }
 
     companion object {
         fun newInstance(): MealListFragment = MealListFragment()

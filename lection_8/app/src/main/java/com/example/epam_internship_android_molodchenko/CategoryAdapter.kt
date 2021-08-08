@@ -6,10 +6,11 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.epam_internship_android_molodchenko.models.ModelCategory
+import com.example.epam_internship_android_molodchenko.uimodel.CategoryUIModel
 
 class CategoryAdapter(private val context: Context?, private val catList: MutableList<ModelCategory>) : RecyclerView.Adapter<CategoryViewHolder>() {
 
-    var categoryList = mutableListOf<Category>()
+    var categoryList = mutableListOf<CategoryUIModel>()
     var selectPosition = -1
 
     val clickListener: OnItemClickListenerCategory = object : OnItemClickListenerCategory {
