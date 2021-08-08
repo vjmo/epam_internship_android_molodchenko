@@ -1,18 +1,20 @@
 package com.example.epam_internship_android_molodchenko
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.epam_internship_android_molodchenko.models.ModelCategory
+import com.example.epam_internship_android_molodchenko.uimodel.CategoryUIModel
 
-class CategoryAdapter : RecyclerView.Adapter<CategoryViewHolder>() {
+class CategoryAdapter(private val context: Context?, private val catList: MutableList<ModelCategory>) : RecyclerView.Adapter<CategoryViewHolder>() {
 
-    private val list: MutableList<Category> = mutableListOf()
-    private var selectPosition = -1
+    var categoryList = mutableListOf<CategoryUIModel>()
+    var selectPosition = -1
 
     val clickListener: OnItemClickListenerCategory = object : OnItemClickListenerCategory {
-        override fun onItemClick(category: Category) {
+        override fun onItemClick(category: ModelCategory) {
         }
     }
 
@@ -23,7 +25,7 @@ class CategoryAdapter : RecyclerView.Adapter<CategoryViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: CategoryViewHolder, position: Int) {
-        holder.bind(list[position], clickListener)
+        holder.bind(catList[position], clickListener)
 
         selectPosition = holder.adapterPosition
         holder.cardCategory.isSelected = !holder.cardCategory.isSelected
@@ -46,10 +48,10 @@ class CategoryAdapter : RecyclerView.Adapter<CategoryViewHolder>() {
 
         }
 
-    override fun getItemCount(): Int = list.size
+    override fun getItemCount(): Int = catList.size
 
-    fun setList(list: List<Category>) {
-        this.list.addAll(list)
+    fun setList(list: List<ModelCategory>) {
+        this.catList.addAll(list)
         notifyDataSetChanged()
     }
 

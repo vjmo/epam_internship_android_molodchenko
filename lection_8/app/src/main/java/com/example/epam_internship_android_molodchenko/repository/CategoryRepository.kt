@@ -8,29 +8,28 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class CategoryRepository /*{
+class CategoryRepository {
+
     fun loadCategories(
         onSuccess: (ModelCategoryList) -> Unit,
         onError: (Throwable) -> Unit
     ) {
-        val categoriesData = RetrofitInstance.mealApi
-            .getCategories()
-            .enqueue(
-                object : Callback<ModelCategoryList> {
-                    override fun onResponse(
-                        call: Call<ModelCategoryList>,
-                        response: Response<ModelCategoryList>
-                    ) {
-                        if (response.isSuccessful) {
-                            onSuccess(response.body()?: ModelCategoryList(listOf()))
-                        }
-                        else onError(Throwable("error"))
-                    }
+        RetrofitInstance.mealApi.getCategories().enqueue(
+            object : Callback<ModelCategoryList> {
 
-                    override fun onFailure(call: Call<ModelCategoryList>, t: Throwable) {
-                        onError(t)
-                    }
+                override fun onResponse(
+                    call: Call<ModelCategoryList>,
+                    response: Response<ModelCategoryList>
+                ) {
+                    if (response.isSuccessful) {
+                        onSuccess(response.body() ?: ModelCategoryList(listOf()))
+                    } else onError(Throwable("Error"))
                 }
-            )
+
+                override fun onFailure(call: Call<ModelCategoryList>, t: Throwable) {
+                    onError(t)
+                }
+            }
+        )
     }
-}*/
+}

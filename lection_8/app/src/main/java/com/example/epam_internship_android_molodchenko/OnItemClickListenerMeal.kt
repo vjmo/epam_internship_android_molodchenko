@@ -1,7 +1,7 @@
 package com.example.epam_internship_android_molodchenko
 
-import com.example.epam_internship_android_molodchenko.models.ModelMeal
+import com.example.epam_internship_android_molodchenko.uimodel.MealUIModel
 
 interface OnItemClickListenerMeal {
-    fun onItemClick(meal: Meal)
+    fun onItemClick(mealUIModel: MealUIModel)
 }
