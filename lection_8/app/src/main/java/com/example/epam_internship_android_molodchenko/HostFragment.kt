@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
+import com.example.epam_internship_android_molodchenko.HostFragment.Companion.newInstance
 
 class HostFragment : Fragment((R.layout.fragment_host)) {
     override fun onCreateView(

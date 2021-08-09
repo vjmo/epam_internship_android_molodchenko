@@ -22,7 +22,7 @@ class MealsDetailsRepository {
                     response: Response<ModelMealDetailsList>
                 ) {
                     if (response.isSuccessful) {
-                        onSuccess(response.body() ?: ModelMealDetailsList(listOf()))
+                        onSuccess(response.body() ?: ModelMealDetailsList(mutableListOf()))
                     } else onError(Throwable("Error"))
                 }
 

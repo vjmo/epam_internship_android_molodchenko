@@ -22,7 +22,7 @@ class CategoryRepository {
                     response: Response<ModelCategoryList>
                 ) {
                     if (response.isSuccessful) {
-                        onSuccess(response.body() ?: ModelCategoryList(listOf()))
+                        onSuccess(response.body() ?: ModelCategoryList(mutableListOf()))
                     } else onError(Throwable("Error"))
                 }
 
