@@ -1,6 +1,5 @@
 package com.example.epam_internship_android_molodchenko
 
-import com.example.epam_internship_android_molodchenko.repository.Constants.Companion.BASE_URL
 import com.example.epam_internship_android_molodchenko.api.MealApi
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
