@@ -12,5 +12,6 @@ data class ModelCategory(
     val strCategoryThumb: String,
     @SerializedName("strCategoryDescription")
     val strCategoryDescription: String,
+
     var activeCategory: Boolean = false
 )

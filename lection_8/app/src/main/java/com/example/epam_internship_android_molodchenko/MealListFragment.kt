@@ -1,5 +1,6 @@
 package com.example.epam_internship_android_molodchenko
 
+import android.graphics.ColorSpace
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -15,6 +16,7 @@ import com.example.epam_internship_android_molodchenko.models.ModelCategory
 import com.example.epam_internship_android_molodchenko.models.ModelCategoryList
 import com.example.epam_internship_android_molodchenko.models.ModelMeal
 import com.example.epam_internship_android_molodchenko.models.ModelMealList
+import com.example.epam_internship_android_molodchenko.repository.CategoryRepository
 import com.example.epam_internship_android_molodchenko.repository.MealsRepository
 import com.example.epam_internship_android_molodchenko.uimodel.MealUIModel
 import retrofit2.Call
@@ -44,7 +46,6 @@ class MealListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         callCategories()
         callMeals()
     }
@@ -56,20 +57,36 @@ class MealListFragment : Fragment() {
         recyclerViewCategory?.layoutManager =
             LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
 
-        mealApi.getCategories().enqueue(object : Callback<ModelCategoryList> {
-            override fun onResponse(
-                call: Call<ModelCategoryList>,
-                response: Response<ModelCategoryList>
-            ) {
-                val categories = response.body()!!.categories
+        lateinit var response: Response<ModelCategoryList>
+        val categories = response.body()!!.categories
+
+
+        val categoryRepository = CategoryRepository()
+        categoryRepository.loadCategories(
+            onSuccess = { modelCategoryList ->
                 recyclerViewCategory?.adapter =
                     CategoryAdapter(categories, R.layout.category_item_list)
-            }
-
-            override fun onFailure(call: Call<ModelCategoryList>, t: Throwable) {
+            },
+            onError = { Throwable ->
                 Log.e("Callback Category", "Error")
             }
-        })
+        )
+
+
+        /* mealApi.getCategories().enqueue(object : Callback<ModelCategoryList> {
+             override fun onResponse(
+                 call: Call<ModelCategoryList>,
+                 response: Response<ModelCategoryList>
+             ) {
+                 val categories = response.body()!!.categories
+                 recyclerViewCategory?.adapter =
+                     CategoryAdapter(categories, R.layout.category_item_list)
+             }
+
+             override fun onFailure(call: Call<ModelCategoryList>, t: Throwable) {
+                 Log.e("Callback Category", "Error")
+             }
+         })*/
     }
 
     private fun callMeals(category: ModelCategory) {
@@ -77,13 +94,20 @@ class MealListFragment : Fragment() {
         val recyclerViewMeal = view?.findViewById<RecyclerView>(R.id.rv_one)
         recyclerViewMeal?.layoutManager = LinearLayoutManager(context)
 
-        val mealsRepository: MealsRepository
+        lateinit var response: Response<ModelMealList>
+        val meals = response.body()!!.meals
+
+        val mealsRepository = MealsRepository()
         mealsRepository.loadMealsData(
             strCategory = category.nameCategory,
             onSuccess = { modelMealList ->
-                recyclerViewMeal?.adapter = MealAdapter(, R.layout.item_list) }
+                recyclerViewMeal?.adapter = MealAdapter(meals, R.layout.item_list)
+            },
+            onError = { Throwable ->
+                Log.e("Callback Meal", "Error")
+            }
         )
-        mealApi.getMeals(/*не удается вставить )*/).enqueue(object : Callback<ModelMealList> {
+      /*  mealApi.getMeals(/*не удается вставить )*/).enqueue(object : Callback<ModelMealList> {
             override fun onResponse(
                 call: Call<ModelMealList>,
                 response: Response<ModelMealList>
@@ -96,7 +120,7 @@ class MealListFragment : Fragment() {
             override fun onFailure(call: Call<ModelMealList>, t: Throwable) {
                 Log.e("Callback Meal", "Error")
             }
-        })
+        })*/
     }
 
     companion object {

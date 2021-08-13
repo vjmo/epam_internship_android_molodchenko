@@ -9,12 +9,11 @@ import com.example.epam_internship_android_molodchenko.R
 import com.example.epam_internship_android_molodchenko.models.ModelMeal
 import com.example.epam_internship_android_molodchenko.uimodel.MealUIModel
 
-class MealAdapter(
-    private val mealItemList: MutableList<ModelMeal>,
-    private val rowLayout: Int
-) : RecyclerView.Adapter<MealViewHolder>() {
+class MealAdapter() : RecyclerView.Adapter<MealViewHolder>() {
 
-    private val clickListener: OnItemClickListenerMeal = object : OnItemClickListenerMeal {
+    private val mealItemList: MutableList<ModelMeal> = mutableListOf()
+
+    var clickListener: OnItemClickListenerMeal = object : OnItemClickListenerMeal {
         override fun onItemClick(meal: ModelMeal) {
         }
     }
