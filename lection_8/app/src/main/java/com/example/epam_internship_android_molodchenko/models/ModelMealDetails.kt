@@ -7,20 +7,25 @@ data class ModelMealDetails(
     val idMeal: Int,
     @SerializedName("strMeal")
     val strMeal: String,
-  //  @SerializedName("strDrinkAlternate")
-    //val strDrinkAlternate: String?,
-    //@SerializedName("strCategory")
-    //val strCategory: String?,
+    //
+    @SerializedName("strDrinkAlternate")
+    val strDrinkAlternate: String?,
+    @SerializedName("strCategory")
+    val strCategory: String?,
     @SerializedName("strArea")
     val strArea: String,
-  //  @SerializedName("strInstructions")
-    //val strInstructions: String,
+    //
+    @SerializedName("strInstructions")
+    val strInstructions: String,
+    //
     @SerializedName("strMealThumb")
     val strMealThumb: String,
     @SerializedName("strTags")
     val strTags: String?,
-   // @SerializedName("strYoutube")
-    //val strYoutube: String?,
+
+    @SerializedName("strYoutube")
+    val strYoutube: String?,
+
     @SerializedName("strIngredient1")
     val strIngredient1: String?,
     @SerializedName("strIngredient2")
@@ -101,12 +106,13 @@ data class ModelMealDetails(
     val strMeasure19: String?,
     @SerializedName("strMeasure20")
     val strMeasure20: String?,
- /*   @SerializedName("strSource")
+
+    @SerializedName("strSource")
     val strSource: String?,
     @SerializedName("strImageSource")
     val strImageSource: String?,
     @SerializedName("strCreativeCommonsConfirmed")
     val strCreativeCommonsConfirmed: String?,
     @SerializedName("dateModified")
-    val dateModified: String?,*/
+    val dateModified: String?,
 )

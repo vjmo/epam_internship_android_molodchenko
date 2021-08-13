@@ -16,16 +16,7 @@ class CategoryViewHolder(view: View) :
     internal var cardCategory: CardView = view.findViewById(R.id.cardCategory)
     internal val imageCategory: ImageView = view.findViewById(R.id.imgCategory)
 
-    fun bind(category: ModelCategory, clickListener: OnItemClickListenerCategory) {
+    fun bind(category: ModelCategory) {
         Glide.with(itemView.context).load(category.strCategoryThumb).into(imageCategory)
-        itemView.setOnClickListener {
-            cardCategory.isSelected = !cardCategory.isSelected
-            if (category.activeCategory)
-                cardCategory.setBackgroundResource(R.color.pink)
-            else cardCategory.setBackgroundResource(R.color.white)
-            clickListener.onItemClick(category)
-        }
     }
-
-
 }

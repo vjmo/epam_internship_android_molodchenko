@@ -1,9 +1,7 @@
 package com.example.epam_internship_android_molodchenko.exten_fun
 
-import com.example.epam_internship_android_molodchenko.uimodel.CategoryUIModel
-import com.example.epam_internship_android_molodchenko.uimodel.MealDetailsUIModel
-import com.example.epam_internship_android_molodchenko.models.ModelCategoryList
 import com.example.epam_internship_android_molodchenko.models.ModelMealDetails
+import com.example.epam_internship_android_molodchenko.uimodel.MealDetailsUIModel
 
 fun ModelMealDetails.toMealDetailsUIModel(): MealDetailsUIModel {
     val ingredientsMap = mapOf(
