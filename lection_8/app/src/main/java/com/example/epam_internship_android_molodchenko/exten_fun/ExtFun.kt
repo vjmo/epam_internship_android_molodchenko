@@ -2,6 +2,7 @@ package com.example.epam_internship_android_molodchenko.exten_fun
 
 import com.example.epam_internship_android_molodchenko.models.ModelMealDetails
 import com.example.epam_internship_android_molodchenko.uimodel.MealDetailsUIModel
+import okhttp3.internal.threadName
 
 fun ModelMealDetails.toMealDetailsUIModel(): MealDetailsUIModel {
     val ingredientsMap = mapOf(
@@ -28,10 +29,13 @@ fun ModelMealDetails.toMealDetailsUIModel(): MealDetailsUIModel {
     ).filterKeys { !it.isNullOrEmpty() }.toString()
 
     return MealDetailsUIModel(
-        idMealDetails = idMeal,
         nameMealDetails = strMeal,
         area = strArea,
-        ingredients = ingredientsMap)
+        ingredients = ingredientsMap,
+        tags = (strTags?.split(",") ?: mutableListOf<String>()) as MutableList<String>,
+        mealThumb = strMealThumb,
+        youtube = strYoutube
+    )
 
 }
 
