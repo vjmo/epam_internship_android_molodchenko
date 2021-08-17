@@ -2,10 +2,10 @@ package com.example.epam_internship_android_molodchenko.exten_fun
 
 import com.example.epam_internship_android_molodchenko.models.ModelMealDetails
 import com.example.epam_internship_android_molodchenko.uimodel.MealDetailsUIModel
-import okhttp3.internal.threadName
+import java.util.*
 
 fun ModelMealDetails.toMealDetailsUIModel(): MealDetailsUIModel {
-    val ingredientsMap = mapOf(
+    val ingredientsMapPreview = mapOf(
         strIngredient1 to strMeasure1,
         strIngredient2 to strMeasure2,
         strIngredient3 to strMeasure3,
@@ -28,14 +28,17 @@ fun ModelMealDetails.toMealDetailsUIModel(): MealDetailsUIModel {
         strIngredient20 to strMeasure20,
     ).filterKeys { !it.isNullOrEmpty() }.toString()
 
+    val removeSurroundingIngr = ingredientsMapPreview.removeSurrounding("{", "}")
+    val trimMarginIng = removeSurroundingIngr.trimMargin(",\n")
+    val ingredientsMapResult = trimMarginIng.replace('=', ' ', false)
+
     return MealDetailsUIModel(
         nameMealDetails = strMeal,
-        area = strArea,
-        ingredients = ingredientsMap,
+        area = strArea.uppercase(Locale.getDefault()),
+        ingredients = ingredientsMapResult,
         tags = (strTags?.split(",") ?: mutableListOf<String>()) as MutableList<String>,
         mealThumb = strMealThumb,
         youtube = strYoutube
     )
-
 }
 

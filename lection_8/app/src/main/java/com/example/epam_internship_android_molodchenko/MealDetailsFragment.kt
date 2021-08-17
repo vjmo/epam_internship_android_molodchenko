@@ -68,7 +68,6 @@ class MealDetailsFragment : Fragment() {
                         ingridientsDetailsTextView?.text = mealDetailsResponse?.ingredients
 
                         Glide.with(view?.context).load(mealDetailsResponse?.mealThumb).into(view?.findViewById(R.id.details_img_id))
-                        Glide.with(view?.context).load(mealDetailsResponse?.youtube).into(view?.findViewById(R.id.video_img_id))
 
                           response.body()?.mealsDetails?.let {
                                     if (mealDetailsResponse != null) {
