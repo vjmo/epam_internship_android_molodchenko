@@ -37,4 +37,5 @@
     <dimen name="layout_margin_for_card_category">10dp</dimen>
     <dimen name="layout_marginLeft_for_rv_cat">20dp</dimen>
     <dimen name="layout_marginRight_for_rv_cat">10dp</dimen>
+    <dimen name="layout_marginTop_fragment_one">20dp</dimen>
 </resources>
