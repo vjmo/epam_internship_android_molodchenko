@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
+import com.example.epam_internship_android_molodchenko.HostFragment.Companion.newInstance
 
 class HostFragment : Fragment((R.layout.fragment_host)) {
     override fun onCreateView(
@@ -20,7 +21,7 @@ class HostFragment : Fragment((R.layout.fragment_host)) {
         super.onViewCreated(view, savedInstanceState)
         parentFragmentManager
             .beginTransaction()
-            .replace(R.id.host_fragment, MealListFragment())
+            .replace(R.id.host_fragment, MealListFragment.newInstance())
             .commit()
     }
 

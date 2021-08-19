@@ -1,16 +1,46 @@
 package com.example.epam_internship_android_molodchenko
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.epam_internship_android_molodchenko.adapters.CategoryAdapter
+import com.example.epam_internship_android_molodchenko.adapters.MealAdapter
+import com.example.epam_internship_android_molodchenko.models.ModelCategory
+import com.example.epam_internship_android_molodchenko.models.ModelCategoryList
+import com.example.epam_internship_android_molodchenko.models.ModelMeal
+import com.example.epam_internship_android_molodchenko.models.ModelMealList
+import com.example.epam_internship_android_molodchenko.repository.CategoryRepositoryImpl
+import com.example.epam_internship_android_molodchenko.repository.MealsRepositoryImpl
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class MealListFragment : Fragment() {
+
+    private val categoryRepository by lazy { CategoryRepositoryImpl(RetrofitInstance.mealApi) }
+    private val mealsRepository by lazy { MealsRepositoryImpl(RetrofitInstance.mealApi) }
+
+    private val mealAdapter = MealAdapter()
+    private val categoryAdapter = CategoryAdapter()
+
+    private val recyclerViewCategory by lazy { view?.findViewById<RecyclerView>(R.id.rv_category) }
+    private val recyclerViewMeal by lazy { view?.findViewById<RecyclerView>(R.id.rv_one) }
+
+    private val clickListenerMeal = object : OnItemClickListenerMeal {
+        override fun onItemClick(meal: ModelMeal) {
+            parentFragmentManager.beginTransaction()
+                .replace(
+                    R.id.host_fragment, MealDetailsFragment.newInstance(meal.idMeal)
+                )
+                .addToBackStack(null)
+                .commit()
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -20,59 +50,61 @@ class MealListFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_meal_list, container, false)
     }
 
-    val modelMealOne = ModelMeal(
-        "Soy-Glazed Meatloaves with Wasabi Mashed Potatoes & Roasted Carrots",
-        R.drawable.meal_one
-    )
-    val modelMealTwo = ModelMeal("Steak Diane", R.drawable.meal_two)
-
-    val modelCategoryOne = ModelCategory(1, R.drawable.tb_one, false)
-    val modelCategoryTwo = ModelCategory(2, R.drawable.tb_two, false)
-    val modelCategoryThree = ModelCategory(3, R.drawable.tb_three, false)
-    val modelCategoryFour = ModelCategory(4, R.drawable.tb_four, false)
-    val modelCategoryFive = ModelCategory(5, R.drawable.tb_five, false)
-
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        initView()
+        callCategories()
+    }
 
-        val clickListenerMeal = object : OnItemClickListenerMeal {
-            override fun onItemClick(modelMeal: ModelMeal) {
-                parentFragmentManager.beginTransaction()
-                    .replace(
-                        R.id.host_fragment, MealDetailsFragment.newInstance(modelMeal.title)
-                    )
-                    .addToBackStack(null)
-                    .commit()
+    private fun initView() {
+        recyclerViewMeal?.adapter = mealAdapter
+        recyclerViewCategory?.adapter = categoryAdapter
+        recyclerViewMeal?.layoutManager = LinearLayoutManager(context)
+        recyclerViewCategory?.layoutManager =
+            LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+        categoryAdapter.clickListener = object : OnItemClickListenerCategory {
+            override fun onItemClick(category: ModelCategory) {
+                callMeals(category)
             }
         }
+        mealAdapter.clickListener = clickListenerMeal
+    }
 
-        val recyclerViewMeal = view.findViewById<RecyclerView>(R.id.rv_one)
-        val recyclerViewAdapterMeal = MealAdapter(clickListenerMeal)
+    private fun callCategories() {
 
-        recyclerViewMeal.layoutManager = LinearLayoutManager(context)
-        recyclerViewMeal.adapter = recyclerViewAdapterMeal
+        categoryRepository.loadCategories().enqueue(object : Callback<ModelCategoryList> {
+            override fun onResponse(
+                call: Call<ModelCategoryList>,
+                response: Response<ModelCategoryList>
+            ) {
+                response.body()?.categories?.let {
+                    categoryAdapter.setList(it)
+                }
+            }
 
-        recyclerViewAdapterMeal.setList(listOf(modelMealOne, modelMealTwo))
+            override fun onFailure(call: Call<ModelCategoryList>, t: Throwable) {
+                Log.e("Callback Category", "Error")
+            }
+        })
+    }
 
-        recyclerViewAdapterMeal.clickListener = clickListenerMeal
+    private fun callMeals(category: ModelCategory) {
 
-        val recyclerViewCategory = view.findViewById<RecyclerView>(R.id.rv_category)
-        val recyclerViewAdapterCategory = CategoryAdapter()
+        mealsRepository.loadMealsData(strCategory = category.nameCategory)
+            .enqueue(object : Callback<ModelMealList> {
+                override fun onResponse(
+                    call: Call<ModelMealList>,
+                    response: Response<ModelMealList>
+                ) {
+                    response.body()?.meals?.let {
+                        mealAdapter.setList(it)
+                    }
+                }
 
-        recyclerViewCategory.layoutManager =
-            LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-        recyclerViewCategory.adapter = recyclerViewAdapterCategory
-
-        recyclerViewAdapterCategory.setList(
-            listOf(
-                modelCategoryOne,
-                modelCategoryTwo,
-                modelCategoryThree,
-                modelCategoryFour,
-                modelCategoryFive
-            )
-        )
+                override fun onFailure(call: Call<ModelMealList>, t: Throwable) {
+                    Log.e("Callback Meal", "Error")
+                }
+            })
     }
 
     companion object {

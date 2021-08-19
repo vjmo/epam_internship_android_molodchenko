@@ -11,39 +11,30 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
+
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0">
+        app:layout_constraintTop_toTopOf="parent">
+
 
         <ImageView
             android:id="@+id/details_img_id"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:background="@drawable/details_img" />
-
-
-        <ImageView
-            android:id="@+id/swipe_img"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:background="@drawable/swipe"
-            android:elevation="@dimen/iv_elevation" />
+            android:layout_alignParentTop="true" />
 
     </LinearLayout>
 
     <ScrollView
+        android:id="@+id/scrollView3"
         android:layout_width="@dimen/scr_layout_width"
         android:layout_height="@dimen/scr_layout_height"
-        android:layout_marginTop="@dimen/scr_layout_marginTop"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/linearLayout">
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -51,20 +42,7 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/ter_chic_txt"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginLeft="16dp"
-                android:fontFamily="@font/roboto_medium"
-                android:text="text"
-                android:textColor="@color/ter_color"
-                android:textSize="@dimen/tv_size_vosemn"
-                android:visibility="visible"
-                app:layout_constraintStart_toStartOf="parent" />
-
-            <TextView
-                android:id="@+id/txt_japanese"
+                android:id="@+id/area"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/roboto_medium"
@@ -76,53 +54,50 @@
                 android:textColor="@color/country_color"
                 android:textSize="@dimen/tv_text_size" />
 
+            <TextView
+                android:id="@+id/name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginLeft="16dp"
+                android:fontFamily="@font/roboto_medium"
+                android:text="Name"
+                android:textColor="@color/ter_color"
+                android:textSize="@dimen/tv_size_vosemn"
+                android:visibility="visible"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_tags"
+                android:layout_width="match_parent"
+                android:layout_height="32dp"
+                android:orientation="horizontal"
+                app:layout_constraintBottom_toTopOf="@+id/scrollView2"
+                app:layout_constraintTop_toBottomOf="@+id/details_img_id"
+                tools:itemCount="10"
+                tools:listitem="@layout/item_tag_details"></androidx.recyclerview.widget.RecyclerView>
+
+            <TextView
+                android:id="@+id/name_txt_ingr"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_marginStart="16dp"
+                android:text="@string/ingr_txt_str"
+                app:layout_constraintStart_toStartOf="parent" />
+
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
                 <TextView
-                    android:id="@+id/meat_txt"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/btn_ter"
-                    android:fontFamily="@font/roboto_medium"
-                    android:text="@string/meat_txt_str"
-                    android:textAlignment="center"
-                    app:layout_constraintEnd_toStartOf="@+id/cass_txt"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"></TextView>
-
-                <TextView
-                    android:id="@+id/cass_txt"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/btn_ter"
-                    android:fontFamily="@font/roboto_medium"
-                    android:text="@string/casserole_txt_str"
-                    android:textAlignment="center"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/txt_ingr"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
-                    android:id="@+id/txt_ingr"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/ingr_txt_str"
-                    app:layout_constraintBottom_toTopOf="@+id/rec_txt"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    android:layout_marginRight="@dimen/paddingTextViewDetails"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/meat_txt" />
-
-                <TextView
-                    android:id="@+id/rec_txt"
+                    android:id="@+id/ingridients"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/layout_marginStartTextViewDetails"
-                    android:layout_marginBottom="@dimen/layout_marginBottomTextViewDetails"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
                     android:text="@string/rec_str"
                     app:layout_constraintBottom_toTopOf="@+id/video_img_id"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     tools:ignore="MissingConstraints" />
@@ -132,8 +107,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.571"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:srcCompat="@drawable/details_video" />
+                    app:layout_constraintTop_toBottomOf="@+id/ingridients" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

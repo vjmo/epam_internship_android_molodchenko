@@ -1,20 +1,20 @@
-package com.example.epam_internship_android_molodchenko
+package com.example.epam_internship_android_molodchenko.adapters
 
-import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
+import com.example.epam_internship_android_molodchenko.OnItemClickListenerCategory
+import com.example.epam_internship_android_molodchenko.R
+import com.example.epam_internship_android_molodchenko.models.ModelCategory
 
-class CategoryAdapter : RecyclerView.Adapter<CategoryViewHolder>() {
+class CategoryAdapter() : RecyclerView.Adapter<CategoryViewHolder>() {
 
-    private val list: MutableList<ModelCategory> = mutableListOf()
-    private var selectPosition = -1
-    val clickListener: OnItemClickListenerCategory = object : OnItemClickListenerCategory {
-        override fun onItemClick(modelCategory: ModelCategory) {
-        }
-    }
+    private val categoryItemList: MutableList<ModelCategory> = mutableListOf()
+
+    var selectPosition = -1
+
+    var clickListener: OnItemClickListenerCategory? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CategoryViewHolder {
         val view =
@@ -23,7 +23,7 @@ class CategoryAdapter : RecyclerView.Adapter<CategoryViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: CategoryViewHolder, position: Int) {
-        holder.bind(list[position], clickListener)
+        holder.bind(categoryItemList[position])
 
         selectPosition = holder.adapterPosition
         holder.cardCategory.isSelected = !holder.cardCategory.isSelected
@@ -42,15 +42,16 @@ class CategoryAdapter : RecyclerView.Adapter<CategoryViewHolder>() {
                 )
             }
             notifyItemChanged(position)
+            clickListener?.onItemClick(categoryItemList[position])
         }
 
     }
 
-    override fun getItemCount(): Int = list.size
+    override fun getItemCount(): Int = categoryItemList.size
 
-    fun setList(list: List<ModelCategory>) {
-        this.list.clear()
-        this.list.addAll(list)
+    fun setList(list: MutableList<ModelCategory>) {
+        this.categoryItemList.clear()
+        this.categoryItemList.addAll(list)
         notifyDataSetChanged()
     }
 

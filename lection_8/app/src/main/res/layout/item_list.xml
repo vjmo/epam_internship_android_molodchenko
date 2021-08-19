@@ -12,16 +12,16 @@
         android:id="@+id/cardViewMealOne"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="@dimen/layout_margin_for_card_category"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_margin="@dimen/layout_margin_for_card_category">
+        app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
             android:id="@+id/meal_one_img"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="@dimen/iv_layout_width"
+            android:layout_height="@dimen/iv_layout_height"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
             android:layout_marginStart="@dimen/iv_layout_marginTop"

@@ -7,13 +7,14 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
 public class HostMainActivity : AppCompatActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_host_main)
         val fragmentManager: FragmentManager = supportFragmentManager
         fragmentManager
             .beginTransaction()
-            .replace(R.id.host_activity, HostFragment())
+            .replace(R.id.host_activity, HostFragment.newInstance())
             .commit()
     }
 }
