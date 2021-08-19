@@ -38,4 +38,5 @@
     <dimen name="layout_marginLeft_for_rv_cat">20dp</dimen>
     <dimen name="layout_marginRight_for_rv_cat">10dp</dimen>
     <dimen name="layout_marginTop_fragment_one">20dp</dimen>
+    <dimen name="start_margin">16dp</dimen>
 </resources>
