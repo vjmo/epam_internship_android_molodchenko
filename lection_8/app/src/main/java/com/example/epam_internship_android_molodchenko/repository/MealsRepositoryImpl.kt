@@ -8,5 +8,4 @@ class MealsRepositoryImpl(private val api: MealApi) : MealsRepository {
 
     override fun loadMealsData(strCategory: String): Call<ModelMealList> =
         api.getMeals(strCategory)
-
 }

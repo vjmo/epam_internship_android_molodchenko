@@ -12,8 +12,7 @@ class MealDetailsAdapter() : RecyclerView.Adapter<MealDetailsViewHolder>() {
     private val tagItemList: MutableList<String> = mutableListOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MealDetailsViewHolder {
-        val view =
-            LayoutInflater.from(parent.context).inflate(R.layout.item_tag_details, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_tag_details, parent, false)
         return MealDetailsViewHolder(view)
     }
 
