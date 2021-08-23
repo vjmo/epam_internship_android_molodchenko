@@ -4,6 +4,7 @@ import com.example.epam_internship_android_molodchenko.api.MealApi
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 
 
@@ -18,10 +19,21 @@ object RetrofitInstance {
         .addInterceptor(logging)
         .build()
 
-    val mealApi: MealApi by lazy {
+   /* val mealApi: MealApi by lazy {
         val retrofit = Retrofit.Builder()
             .client(client)
             .baseUrl(BASE_URL)
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+
+        return@lazy retrofit.create(MealApi::class.java)
+    }
+    */
+
+    val mealApi: MealApi by lazy {
+        val retrofit = Retrofit.Builder()
+            .baseUrl(BASE_URL)
+            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .addConverterFactory(GsonConverterFactory.create())
             .build()
 
