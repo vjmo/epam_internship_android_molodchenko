@@ -16,6 +16,7 @@ import com.example.epam_internship_android_molodchenko.exten_fun.toMealDetailsUI
 import com.example.epam_internship_android_molodchenko.models.ModelMealDetailsList
 import com.example.epam_internship_android_molodchenko.repository.MealsDetailsRepositoryImpl
 import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 import retrofit2.Call
@@ -23,6 +24,8 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class MealDetailsFragment : Fragment() {
+
+    private val compositeDisposable = CompositeDisposable()
 
     private val mealsDetailsRepository by lazy { MealsDetailsRepositoryImpl(RetrofitInstance.mealApi) }
 
@@ -51,8 +54,8 @@ class MealDetailsFragment : Fragment() {
 
     }
 
-    private fun callDetails(): Disposable? =
-        arguments?.getInt(ID)?.let { mealsDetailsRepository.loadDetailsData(it)
+    private fun callDetails() = arguments?.getInt(ID)?.let {
+        mealsDetailsRepository.loadDetailsData(it)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .map { it.mealsDetails.first().toMealDetailsUIModel() }
@@ -65,14 +68,15 @@ class MealDetailsFragment : Fragment() {
                 areaDetailsTextView?.text = mealDetails?.area
                 ingridientsDetailsTextView?.text = mealDetails?.ingredients
 
-                Glide.with(view?.context).load(mealDetails.mealThumb).into(view?.findViewById(R.id.details_img_id))
+                Glide.with(view?.context).load(mealDetails.mealThumb)
+                    .into(view?.findViewById(R.id.details_img_id))
 
                 mealDetailsAdapter.setList(mealDetails.tags)
             },
                 {
                     Log.e("MealDetails", "Error")
                 })
-        }
+    }?.let { compositeDisposable.add(it) }
 
     companion object {
         private const val ID = "ID"
@@ -80,5 +84,10 @@ class MealDetailsFragment : Fragment() {
             MealDetailsFragment().apply {
                 arguments = bundleOf(ID to id)
             }
+    }
+
+    override fun onDestroy() {
+        compositeDisposable.clear()
+        super.onDestroy()
     }
 }
