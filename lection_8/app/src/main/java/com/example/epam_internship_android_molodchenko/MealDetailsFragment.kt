@@ -15,11 +15,17 @@ import com.example.epam_internship_android_molodchenko.adapters.MealDetailsAdapt
 import com.example.epam_internship_android_molodchenko.exten_fun.toMealDetailsUIModel
 import com.example.epam_internship_android_molodchenko.models.ModelMealDetailsList
 import com.example.epam_internship_android_molodchenko.repository.MealsDetailsRepositoryImpl
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.disposables.Disposable
+import io.reactivex.schedulers.Schedulers
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
 class MealDetailsFragment : Fragment() {
+
+    private val compositeDisposable = CompositeDisposable()
 
     private val mealsDetailsRepository by lazy { MealsDetailsRepositoryImpl(RetrofitInstance.mealApi) }
 
@@ -48,41 +54,29 @@ class MealDetailsFragment : Fragment() {
 
     }
 
-    private fun callDetails() {
+    private fun callDetails() = arguments?.getInt(ID)?.let {
+        mealsDetailsRepository.loadDetailsData(it)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .map { it.mealsDetails.first().toMealDetailsUIModel() }
+            .subscribe({ mealDetails ->
+                val nameDetailsTextView = view?.findViewById<TextView>(R.id.name)
+                val areaDetailsTextView = view?.findViewById<TextView>(R.id.area)
+                val ingridientsDetailsTextView = view?.findViewById<TextView>(R.id.ingridients)
 
-        arguments?.getInt(ID)?.let {
-            mealsDetailsRepository.loadDetailsData(it)
-                .enqueue(object : Callback<ModelMealDetailsList> {
-                    override fun onResponse(
-                        call: Call<ModelMealDetailsList>,
-                        response: Response<ModelMealDetailsList>
-                    ) {
-                        val mealDetailsResponse = response.body()?.mealsDetails?.first()?.toMealDetailsUIModel()
+                nameDetailsTextView?.text = mealDetails.nameMealDetails
+                areaDetailsTextView?.text = mealDetails?.area
+                ingridientsDetailsTextView?.text = mealDetails?.ingredients
 
-                        val nameDetailsTextView = view?.findViewById<TextView>(R.id.name)
-                        val areaDetailsTextView = view?.findViewById<TextView>(R.id.area)
-                        val ingridientsDetailsTextView = view?.findViewById<TextView>(R.id.ingridients)
+                Glide.with(view?.context).load(mealDetails.mealThumb)
+                    .into(view?.findViewById(R.id.details_img_id))
 
-                        nameDetailsTextView?.text = mealDetailsResponse?.nameMealDetails
-                        areaDetailsTextView?.text = mealDetailsResponse?.area
-                        ingridientsDetailsTextView?.text = mealDetailsResponse?.ingredients
-
-                        Glide.with(view?.context).load(mealDetailsResponse?.mealThumb).into(view?.findViewById(R.id.details_img_id))
-
-                          response.body()?.mealsDetails?.let {
-                                    if (mealDetailsResponse != null) {
-                                        mealDetailsAdapter.setList(mealDetailsResponse.tags)
-                                    }
-                                }
-                    }
-
-                    override fun onFailure(call: Call<ModelMealDetailsList>, t: Throwable) {
-                        Log.e("Callback MealDetails", "Error")
-                    }
+                mealDetailsAdapter.setList(mealDetails.tags)
+            },
+                {
+                    Log.e("MealDetails", "Error")
                 })
-        }
-
-    }
+    }?.let { compositeDisposable.add(it) }
 
     companion object {
         private const val ID = "ID"
@@ -90,5 +84,10 @@ class MealDetailsFragment : Fragment() {
             MealDetailsFragment().apply {
                 arguments = bundleOf(ID to id)
             }
+    }
+
+    override fun onDestroy() {
+        compositeDisposable.clear()
+        super.onDestroy()
     }
 }
