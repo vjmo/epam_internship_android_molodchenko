@@ -1,5 +1,7 @@
 package com.example.epam_internship_android_molodchenko
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -24,6 +26,13 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class MealListFragment : Fragment() {
+
+    private val sharedPreferences: SharedPreferences? by lazy {
+        context?.getSharedPreferences(
+            "settings_prefs",
+            Context.MODE_PRIVATE
+        )
+    }
 
     private val compositeDisposable = CompositeDisposable()
 
@@ -82,6 +91,9 @@ class MealListFragment : Fragment() {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ categoryList ->
                     categoryAdapter.setList(categoryList.categories)
+                    val lastIndexCategory = sharedPreferences?.getInt("id_category", 0) ?: 0
+                    val loadLastIndexCategory = categoryList.categories[lastIndexCategory]
+                    callMeals(loadLastIndexCategory)
                 }, {
                     Log.e("Category", "Error")
                 })
@@ -94,6 +106,7 @@ class MealListFragment : Fragment() {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ mealList ->
                     mealAdapter.setList(mealList.meals)
+                    sharedPreferences?.edit()?.putInt("id_category", category.idCategory)?.apply()
                 },
                     {
                         Log.e("Meal", "Error")

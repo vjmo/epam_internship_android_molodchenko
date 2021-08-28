@@ -3,6 +3,7 @@ package com.example.epam_internship_android_molodchenko.adapters
 import android.view.View
 import android.widget.ImageView
 import androidx.cardview.widget.CardView
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.epam_internship_android_molodchenko.OnItemClickListenerCategory
