@@ -16,5 +16,5 @@ interface CategoryDao {
     fun getCategoryDatabase(): Single<MutableList<ModelCategory>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertCategoryDatabase(category: MutableList<ModelCategory>): Completable
+    fun insertCategoryDatabase(category: MutableList<ModelCategory>) : Completable
 }
