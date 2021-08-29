@@ -12,20 +12,21 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.epam_internship_android_molodchenko.adapters.CategoryAdapter
 import com.example.epam_internship_android_molodchenko.adapters.MealAdapter
+import com.example.epam_internship_android_molodchenko.data.AppDatabase
 import com.example.epam_internship_android_molodchenko.models.ModelCategory
 import com.example.epam_internship_android_molodchenko.models.ModelMeal
-import com.example.epam_internship_android_molodchenko.models.ModelMealList
 import com.example.epam_internship_android_molodchenko.repository.CategoryRepositoryImpl
 import com.example.epam_internship_android_molodchenko.repository.MealsRepositoryImpl
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
-import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.util.*
 
 class MealListFragment : Fragment() {
+
+    private val database by lazy { AppDatabase.getInstance(requireContext()) }
 
     private val sharedPreferences: SharedPreferences? by lazy {
         context?.getSharedPreferences(
@@ -68,6 +69,7 @@ class MealListFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         initView()
         callCategories()
+        //loadCategories()
     }
 
     private fun initView() {
@@ -84,6 +86,14 @@ class MealListFragment : Fragment() {
         mealAdapter.clickListener = clickListenerMeal
     }
 
+   /* private fun loadCategories() {
+        getCategoriesDatabase { categoryItemList ->
+            Log.e("ok", "db loaded")
+            callCategories()
+            insertCategoriesDatabase(categoryItemList)
+        }
+    }*/
+
     private fun callCategories() =
         compositeDisposable.add(
             categoryRepository.loadCategories()
@@ -91,6 +101,13 @@ class MealListFragment : Fragment() {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ categoryList ->
                     categoryAdapter.setList(categoryList.categories)
+
+                    getCategoriesDatabase({ categoryList ->
+                        Log.e("ok", "db ok")
+                        error(" bbb")
+                    }, { error("jjjjjj") })
+
+                    insertCategoriesDatabase(categoryList.categories)
                     val lastIndexCategory = sharedPreferences?.getInt("id_category", 0) ?: 0
                     val loadLastIndexCategory = categoryList.categories[lastIndexCategory]
                     callMeals(loadLastIndexCategory)
@@ -98,6 +115,22 @@ class MealListFragment : Fragment() {
                     Log.e("Category", "Error")
                 })
         )
+
+    private fun getCategoriesDatabase(
+        onSuccess: (MutableList<ModelCategory>) -> Unit,
+        onError: (Throwable) -> Unit
+    ) =
+        database.getCategoryDao().getCategoryDatabase()
+            .subscribeOn(Schedulers.io())
+            .subscribe { categoryItemList ->
+                onSuccess(categoryItemList)
+                onError(Throwable("Error"))
+            }
+
+    private fun insertCategoriesDatabase(categoryItemList: MutableList<ModelCategory>) =
+        database.getCategoryDao().insertCategoryDatabase(categoryItemList)
+            .subscribeOn(Schedulers.io())
+            .subscribe({ Log.e("Inserted categories", "Complete") })
 
     private fun callMeals(category: ModelCategory) =
         compositeDisposable.add(

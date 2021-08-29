@@ -12,6 +12,9 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun getCategoryDao(): CategoryDao
 
     companion object {
+
+        const val DB_NAME = "app_db"
+
         private var INSTANCE: AppDatabase? = null
 
         fun getInstance(context: Context): AppDatabase {
