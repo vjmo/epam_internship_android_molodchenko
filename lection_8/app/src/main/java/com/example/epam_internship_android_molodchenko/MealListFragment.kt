@@ -22,6 +22,8 @@ import com.example.epam_internship_android_molodchenko.repository.MealsRepositor
 import io.reactivex.Completable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.internal.operators.single.SingleDoOnError
+import io.reactivex.internal.operators.single.SingleDoOnSuccess
 import io.reactivex.schedulers.Schedulers
 import retrofit2.Callback
 import retrofit2.Response
@@ -69,10 +71,26 @@ class MealListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initView()
-        //callCategories()
-        getCategoriesDatabase { cat ->
+
+        callCategories()
+
+/*        getCategoriesDatabase({ categoryItemList ->
+            insertCategoriesDatabase(categoryItemList)
             callCategories()
-            insertCategoriesDatabase(cat) }
+        }, { (it) })*/
+
+            /*        getCategoriesDatabase({ catList ->
+            Log.e("d", "Load in db")
+            if (catList.isEmpty()) {
+                Log.e("db", "is empty")
+                callCategories()
+                Completable.fromAction { callCategories() }
+                    .subscribeOn(AndroidSchedulers.mainThread()).subscribe()
+            } else {
+                Completable.fromAction { callCategories() }
+                    .subscribeOn(AndroidSchedulers.mainThread()).subscribe()
+            }
+        }, { Log.e("er", "error loaded") })*/
 
     }
 
@@ -96,21 +114,27 @@ class MealListFragment : Fragment() {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ categoryList ->
-                    categoryAdapter.setList(categoryList.categories)
+                    showCategories(categoryList.categories)
+                    //categoryAdapter.setList(categoryList.categories)
+
                     val lastIndexCategory = sharedPreferences?.getInt("id_category", 0) ?: 0
-                    val loadLastIndexCategory = categoryList.categories[lastIndexCategory]
-                    callMeals(loadLastIndexCategory)
+                    val category = categoryList.categories[lastIndexCategory]
+
+                    callMeals(category)
                 }, {
                     Log.e("Category", "Error")
                 })
         )
 
-    private fun getCategoriesDatabase(ok: (MutableList<ModelCategory>) -> Unit) =
+    private fun getCategoriesDatabase(
+        onSuccess: (MutableList<ModelCategory>) -> Unit,
+        onError: (Throwable) -> Unit
+    ) =
         AppDatabase.getInstance(requireContext()).getCategoryDao()
             .getCategoryDatabase()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe { categoryItemList -> Log.e("Getcategories", "Complete") }
+            .subscribe({ categoryItemList -> onSuccess(categoryItemList) }, { onError(it) })
 
     private fun insertCategoriesDatabase(categoryItemList: MutableList<ModelCategory>) =
         AppDatabase.getInstance(requireContext()).getCategoryDao()
@@ -132,6 +156,10 @@ class MealListFragment : Fragment() {
                         Log.e("Meal", "Error")
                     })
         )
+
+
+    private fun showCategories(categoryItemList: MutableList<ModelCategory>) =
+        categoryAdapter.setList(categoryItemList)
 
     companion object {
         fun newInstance(): MealListFragment = MealListFragment()
