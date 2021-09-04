@@ -10,9 +10,7 @@ import com.example.epam_internship_android_molodchenko.models.ModelCategory
 
 class CategoryAdapter() : RecyclerView.Adapter<CategoryViewHolder>() {
 
-    private val categoryItemList: MutableList<ModelCategory> = mutableListOf()
-
-    var selectPosition = -1
+    val categoryItemList: MutableList<ModelCategory> = mutableListOf()
 
     var clickListener: OnItemClickListenerCategory? = null
 
@@ -25,15 +23,18 @@ class CategoryAdapter() : RecyclerView.Adapter<CategoryViewHolder>() {
     override fun onBindViewHolder(holder: CategoryViewHolder, position: Int) {
         holder.bind(categoryItemList[position])
 
-        selectPosition = holder.adapterPosition
+        val selectPosition: Int = holder.adapterPosition
+
         holder.cardCategory.isSelected = !holder.cardCategory.isSelected
         holder.cardCategory.setOnClickListener {
-            if (selectPosition == position) holder.cardCategory.setCardBackgroundColor(
-                ContextCompat.getColor(
-                    holder.itemView.context,
-                    R.color.pink
+            if (selectPosition == position) {
+                holder.cardCategory.setCardBackgroundColor(
+                    ContextCompat.getColor(
+                        holder.itemView.context,
+                        R.color.pink
+                    )
                 )
-            ) else {
+            } else {
                 holder.cardCategory.setCardBackgroundColor(
                     ContextCompat.getColor(
                         holder.itemView.context,
@@ -41,15 +42,15 @@ class CategoryAdapter() : RecyclerView.Adapter<CategoryViewHolder>() {
                     )
                 )
             }
+
             notifyItemChanged(position)
             clickListener?.onItemClick(categoryItemList[position])
         }
-
     }
 
     override fun getItemCount(): Int = categoryItemList.size
 
-    fun setList(list: MutableList<ModelCategory>) {
+    fun setList(list: List<ModelCategory>) {
         this.categoryItemList.clear()
         this.categoryItemList.addAll(list)
         notifyDataSetChanged()

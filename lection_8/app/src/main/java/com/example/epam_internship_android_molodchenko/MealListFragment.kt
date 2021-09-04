@@ -1,5 +1,7 @@
 package com.example.epam_internship_android_molodchenko
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -12,22 +14,31 @@ import com.example.epam_internship_android_molodchenko.adapters.CategoryAdapter
 import com.example.epam_internship_android_molodchenko.adapters.MealAdapter
 import com.example.epam_internship_android_molodchenko.models.ModelCategory
 import com.example.epam_internship_android_molodchenko.models.ModelMeal
-import com.example.epam_internship_android_molodchenko.models.ModelMealList
 import com.example.epam_internship_android_molodchenko.repository.CategoryRepositoryImpl
 import com.example.epam_internship_android_molodchenko.repository.MealsRepositoryImpl
+import io.reactivex.Flowable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+import java.util.*
 
 class MealListFragment : Fragment() {
 
+    private val sharedPreferences: SharedPreferences? by lazy {
+        context?.getSharedPreferences(
+            "settings_prefs",
+            Context.MODE_PRIVATE
+        )
+    }
+
     private val compositeDisposable = CompositeDisposable()
 
-    private val categoryRepository by lazy { CategoryRepositoryImpl(RetrofitInstance.mealApi) }
+    private val categoryRepository by lazy {
+        CategoryRepositoryImpl(
+            RetrofitInstance.mealApi,
+            TestApp.INSTANCE.db
+        )
+    }
     private val mealsRepository by lazy { MealsRepositoryImpl(RetrofitInstance.mealApi) }
 
     private val mealAdapter = MealAdapter()
@@ -58,7 +69,40 @@ class MealListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initView()
-        callCategories()
+
+        compositeDisposable.add(
+            categoryRepository.requestCategories()
+                .subscribeOn(Schedulers.io())
+                .subscribe({
+                    Log.d("MealListFragment", "Success")
+                }, {
+                    it.printStackTrace()
+                })
+        )
+
+        compositeDisposable.add(
+            categoryRepository.observeCategory()
+                .subscribeOn(Schedulers.io())
+                .flatMap { list ->
+                    val lastIndexCategory = sharedPreferences?.getInt("id_category", 0) ?: 0
+                    val category = list[lastIndexCategory]
+                    return@flatMap mealsRepository.loadMealsData(category.nameCategory)
+                        .doOnSuccess {
+                            sharedPreferences?.edit()
+                                ?.putInt("id_category", category.idCategory)
+                                ?.apply()
+                        }
+                        .map { Pair(list, it) }
+                        .toFlowable()
+                }
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({
+                    showCategories(it.first)
+                    mealAdapter.setList(it.second.meals)
+                }, {
+                    it.printStackTrace()
+                })
+        )
     }
 
     private fun initView() {
@@ -69,43 +113,36 @@ class MealListFragment : Fragment() {
             LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         categoryAdapter.clickListener = object : OnItemClickListenerCategory {
             override fun onItemClick(category: ModelCategory) {
-                callMeals(category)
+
+                compositeDisposable.add(
+                    mealsRepository.loadMealsData(category.nameCategory)
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe({ mealList ->
+                            mealAdapter.setList(mealList.meals)
+                            sharedPreferences?.edit()?.putInt("id_category", category.idCategory)
+                                ?.apply()
+                        },
+                            {
+                                it.printStackTrace()
+                            })
+                )
+
             }
         }
         mealAdapter.clickListener = clickListenerMeal
     }
 
-    private fun callCategories() =
-        compositeDisposable.add(
-            categoryRepository.loadCategories()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({ categoryList ->
-                    categoryAdapter.setList(categoryList.categories)
-                }, {
-                    Log.e("Category", "Error")
-                })
-        )
 
-    private fun callMeals(category: ModelCategory) =
-        compositeDisposable.add(
-            mealsRepository.loadMealsData(category.nameCategory)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({ mealList ->
-                    mealAdapter.setList(mealList.meals)
-                },
-                    {
-                        Log.e("Meal", "Error")
-                    })
-        )
-
-    companion object {
-        fun newInstance(): MealListFragment = MealListFragment()
-    }
+    private fun showCategories(categoryItemList: List<ModelCategory>) =
+        categoryAdapter.setList(categoryItemList)
 
     override fun onDestroy() {
         compositeDisposable.clear()
         super.onDestroy()
+    }
+
+    companion object {
+        fun newInstance(): MealListFragment = MealListFragment()
     }
 }

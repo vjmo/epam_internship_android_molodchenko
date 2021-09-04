@@ -4,5 +4,5 @@ import com.google.gson.annotations.SerializedName
 
 data class ModelCategoryList(
     @SerializedName("categories")
-    val categories: MutableList<ModelCategory>
+    val categories: List<ModelCategory>
 )
