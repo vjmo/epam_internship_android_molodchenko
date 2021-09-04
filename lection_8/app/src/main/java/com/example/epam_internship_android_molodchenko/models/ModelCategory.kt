@@ -1,6 +1,5 @@
 package com.example.epam_internship_android_molodchenko.models
 
-import androidx.annotation.DrawableRes
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey

@@ -50,7 +50,7 @@ class CategoryAdapter() : RecyclerView.Adapter<CategoryViewHolder>() {
 
     override fun getItemCount(): Int = categoryItemList.size
 
-    fun setList(list: MutableList<ModelCategory>) {
+    fun setList(list: List<ModelCategory>) {
         this.categoryItemList.clear()
         this.categoryItemList.addAll(list)
         notifyDataSetChanged()

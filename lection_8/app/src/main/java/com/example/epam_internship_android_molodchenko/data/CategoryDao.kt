@@ -13,8 +13,8 @@ import io.reactivex.Single
 interface CategoryDao {
 
     @Query("SELECT * FROM category_data ORDER BY id")
-    fun getCategoryDatabase(): Single<MutableList<ModelCategory>>
+    fun getCategoryDatabase(): Flowable<List<ModelCategory>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertCategoryDatabase(category: MutableList<ModelCategory>) : Completable
+    fun insertCategoryDatabase(category: List<ModelCategory>) : Completable
 }
