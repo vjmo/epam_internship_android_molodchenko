@@ -7,6 +7,8 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import androidx.appcompat.widget.AppCompatButton
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -16,7 +18,6 @@ import com.example.epam_internship_android_molodchenko.models.ModelCategory
 import com.example.epam_internship_android_molodchenko.models.ModelMeal
 import com.example.epam_internship_android_molodchenko.repository.CategoryRepositoryImpl
 import com.example.epam_internship_android_molodchenko.repository.MealsRepositoryImpl
-import io.reactivex.Flowable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
@@ -103,6 +104,7 @@ class MealListFragment : Fragment() {
                     it.printStackTrace()
                 })
         )
+
     }
 
     private fun initView() {
@@ -122,6 +124,33 @@ class MealListFragment : Fragment() {
                             mealAdapter.setList(mealList.meals)
                             sharedPreferences?.edit()?.putInt("id_category", category.idCategory)
                                 ?.apply()
+
+                            val buttonOpenFilterFragment =
+                                requireActivity().findViewById<AppCompatButton>(R.id.img_filter_icon)
+                                    .setOnClickListener {
+                                        parentFragmentManager.beginTransaction()
+                                            .replace(
+                                                R.id.host_fragment, FilterFragment.newInstance()
+                                            )
+                                            .addToBackStack(null)
+                                            .commit()
+
+                                        val buttonSortAsc =
+                                            requireActivity().findViewById<Button>(R.id.asc_filter)
+                                                .setOnClickListener {
+                                                    val mealSortedAsc =
+                                                        mealList?.meals?.sortedByDescending { it.strMeal }
+                                                            ?.reversed()
+                                                    mealAdapter.setList(mealSortedAsc as MutableList<ModelMeal>)
+                                                }
+                                        val buttonSortDesc =
+                                            requireActivity().findViewById<Button>(R.id.desc_filter)
+                                                .setOnClickListener {
+                                                    val mealSortedDesc =
+                                                        mealList?.meals?.sortedByDescending { it.strMeal }
+                                                    mealAdapter.setList(mealSortedDesc as MutableList<ModelMeal>)
+                                                }
+                                    }
                         },
                             {
                                 it.printStackTrace()
@@ -131,6 +160,8 @@ class MealListFragment : Fragment() {
             }
         }
         mealAdapter.clickListener = clickListenerMeal
+
+
     }
 
 
