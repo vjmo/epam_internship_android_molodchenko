@@ -71,6 +71,18 @@ class MealListFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         initView()
 
+        val buttonOpenFilterFragment =
+            requireActivity().findViewById<AppCompatButton>(R.id.img_filter_icon)
+                .setOnClickListener {
+                    parentFragmentManager.beginTransaction()
+                        .replace(
+                            R.id.host_fragment, FilterFragment.newInstance()
+                        )
+                        .addToBackStack(null)
+                        .commit()
+                }
+
+
         compositeDisposable.add(
             categoryRepository.requestCategories()
                 .subscribeOn(Schedulers.io())
@@ -100,6 +112,7 @@ class MealListFragment : Fragment() {
                 .subscribe({
                     showCategories(it.first)
                     mealAdapter.setList(it.second.meals)
+
                 }, {
                     it.printStackTrace()
                 })
@@ -125,43 +138,36 @@ class MealListFragment : Fragment() {
                             sharedPreferences?.edit()?.putInt("id_category", category.idCategory)
                                 ?.apply()
 
-                            val buttonOpenFilterFragment =
-                                requireActivity().findViewById<AppCompatButton>(R.id.img_filter_icon)
+                           /* val buttonSortAsc =
+                                requireActivity().findViewById<Button>(R.id.asc_filter)
                                     .setOnClickListener {
-                                        parentFragmentManager.beginTransaction()
-                                            .replace(
-                                                R.id.host_fragment, FilterFragment.newInstance()
-                                            )
-                                            .addToBackStack(null)
-                                            .commit()
-
-                                        val buttonSortAsc =
-                                            requireActivity().findViewById<Button>(R.id.asc_filter)
-                                                .setOnClickListener {
-                                                    val mealSortedAsc =
-                                                        mealList?.meals?.sortedByDescending { it.strMeal }
-                                                            ?.reversed()
-                                                    mealAdapter.setList(mealSortedAsc as MutableList<ModelMeal>)
-                                                }
-                                        val buttonSortDesc =
-                                            requireActivity().findViewById<Button>(R.id.desc_filter)
-                                                .setOnClickListener {
-                                                    val mealSortedDesc =
-                                                        mealList?.meals?.sortedByDescending { it.strMeal }
-                                                    mealAdapter.setList(mealSortedDesc as MutableList<ModelMeal>)
-                                                }
+                                        val mealSortedAsc =
+                                            mealList?.meals?.sortedByDescending { it.strMeal }
+                                                ?.reversed()
+                                        mealAdapter.setList(mealSortedAsc as MutableList<ModelMeal>)
                                     }
+                            val buttonSortDesc =
+                                requireActivity().findViewById<Button>(R.id.desc_filter)
+                                    .setOnClickListener {
+                                        val mealSortedDesc =
+                                            mealList?.meals?.sortedByDescending { it.strMeal }
+                                        mealAdapter.setList(mealSortedDesc as MutableList<ModelMeal>)
+                                    }*/
                         },
                             {
                                 it.printStackTrace()
                             })
                 )
 
+
+
+                          val buttonCloseFilterFragment =
+                    requireActivity().findViewById<AppCompatButton>(R.id.btn_close_icon)
+                        .setOnClickListener {
+                        }
             }
         }
         mealAdapter.clickListener = clickListenerMeal
-
-
     }
 
 

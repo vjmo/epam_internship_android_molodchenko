@@ -7,32 +7,13 @@
     tools:context=".MealListFragment"
     tools:ignore="ExtraText">
 
-
-    <androidx.appcompat.widget.Toolbar
+    <include
+        layout="@layout/toolbar_one"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toTopOf="@+id/rv_category"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <TextView
-            android:id="@+id/txt_activity"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/roboto_medium"
-            android:text="Заголовок экрана"
-            app:layout_constraintBottom_toTopOf="@+id/rv_category"
-            app:layout_constraintEnd_toStartOf="@+id/img_filter_icon"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/img_filter_icon"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:background="@drawable/img_filter"></androidx.appcompat.widget.AppCompatButton>
-    </androidx.appcompat.widget.Toolbar>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_category"
@@ -46,7 +27,6 @@
         app:layout_constraintBottom_toTopOf="@+id/cardView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
         tools:itemCount="1"
         tools:listitem="@layout/category_item_list" />
 
