@@ -138,7 +138,7 @@ class MealListFragment : Fragment() {
                             sharedPreferences?.edit()?.putInt("id_category", category.idCategory)
                                 ?.apply()
 
-                           /* val buttonSortAsc =
+                            val buttonSortAsc =
                                 requireActivity().findViewById<Button>(R.id.asc_filter)
                                     .setOnClickListener {
                                         val mealSortedAsc =
@@ -152,7 +152,7 @@ class MealListFragment : Fragment() {
                                         val mealSortedDesc =
                                             mealList?.meals?.sortedByDescending { it.strMeal }
                                         mealAdapter.setList(mealSortedDesc as MutableList<ModelMeal>)
-                                    }*/
+                                    }
                         },
                             {
                                 it.printStackTrace()
