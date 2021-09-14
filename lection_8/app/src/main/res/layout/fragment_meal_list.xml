@@ -3,14 +3,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     tools:context=".MealListFragment"
     tools:ignore="ExtraText">
 
-    <include
-        layout="@layout/toolbar_one"
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:theme="@style/Widget.AppCompat.Light.ActionBar.Solid"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -19,41 +20,33 @@
         android:id="@+id/rv_category"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/layout_marginLeft_for_rv_cat"
-        android:layout_marginRight="@dimen/layout_marginRight_for_rv_cat"
-        android:layout_marginBottom="@dimen/layout_marginRight_for_rv_cat"
+        android:layout_marginStart="@dimen/layout_marginLeft_for_rv_cat"
+        android:layout_marginEnd="@dimen/layout_marginLeft_for_rv_cat"
         android:foregroundGravity="center"
         android:orientation="horizontal"
-        app:layout_constraintBottom_toTopOf="@+id/cardView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbar_list"
         tools:itemCount="1"
         tools:listitem="@layout/category_item_list" />
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="200dp"
+        android:layout_height="0dp"
         app:cardBackgroundColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@id/rv_category">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_one"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/rv_category"
             tools:itemCount="2"
             tools:listitem="@layout/item_list" />
     </androidx.cardview.widget.CardView>
-
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

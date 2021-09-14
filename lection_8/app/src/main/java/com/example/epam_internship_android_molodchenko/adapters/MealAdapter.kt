@@ -17,6 +17,7 @@ class MealAdapter() : RecyclerView.Adapter<MealViewHolder>() {
         override fun onItemClick(meal: ModelMeal) {
         }
     }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MealViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_list, parent, false)
         return MealViewHolder(view)
@@ -33,5 +34,19 @@ class MealAdapter() : RecyclerView.Adapter<MealViewHolder>() {
         this.mealItemList.clear()
         this.mealItemList.addAll(mealItemList)
         notifyDataSetChanged()
+    }
+
+    //sortedby...(1,2 notify set data
+    fun sortedByAscOrDesc() {
+        if (true) {
+            mealItemList.sortByDescending { it.strMeal }
+            setList(mealItemList)
+            notifyDataSetChanged()
+        } else {
+            mealItemList.sortByDescending { it.strMeal }.toString().reversed()
+            setList(mealItemList)
+            notifyDataSetChanged()
+        }
+
     }
 }

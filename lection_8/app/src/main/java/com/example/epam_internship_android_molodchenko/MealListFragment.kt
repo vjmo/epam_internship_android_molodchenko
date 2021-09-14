@@ -7,8 +7,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import androidx.appcompat.widget.AppCompatButton
+import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -25,15 +24,16 @@ import java.util.*
 
 class MealListFragment : Fragment() {
 
-    private val sharedPreferences: SharedPreferences? by lazy {
-        context?.getSharedPreferences(
+    private val toolbarList: Toolbar? by lazy { view?.findViewById(R.id.toolbar_list) }
+
+    private val sharedPreferences: SharedPreferences by lazy {
+        requireContext().getSharedPreferences(
             "settings_prefs",
             Context.MODE_PRIVATE
         )
     }
 
     private val compositeDisposable = CompositeDisposable()
-
     private val categoryRepository by lazy {
         CategoryRepositoryImpl(
             RetrofitInstance.mealApi,
@@ -69,19 +69,7 @@ class MealListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initView()
-
-        val buttonOpenFilterFragment =
-            requireActivity().findViewById<AppCompatButton>(R.id.img_filter_icon)
-                .setOnClickListener {
-                    parentFragmentManager.beginTransaction()
-                        .replace(
-                            R.id.host_fragment, FilterFragment.newInstance()
-                        )
-                        .addToBackStack(null)
-                        .commit()
-                }
-
+        initView(view)
 
         compositeDisposable.add(
             categoryRepository.requestCategories()
@@ -97,11 +85,11 @@ class MealListFragment : Fragment() {
             categoryRepository.observeCategory()
                 .subscribeOn(Schedulers.io())
                 .flatMap { list ->
-                    val lastIndexCategory = sharedPreferences?.getInt("id_category", 0) ?: 0
-                    val category = list[lastIndexCategory]
+                    val lastIndexCategory = sharedPreferences.getInt("id_category", 0)
+                    val category = list[lastIndexCategory - 1]
                     return@flatMap mealsRepository.loadMealsData(category.nameCategory)
                         .doOnSuccess {
-                            sharedPreferences?.edit()
+                            sharedPreferences.edit()
                                 ?.putInt("id_category", category.idCategory)
                                 ?.apply()
                         }
@@ -112,7 +100,6 @@ class MealListFragment : Fragment() {
                 .subscribe({
                     showCategories(it.first)
                     mealAdapter.setList(it.second.meals)
-
                 }, {
                     it.printStackTrace()
                 })
@@ -120,12 +107,31 @@ class MealListFragment : Fragment() {
 
     }
 
-    private fun initView() {
+    private fun initView(view: View) {
         recyclerViewMeal?.adapter = mealAdapter
         recyclerViewCategory?.adapter = categoryAdapter
         recyclerViewMeal?.layoutManager = LinearLayoutManager(context)
         recyclerViewCategory?.layoutManager =
             LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+
+        val fragment = FilterFragment.newInstance()
+
+        toolbarList?.inflateMenu(R.menu.main_menu)
+        toolbarList?.setOnMenuItemClickListener {
+            when (it.itemId) {
+                R.id.filter -> fragment.show(childFragmentManager, null)
+            }
+            return@setOnMenuItemClickListener true
+        }
+
+        // ***** fragment.clicl тут буду вызывать метод адаптера
+        fragment.clickListener = object : OnItemClickListenerFilter {
+            override fun onItemClick(active: Boolean) {
+                mealAdapter.sortedByAscOrDesc()
+            }
+        }
+
+
         categoryAdapter.clickListener = object : OnItemClickListenerCategory {
             override fun onItemClick(category: ModelCategory) {
 
@@ -135,36 +141,13 @@ class MealListFragment : Fragment() {
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe({ mealList ->
                             mealAdapter.setList(mealList.meals)
-                            sharedPreferences?.edit()?.putInt("id_category", category.idCategory)
+                            sharedPreferences.edit()?.putInt("id_category", category.idCategory)
                                 ?.apply()
-
-                            val buttonSortAsc =
-                                requireActivity().findViewById<Button>(R.id.asc_filter)
-                                    .setOnClickListener {
-                                        val mealSortedAsc =
-                                            mealList?.meals?.sortedByDescending { it.strMeal }
-                                                ?.reversed()
-                                        mealAdapter.setList(mealSortedAsc as MutableList<ModelMeal>)
-                                    }
-                            val buttonSortDesc =
-                                requireActivity().findViewById<Button>(R.id.desc_filter)
-                                    .setOnClickListener {
-                                        val mealSortedDesc =
-                                            mealList?.meals?.sortedByDescending { it.strMeal }
-                                        mealAdapter.setList(mealSortedDesc as MutableList<ModelMeal>)
-                                    }
                         },
                             {
                                 it.printStackTrace()
                             })
                 )
-
-
-
-                          val buttonCloseFilterFragment =
-                    requireActivity().findViewById<AppCompatButton>(R.id.btn_close_icon)
-                        .setOnClickListener {
-                        }
             }
         }
         mealAdapter.clickListener = clickListenerMeal
