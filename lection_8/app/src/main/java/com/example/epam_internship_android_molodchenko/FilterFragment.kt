@@ -28,18 +28,16 @@ class FilterFragment : BottomSheetDialogFragment() {
         val buttonSortAsc = view.findViewById<Button>(R.id.asc_bttn)
         val buttonSortDesc = view.findViewById<Button>(R.id.desc_bttn)
         // здесь вызываю метод Кликлистнер по нажатию на кнопку , при этом сделать метод , который будет сеттить кликлистнер
-        if (true) {
-            buttonSortDesc.setOnClickListener {
-                setOnClickListenerFilter()
-            }
-        } else buttonSortAsc.setOnClickListener {
-            setOnClickListenerFilter()
+        buttonSortDesc.setOnClickListener {
+            clickListener?.onItemClick(false)
+        }
+        buttonSortAsc.setOnClickListener {
+            clickListener?.onItemClick(true)
         }
 
     }
 
-    //метод для сетта клика = присваивание
-    private fun setOnClickListenerFilter() = clickListener
+    //метод для сетта клика = присваивани
 
     companion object {
         fun newInstance(): FilterFragment = FilterFragment()

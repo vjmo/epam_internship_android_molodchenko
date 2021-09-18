@@ -127,7 +127,7 @@ class MealListFragment : Fragment() {
         // ***** fragment.clicl тут буду вызывать метод адаптера
         fragment.clickListener = object : OnItemClickListenerFilter {
             override fun onItemClick(active: Boolean) {
-                mealAdapter.sortedByAscOrDesc()
+                mealAdapter.sortedByAscOrDesc(active)
             }
         }
 

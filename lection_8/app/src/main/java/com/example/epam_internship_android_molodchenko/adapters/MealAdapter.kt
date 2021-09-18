@@ -3,7 +3,6 @@ package com.example.epam_internship_android_molodchenko.adapters
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.epam_internship_android_molodchenko.OnItemClickListenerCategory
 import com.example.epam_internship_android_molodchenko.OnItemClickListenerMeal
 import com.example.epam_internship_android_molodchenko.R
 import com.example.epam_internship_android_molodchenko.models.ModelMeal
@@ -30,21 +29,25 @@ class MealAdapter() : RecyclerView.Adapter<MealViewHolder>() {
 
     override fun getItemCount(): Int = mealItemList.size
 
-    fun setList(mealItemList: MutableList<ModelMeal>) {
+    fun setList(mealItemList: List<ModelMeal>) {
         this.mealItemList.clear()
         this.mealItemList.addAll(mealItemList)
         notifyDataSetChanged()
     }
 
     //sortedby...(1,2 notify set data
-    fun sortedByAscOrDesc() {
-        if (true) {
-            mealItemList.sortByDescending { it.strMeal }
-            setList(mealItemList)
+    fun sortedByAscOrDesc(active: Boolean) {
+
+
+        if (!active) {
+            val newMealItemList = mealItemList.toList().sortedBy { v1 -> v1.strMeal }//.sortBy { v1 -> v1.strMeal  }//( { v1, v2 -> v1.strMeal > v2.strMeal})
+
+            setList(newMealItemList)
             notifyDataSetChanged()
         } else {
-            mealItemList.sortByDescending { it.strMeal }.toString().reversed()
-            setList(mealItemList)
+            val newMealItemList = mealItemList.toList().sortedBy { v1 -> v1.strMeal }//.sortBy { v1 -> v1.strMeal  }//( { v1, v2 -> v1.strMeal > v2.strMeal})
+
+            setList(newMealItemList)
             notifyDataSetChanged()
         }
 
