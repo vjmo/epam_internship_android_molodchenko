@@ -37,17 +37,11 @@ class MealAdapter() : RecyclerView.Adapter<MealViewHolder>() {
 
     //sortedby...(1,2 notify set data
     fun sortedByAscOrDesc(active: Boolean) {
-
-
         if (!active) {
-            val newMealItemList = mealItemList.toList().sortedBy { v1 -> v1.strMeal }//.sortBy { v1 -> v1.strMeal  }//( { v1, v2 -> v1.strMeal > v2.strMeal})
-
-            setList(newMealItemList)
+            mealItemList.sortedBy {it.strMeal }//.sortBy { v1 -> v1.strMeal  }//( { v1, v2 -> v1.strMeal > v2.strMeal})
             notifyDataSetChanged()
         } else {
-            val newMealItemList = mealItemList.toList().sortedBy { v1 -> v1.strMeal }//.sortBy { v1 -> v1.strMeal  }//( { v1, v2 -> v1.strMeal > v2.strMeal})
-
-            setList(newMealItemList)
+            mealItemList.sortedBy {it.strMeal }.reversed()// { v1 -> v1.strMeal }//.sortBy { v1 -> v1.strMeal  }//( { v1, v2 -> v1.strMeal > v2.strMeal})
             notifyDataSetChanged()
         }
 
