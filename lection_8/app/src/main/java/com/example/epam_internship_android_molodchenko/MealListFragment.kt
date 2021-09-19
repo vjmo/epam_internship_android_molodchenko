@@ -85,8 +85,8 @@ class MealListFragment : Fragment() {
             categoryRepository.observeCategory()
                 .subscribeOn(Schedulers.io())
                 .flatMap { list ->
-                    val lastIndexCategory = sharedPreferences.getInt("id_category", 0)
-                    val category = list[lastIndexCategory - 1]
+                    val lastIndexCategory = sharedPreferences.getInt("id_category", 1)
+                    val category = list[lastIndexCategory]
                     return@flatMap mealsRepository.loadMealsData(category.nameCategory)
                         .doOnSuccess {
                             sharedPreferences.edit()

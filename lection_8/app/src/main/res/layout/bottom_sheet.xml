@@ -1,63 +1,81 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/bottomSheet"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
+    android:textAlignment="center"
     app:behavior_hideable="false"
     app:behavior_peekHeight="64dp"
     app:layout_behavior="com.google.material.bottomsheet.BottomSheetBehavior">
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="64dp"
-        android:background="#CE9CD6">
+        android:layout_height="30dp"
+        android:background="#FFFFFF">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="Сортировка по алфавиту"
-            android:textAppearance="@style/TextAppearance.AppCompat.Body2"></TextView>
+            android:fontFamily="@font/roboto_medium"
+            android:text="@string/filter_txt_view"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+            android:textColor="#A1000000"></TextView>
 
     </RelativeLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="250dp"
-        android:background="#ECD8EF">
+        android:layout_height="120dp"
+        android:background="#FFFF">
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="@string/sort_by_alpha"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+            android:textColor="#A1000000"
+            app:layout_constraintBottom_toTopOf="@+id/asc_bttn"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.106"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"></TextView>
+
 
         <Button
             android:id="@+id/desc_bttn"
             style="@style/Animation.Design.BottomSheetDialog"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginStart="24dp"
+            android:backgroundTint="@color/light_purple"
+            android:fontFamily="@font/roboto_medium"
             android:text="По убыванию"
+            android:textAlignment="center"
+            android:textColor="#A1000000"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/asc_bttn"
+            app:layout_constraintHorizontal_bias="0.032"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"></Button>
-
-        <Button
-            android:id="@+id/apply_bttn"
-            style="@style/Animation.Design.BottomSheetDialog"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            android:text="ПРИМЕНИТЬ"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"></Button>
 
         <Button
             android:id="@+id/asc_bttn"
             style="@style/Animation.Design.BottomSheetDialog"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="24dp"
+            android:layout_marginEnd="28dp"
+            android:backgroundTint="@color/light_purple"
+            android:fontFamily="@font/roboto_medium"
             android:text="По возрастанию"
+            android:textAlignment="center"
+            android:textColor="#A1000000"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"></Button>
 

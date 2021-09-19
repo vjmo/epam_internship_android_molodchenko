@@ -33,20 +33,17 @@ class MealAdapter() : RecyclerView.Adapter<MealViewHolder>() {
     fun setList(mealItemList: List<ModelMeal>) {
         this.mealItemList.clear()
         this.mealItemList.addAll(mealItemList)
-        Log.d("MealAdapter sett ", "${mealItemList.size}")
         notifyDataSetChanged()
     }
 
-    //sortedby...(1,2 notify set data
+
     fun sortedByAscOrDesc(active: Boolean) {
         if (!active) {
-            mealItemList.sortedBy {it.strMeal }
-            Log.d("MealAdapter sort ", "${mealItemList.size}")//.sortBy { v1 -> v1.strMeal  }//( { v1, v2 -> v1.strMeal > v2.strMeal})
-            notifyDataSetChanged()
+            val newList = mealItemList.sortedBy { it.strMeal }.reversed()
+            setList(newList)
         } else {
-            mealItemList.sortedBy {it.strMeal }.reversed()
-            Log.d("MealAdapter sort ", "${mealItemList.size}")// { v1 -> v1.strMeal }//.sortBy { v1 -> v1.strMeal  }//( { v1, v2 -> v1.strMeal > v2.strMeal})
-            notifyDataSetChanged()
+            val newList = mealItemList.sortedBy { it.strMeal }
+            setList(newList)
         }
 
     }
