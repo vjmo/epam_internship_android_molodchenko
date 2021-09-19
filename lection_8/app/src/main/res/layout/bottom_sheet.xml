@@ -13,8 +13,8 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="30dp"
-        android:background="#FFFFFF">
+        android:layout_height="@dimen/height_30"
+        android:background="@color/white_f">
 
         <TextView
             android:layout_width="wrap_content"
@@ -23,14 +23,14 @@
             android:fontFamily="@font/roboto_medium"
             android:text="@string/filter_txt_view"
             android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-            android:textColor="#A1000000"></TextView>
+            android:textColor="@color/color_txt_filter" />
 
     </RelativeLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="120dp"
-        android:background="#FFFF">
+        android:layout_height="@dimen/height_120dp"
+        android:background="@color/white_f">
 
         <TextView
             android:id="@+id/textView2"
@@ -39,12 +39,12 @@
             android:layout_centerInParent="true"
             android:text="@string/sort_by_alpha"
             android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-            android:textColor="#A1000000"
+            android:textColor="@color/color_txt_filter"
             app:layout_constraintBottom_toTopOf="@+id/asc_bttn"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.106"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"></TextView>
+            app:layout_constraintTop_toTopOf="parent" />
 
 
         <Button
@@ -52,32 +52,32 @@
             style="@style/Animation.Design.BottomSheetDialog"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
+            android:layout_marginStart="@dimen/margin_start_bttn_filtter"
             android:backgroundTint="@color/light_purple"
             android:fontFamily="@font/roboto_medium"
-            android:text="По убыванию"
+            android:text="@string/sort_by_desc"
             android:textAlignment="center"
-            android:textColor="#A1000000"
+            android:textColor="@color/color_txt_filter"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/asc_bttn"
             app:layout_constraintHorizontal_bias="0.032"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"></Button>
+            app:layout_constraintTop_toTopOf="parent" />
 
         <Button
             android:id="@+id/asc_bttn"
             style="@style/Animation.Design.BottomSheetDialog"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="28dp"
+            android:layout_marginEnd="@dimen/margin_end_filter"
             android:backgroundTint="@color/light_purple"
             android:fontFamily="@font/roboto_medium"
-            android:text="По возрастанию"
+            android:text="@string/sort_by_asc"
             android:textAlignment="center"
-            android:textColor="#A1000000"
+            android:textColor="@color/color_txt_filter"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"></Button>
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </LinearLayout>
