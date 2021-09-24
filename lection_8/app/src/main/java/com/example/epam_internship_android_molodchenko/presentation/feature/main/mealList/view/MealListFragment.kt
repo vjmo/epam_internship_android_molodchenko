@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.epam_internship_android_molodchenko.*
 import com.example.epam_internship_android_molodchenko.data.database.model.ModelCategory
 import com.example.epam_internship_android_molodchenko.data.network.RetrofitInstance
-import com.example.epam_internship_android_molodchenko.models.ModelMeal
+import com.example.epam_internship_android_molodchenko.data.model.meal.ModelMeal
 import com.example.epam_internship_android_molodchenko.data.repository.CategoryRepositoryImpl
 import com.example.epam_internship_android_molodchenko.data.repository.MealsRepositoryImpl
 import com.example.epam_internship_android_molodchenko.presentation.feature.main.mealDetails.view.MealDetailsFragment

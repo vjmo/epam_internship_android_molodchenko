@@ -1,11 +1,10 @@
 package com.example.epam_internship_android_molodchenko.data.network
 
 
-import com.example.epam_internship_android_molodchenko.models.ModelCategoryList
-import com.example.epam_internship_android_molodchenko.models.ModelMealDetailsList
-import com.example.epam_internship_android_molodchenko.models.ModelMealList
+import com.example.epam_internship_android_molodchenko.data.model.meal.ModelCategoryList
+import com.example.epam_internship_android_molodchenko.data.model.mealDetails.ModelMealDetailsList
+import com.example.epam_internship_android_molodchenko.data.model.meal.ModelMealList
 import io.reactivex.Single
-import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Query
 

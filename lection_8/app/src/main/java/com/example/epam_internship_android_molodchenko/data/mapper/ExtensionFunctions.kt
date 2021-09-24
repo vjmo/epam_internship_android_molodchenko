@@ -1,6 +1,6 @@
 package com.example.epam_internship_android_molodchenko.exten_fun
 
-import com.example.epam_internship_android_molodchenko.models.ModelMealDetails
+import com.example.epam_internship_android_molodchenko.data.model.mealDetails.ModelMealDetails
 import com.example.epam_internship_android_molodchenko.presentation.model.MealDetailsUIModel
 import java.util.*
 

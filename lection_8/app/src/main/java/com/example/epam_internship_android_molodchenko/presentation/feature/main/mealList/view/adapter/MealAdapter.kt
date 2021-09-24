@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.epam_internship_android_molodchenko.R
-import com.example.epam_internship_android_molodchenko.models.ModelMeal
+import com.example.epam_internship_android_molodchenko.data.model.meal.ModelMeal
 import com.example.epam_internship_android_molodchenko.presentation.feature.main.mealList.view.clickListener.OnItemClickListenerMeal
 
 class MealAdapter() : RecyclerView.Adapter<MealViewHolder>() {
