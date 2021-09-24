@@ -12,4 +12,7 @@
     <color name="btn_meat_casserole">#F5F2FC</color>
     <color name="ingred">#777777</color>
     <color name="pink">#FF7070</color>
+    <color name="light_purple">#CBC3E3</color>
+    <color name="white_f">#FFFFFF</color>
+    <color name="color_txt_filter">#A1000000</color>
 </resources>

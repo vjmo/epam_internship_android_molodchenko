@@ -3,11 +3,9 @@ package com.example.epam_internship_android_molodchenko.adapters
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.epam_internship_android_molodchenko.OnItemClickListenerCategory
 import com.example.epam_internship_android_molodchenko.OnItemClickListenerMeal
 import com.example.epam_internship_android_molodchenko.R
 import com.example.epam_internship_android_molodchenko.models.ModelMeal
-import com.example.epam_internship_android_molodchenko.uimodel.MealUIModel
 
 class MealAdapter() : RecyclerView.Adapter<MealViewHolder>() {
 
@@ -17,6 +15,7 @@ class MealAdapter() : RecyclerView.Adapter<MealViewHolder>() {
         override fun onItemClick(meal: ModelMeal) {
         }
     }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MealViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_list, parent, false)
         return MealViewHolder(view)
@@ -29,9 +28,21 @@ class MealAdapter() : RecyclerView.Adapter<MealViewHolder>() {
 
     override fun getItemCount(): Int = mealItemList.size
 
-    fun setList(mealItemList: MutableList<ModelMeal>) {
+    fun setList(mealItemList: List<ModelMeal>) {
         this.mealItemList.clear()
         this.mealItemList.addAll(mealItemList)
         notifyDataSetChanged()
+    }
+
+
+    fun sortedByAscOrDesc(active: Boolean) {
+        if (!active) {
+            val newList = mealItemList.sortedBy { it.strMeal }.reversed()
+            setList(newList)
+        } else {
+            val newList = mealItemList.sortedBy { it.strMeal }
+            setList(newList)
+        }
+
     }
 }

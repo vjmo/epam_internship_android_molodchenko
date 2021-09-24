@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/bottomSheet"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:textAlignment="center"
+    app:behavior_hideable="false"
+    app:behavior_peekHeight="64dp"
+    app:layout_behavior="com.google.material.bottomsheet.BottomSheetBehavior">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/height_30"
+        android:background="@color/white_f">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:fontFamily="@font/roboto_medium"
+            android:text="@string/filter_txt_view"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+            android:textColor="@color/color_txt_filter" />
+
+    </RelativeLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/height_120dp"
+        android:background="@color/white_f">
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="@string/sort_by_alpha"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+            android:textColor="@color/color_txt_filter"
+            app:layout_constraintBottom_toTopOf="@+id/asc_bttn"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.106"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <Button
+            android:id="@+id/desc_bttn"
+            style="@style/Animation.Design.BottomSheetDialog"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_start_bttn_filtter"
+            android:backgroundTint="@color/light_purple"
+            android:fontFamily="@font/roboto_medium"
+            android:text="@string/sort_by_desc"
+            android:textAlignment="center"
+            android:textColor="@color/color_txt_filter"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/asc_bttn"
+            app:layout_constraintHorizontal_bias="0.032"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/asc_bttn"
+            style="@style/Animation.Design.BottomSheetDialog"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/margin_end_filter"
+            android:backgroundTint="@color/light_purple"
+            android:fontFamily="@font/roboto_medium"
+            android:text="@string/sort_by_asc"
+            android:textAlignment="center"
+            android:textColor="@color/color_txt_filter"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

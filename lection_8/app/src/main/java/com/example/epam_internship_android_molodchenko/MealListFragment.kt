@@ -7,6 +7,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -16,7 +17,6 @@ import com.example.epam_internship_android_molodchenko.models.ModelCategory
 import com.example.epam_internship_android_molodchenko.models.ModelMeal
 import com.example.epam_internship_android_molodchenko.repository.CategoryRepositoryImpl
 import com.example.epam_internship_android_molodchenko.repository.MealsRepositoryImpl
-import io.reactivex.Flowable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
@@ -24,15 +24,16 @@ import java.util.*
 
 class MealListFragment : Fragment() {
 
-    private val sharedPreferences: SharedPreferences? by lazy {
-        context?.getSharedPreferences(
+    private val toolbarList: Toolbar? by lazy { view?.findViewById(R.id.toolbar_list) }
+
+    private val sharedPreferences: SharedPreferences by lazy {
+        requireContext().getSharedPreferences(
             "settings_prefs",
             Context.MODE_PRIVATE
         )
     }
-
-    private val compositeDisposable = CompositeDisposable()
-
+        //конструктор
+    private val compositeDisposable = CompositeDisposable()//экземляр
     private val categoryRepository by lazy {
         CategoryRepositoryImpl(
             RetrofitInstance.mealApi,
@@ -40,7 +41,7 @@ class MealListFragment : Fragment() {
         )
     }
     private val mealsRepository by lazy { MealsRepositoryImpl(RetrofitInstance.mealApi) }
-
+// ресайкл и адаптер остаются во фрагменет ( что отвечает за отображение, то и остается)
     private val mealAdapter = MealAdapter()
     private val categoryAdapter = CategoryAdapter()
 
@@ -68,7 +69,7 @@ class MealListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initView()
+        initView(view)
 
         compositeDisposable.add(
             categoryRepository.requestCategories()
@@ -84,11 +85,11 @@ class MealListFragment : Fragment() {
             categoryRepository.observeCategory()
                 .subscribeOn(Schedulers.io())
                 .flatMap { list ->
-                    val lastIndexCategory = sharedPreferences?.getInt("id_category", 0) ?: 0
-                    val category = list[lastIndexCategory]
+                    val lastIndexCategory = sharedPreferences.getInt("id_category", 1)
+                    val category = list[lastIndexCategory-1]
                     return@flatMap mealsRepository.loadMealsData(category.nameCategory)
                         .doOnSuccess {
-                            sharedPreferences?.edit()
+                            sharedPreferences.edit()
                                 ?.putInt("id_category", category.idCategory)
                                 ?.apply()
                         }
@@ -103,14 +104,34 @@ class MealListFragment : Fragment() {
                     it.printStackTrace()
                 })
         )
+
     }
 
-    private fun initView() {
+    private fun initView(view: View) {
         recyclerViewMeal?.adapter = mealAdapter
         recyclerViewCategory?.adapter = categoryAdapter
         recyclerViewMeal?.layoutManager = LinearLayoutManager(context)
         recyclerViewCategory?.layoutManager =
             LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+
+        val fragment = FilterFragment.newInstance()
+
+        toolbarList?.inflateMenu(R.menu.main_menu)
+        toolbarList?.setOnMenuItemClickListener {
+            when (it.itemId) {
+                R.id.filter -> fragment.show(childFragmentManager, null)
+            }
+            return@setOnMenuItemClickListener true
+        }
+
+        // ***** fragment.clicl тут буду вызывать метод адаптера
+        fragment.clickListener = object : OnItemClickListenerFilter {
+            override fun onItemClick(active: Boolean) {
+                mealAdapter.sortedByAscOrDesc(active)
+            }
+        }
+
+//VM
         categoryAdapter.clickListener = object : OnItemClickListenerCategory {
             override fun onItemClick(category: ModelCategory) {
 
@@ -120,14 +141,13 @@ class MealListFragment : Fragment() {
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe({ mealList ->
                             mealAdapter.setList(mealList.meals)
-                            sharedPreferences?.edit()?.putInt("id_category", category.idCategory)
+                            sharedPreferences.edit()?.putInt("id_category", category.idCategory)
                                 ?.apply()
                         },
                             {
                                 it.printStackTrace()
                             })
                 )
-
             }
         }
         mealAdapter.clickListener = clickListenerMeal

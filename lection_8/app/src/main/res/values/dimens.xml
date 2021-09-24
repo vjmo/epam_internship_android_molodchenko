@@ -39,4 +39,8 @@
     <dimen name="layout_marginRight_for_rv_cat">10dp</dimen>
     <dimen name="layout_marginTop_fragment_one">20dp</dimen>
     <dimen name="start_margin">16dp</dimen>
+    <dimen name="height_30">30dp</dimen>
+    <dimen name="height_120dp">120dp</dimen>
+    <dimen name="margin_start_bttn_filtter">24dp</dimen>
+    <dimen name="margin_end_filter">28dp</dimen>
 </resources>

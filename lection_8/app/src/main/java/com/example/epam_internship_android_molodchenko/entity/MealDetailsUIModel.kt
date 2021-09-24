@@ -1,4 +1,4 @@
-package com.example.epam_internship_android_molodchenko.uimodel
+package com.example.epam_internship_android_molodchenko.entity
 
 data class MealDetailsUIModel(
     //val idMealDetails: Int,
