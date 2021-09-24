@@ -33,6 +33,7 @@ fun ModelMealDetails.toMealDetailsUIModel(): MealDetailsUIModel {
     val ingredientsMapResult = trimMarginIng.replace('=', ' ', false)
 
     return MealDetailsUIModel(
+        idMealDetails = idMeal,
         nameMealDetails = strMeal,
         area = strArea.uppercase(Locale.getDefault()),
         ingredients = ingredientsMapResult,
