@@ -30,9 +30,11 @@ class FilterFragment : BottomSheetDialogFragment() {
         // здесь вызываю метод Кликлистнер по нажатию на кнопку , при этом сделать метод , который будет сеттить кликлистнер
         buttonSortDesc.setOnClickListener {
             clickListener?.onItemClick(false)
+            dismiss()
         }
         buttonSortAsc.setOnClickListener {
             clickListener?.onItemClick(true)
+            dismiss()
         }
 
     }

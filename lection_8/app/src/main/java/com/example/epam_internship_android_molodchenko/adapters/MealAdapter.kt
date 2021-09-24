@@ -1,13 +1,11 @@
 package com.example.epam_internship_android_molodchenko.adapters
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.epam_internship_android_molodchenko.OnItemClickListenerMeal
 import com.example.epam_internship_android_molodchenko.R
 import com.example.epam_internship_android_molodchenko.models.ModelMeal
-import com.example.epam_internship_android_molodchenko.uimodel.MealUIModel
 
 class MealAdapter() : RecyclerView.Adapter<MealViewHolder>() {
 

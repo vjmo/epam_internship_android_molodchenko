@@ -53,7 +53,7 @@ class MealDetailsFragment : Fragment() {
             LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
 
     }
-
+//перенсти все ф. во VM
     private fun callDetails() = arguments?.getInt(ID)?.let {
         mealsDetailsRepository.loadDetailsData(it)
             .subscribeOn(Schedulers.io())

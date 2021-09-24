@@ -32,8 +32,8 @@ class MealListFragment : Fragment() {
             Context.MODE_PRIVATE
         )
     }
-
-    private val compositeDisposable = CompositeDisposable()
+        //конструктор
+    private val compositeDisposable = CompositeDisposable()//экземляр
     private val categoryRepository by lazy {
         CategoryRepositoryImpl(
             RetrofitInstance.mealApi,
@@ -41,7 +41,7 @@ class MealListFragment : Fragment() {
         )
     }
     private val mealsRepository by lazy { MealsRepositoryImpl(RetrofitInstance.mealApi) }
-
+// ресайкл и адаптер остаются во фрагменет ( что отвечает за отображение, то и остается)
     private val mealAdapter = MealAdapter()
     private val categoryAdapter = CategoryAdapter()
 
@@ -86,7 +86,7 @@ class MealListFragment : Fragment() {
                 .subscribeOn(Schedulers.io())
                 .flatMap { list ->
                     val lastIndexCategory = sharedPreferences.getInt("id_category", 1)
-                    val category = list[lastIndexCategory]
+                    val category = list[lastIndexCategory-1]
                     return@flatMap mealsRepository.loadMealsData(category.nameCategory)
                         .doOnSuccess {
                             sharedPreferences.edit()
@@ -131,7 +131,7 @@ class MealListFragment : Fragment() {
             }
         }
 
-
+//VM
         categoryAdapter.clickListener = object : OnItemClickListenerCategory {
             override fun onItemClick(category: ModelCategory) {
 

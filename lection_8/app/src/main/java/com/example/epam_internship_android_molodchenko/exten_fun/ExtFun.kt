@@ -1,7 +1,7 @@
 package com.example.epam_internship_android_molodchenko.exten_fun
 
 import com.example.epam_internship_android_molodchenko.models.ModelMealDetails
-import com.example.epam_internship_android_molodchenko.uimodel.MealDetailsUIModel
+import com.example.epam_internship_android_molodchenko.entity.MealDetailsUIModel
 import java.util.*
 
 fun ModelMealDetails.toMealDetailsUIModel(): MealDetailsUIModel {
