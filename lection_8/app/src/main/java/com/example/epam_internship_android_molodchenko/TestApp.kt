@@ -2,7 +2,7 @@ package com.example.epam_internship_android_molodchenko
 
 import android.app.Application
 import androidx.room.Room
-import com.example.epam_internship_android_molodchenko.data.AppDatabase
+import com.example.epam_internship_android_molodchenko.data.database.AppDatabase
 
 class TestApp : Application() {
 

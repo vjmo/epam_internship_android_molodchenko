@@ -13,7 +13,7 @@
         android:supportsRtl="true"
         android:name=".TestApp"
         android:theme="@style/Theme.Epaminternshipandroidmolodchenko">
-        <activity android:name="com.example.epam_internship_android_molodchenko.HostMainActivity">
+        <activity android:name="com.example.epam_internship_android_molodchenko.presentation.feature.main.view.HostMainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

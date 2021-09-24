@@ -4,6 +4,6 @@
     android:id="@+id/host_activity"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".HostMainActivity">
+    tools:context=".presentation.feature.main.view.HostMainActivity">
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
