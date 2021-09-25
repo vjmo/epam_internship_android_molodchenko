@@ -105,7 +105,7 @@ class MealListFragment : Fragment() {
                 }
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
-                    showCategories(it.first)
+                    categoryAdapter.setList(it.first)
                     mealAdapter.setList(it.second.mealDtos)
                 }, {
                     it.printStackTrace()
@@ -160,9 +160,6 @@ class MealListFragment : Fragment() {
         mealAdapter.clickListener = clickListenerMeal
     }
 
-
-    private fun showCategories(categoryItemListDb: List<DbModelCategory>) =
-        categoryAdapter.setList(categoryItemListDb)
 
     override fun onDestroy() {
         compositeDisposable.clear()

@@ -6,5 +6,5 @@ import io.reactivex.Single
 
 interface MealsRepository {
 
-    fun loadMealsData(strCategory: String): Single<MealEntity>
+    fun loadMealsData(strCategory: String): Single<ModelMealListDto>
 }

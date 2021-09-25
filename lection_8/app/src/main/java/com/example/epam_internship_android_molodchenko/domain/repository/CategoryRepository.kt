@@ -9,6 +9,6 @@ interface CategoryRepository {
 
     fun requestCategories(): Completable
 
-    fun observeCategory(): Flowable<List<CategoryEntity>>
+    fun observeCategory(): Flowable<List<DbModelCategory>>
 
 }
