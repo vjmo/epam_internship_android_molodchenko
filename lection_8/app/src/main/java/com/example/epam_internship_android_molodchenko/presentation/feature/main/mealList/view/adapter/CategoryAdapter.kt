@@ -5,12 +5,12 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.epam_internship_android_molodchenko.R
-import com.example.epam_internship_android_molodchenko.data.database.model.ModelCategory
+import com.example.epam_internship_android_molodchenko.data.database.model.DbModelCategory
 import com.example.epam_internship_android_molodchenko.presentation.feature.main.mealList.view.clickListener.OnItemClickListenerCategory
 
 class CategoryAdapter() : RecyclerView.Adapter<CategoryViewHolder>() {
 
-    val categoryItemList: MutableList<ModelCategory> = mutableListOf()
+    val categoryItemListDb: MutableList<DbModelCategory> = mutableListOf()
 
     var clickListener: OnItemClickListenerCategory? = null
 
@@ -21,7 +21,7 @@ class CategoryAdapter() : RecyclerView.Adapter<CategoryViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: CategoryViewHolder, position: Int) {
-        holder.bind(categoryItemList[position])
+        holder.bind(categoryItemListDb[position])
 
         val selectPosition: Int = holder.adapterPosition
 
@@ -44,15 +44,15 @@ class CategoryAdapter() : RecyclerView.Adapter<CategoryViewHolder>() {
             }
 
             notifyItemChanged(position)
-            clickListener?.onItemClick(categoryItemList[position])
+            clickListener?.onItemClick(categoryItemListDb[position])
         }
     }
 
-    override fun getItemCount(): Int = categoryItemList.size
+    override fun getItemCount(): Int = categoryItemListDb.size
 
-    fun setList(list: List<ModelCategory>) {
-        this.categoryItemList.clear()
-        this.categoryItemList.addAll(list)
+    fun setList(list: List<DbModelCategory>) {
+        this.categoryItemListDb.clear()
+        this.categoryItemListDb.addAll(list)
         notifyDataSetChanged()
     }
 

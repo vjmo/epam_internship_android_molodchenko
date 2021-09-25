@@ -6,5 +6,6 @@ data class MealDetailsEntity(
     val areaMeal: String,
     val tagMeal: MutableList<String>,
     val ingredientsMeal: String,
-    val youtubeUrlMeal: String
+    val thumbMeal: String,
+    val youtubeUrlMeal: String?
 )

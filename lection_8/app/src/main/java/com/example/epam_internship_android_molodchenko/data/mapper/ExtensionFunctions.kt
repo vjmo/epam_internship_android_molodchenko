@@ -1,10 +1,18 @@
 package com.example.epam_internship_android_molodchenko.exten_fun
 
-import com.example.epam_internship_android_molodchenko.data.model.mealDetails.ModelMealDetails
-import com.example.epam_internship_android_molodchenko.presentation.model.MealDetailsUIModel
+import com.example.epam_internship_android_molodchenko.data.database.model.DbModelCategory
+import com.example.epam_internship_android_molodchenko.data.model.mealDetails.ModelMealDetailsDto
+import com.example.epam_internship_android_molodchenko.domain.entity.CategoryEntity
+import com.example.epam_internship_android_molodchenko.domain.entity.MealDetailsEntity
 import java.util.*
 
-fun ModelMealDetails.toMealDetailsUIModel(): MealDetailsUIModel {
+fun DbModelCategory.toCategoryEntity() =
+    CategoryEntity(idCategory, nameCategory, strCategoryThumb, strCategoryDescription)
+
+fun CategoryEntity.toDbModelCategory() =
+    DbModelCategory(id, titleCategory, imageCategory, descriptionCategory)
+
+fun ModelMealDetailsDto.toMealDetailsEntity(): MealDetailsEntity {
     val ingredientsMapPreview = mapOf(
         strIngredient1 to strMeasure1,
         strIngredient2 to strMeasure2,
@@ -32,14 +40,14 @@ fun ModelMealDetails.toMealDetailsUIModel(): MealDetailsUIModel {
     val trimMarginIng = removeSurroundingIngr.trimMargin(",\n")
     val ingredientsMapResult = trimMarginIng.replace('=', ' ', false)
 
-    return MealDetailsUIModel(
-        idMealDetails = idMeal,
-        nameMealDetails = strMeal,
-        area = strArea.uppercase(Locale.getDefault()),
-        ingredients = ingredientsMapResult,
-        tags = (strTags?.split(",") ?: mutableListOf<String>()) as MutableList<String>,
-        mealThumb = strMealThumb,
-        youtube = strYoutube
+    return MealDetailsEntity(
+        id = idMeal,
+        titleMeal = strMeal,
+        areaMeal = strArea.uppercase(Locale.getDefault()),
+        tagMeal = (strTags?.split(",") ?: mutableListOf<String>()) as MutableList<String>,
+        ingredientsMeal = ingredientsMapResult,
+        thumbMeal = strMealThumb,
+        youtubeUrlMeal = strYoutube
     )
 }
 

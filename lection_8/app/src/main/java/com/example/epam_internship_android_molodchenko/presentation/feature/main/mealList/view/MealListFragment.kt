@@ -12,9 +12,9 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.epam_internship_android_molodchenko.*
-import com.example.epam_internship_android_molodchenko.data.database.model.ModelCategory
+import com.example.epam_internship_android_molodchenko.data.database.model.DbModelCategory
 import com.example.epam_internship_android_molodchenko.data.network.RetrofitInstance
-import com.example.epam_internship_android_molodchenko.data.model.meal.ModelMeal
+import com.example.epam_internship_android_molodchenko.data.model.meal.ModelMealDto
 import com.example.epam_internship_android_molodchenko.data.repository.CategoryRepositoryImpl
 import com.example.epam_internship_android_molodchenko.data.repository.MealsRepositoryImpl
 import com.example.epam_internship_android_molodchenko.presentation.feature.main.mealDetails.view.MealDetailsFragment
@@ -56,10 +56,10 @@ class MealListFragment : Fragment() {
     private val recyclerViewMeal by lazy { view?.findViewById<RecyclerView>(R.id.rv_one) }
 
     private val clickListenerMeal = object : OnItemClickListenerMeal {
-        override fun onItemClick(meal: ModelMeal) {
+        override fun onItemClick(mealDto: ModelMealDto) {
             parentFragmentManager.beginTransaction()
                 .replace(
-                    R.id.host_fragment, MealDetailsFragment.newInstance(meal.idMeal)
+                    R.id.host_fragment, MealDetailsFragment.newInstance(mealDto.idMeal)
                 )
                 .addToBackStack(null)
                 .commit()
@@ -106,7 +106,7 @@ class MealListFragment : Fragment() {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
                     showCategories(it.first)
-                    mealAdapter.setList(it.second.meals)
+                    mealAdapter.setList(it.second.mealDtos)
                 }, {
                     it.printStackTrace()
                 })
@@ -140,15 +140,15 @@ class MealListFragment : Fragment() {
 
 //VM
         categoryAdapter.clickListener = object : OnItemClickListenerCategory {
-            override fun onItemClick(category: ModelCategory) {
+            override fun onItemClick(categoryDb: DbModelCategory) {
 
                 compositeDisposable.add(
-                    mealsRepository.loadMealsData(category.nameCategory)
+                    mealsRepository.loadMealsData(categoryDb.nameCategory)
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe({ mealList ->
-                            mealAdapter.setList(mealList.meals)
-                            sharedPreferences.edit()?.putInt("id_category", category.idCategory)
+                            mealAdapter.setList(mealList.mealDtos)
+                            sharedPreferences.edit()?.putInt("id_category", categoryDb.idCategory)
                                 ?.apply()
                         },
                             {
@@ -161,8 +161,8 @@ class MealListFragment : Fragment() {
     }
 
 
-    private fun showCategories(categoryItemList: List<ModelCategory>) =
-        categoryAdapter.setList(categoryItemList)
+    private fun showCategories(categoryItemListDb: List<DbModelCategory>) =
+        categoryAdapter.setList(categoryItemListDb)
 
     override fun onDestroy() {
         compositeDisposable.clear()
