@@ -6,6 +6,6 @@ import com.example.epam_internship_android_molodchenko.domain.repository.MealsRe
 import io.reactivex.Single
 
 class GetMealListUseCase(private val mealsRepository: MealsRepository) {
-    operator fun invoke(strCategory: String): Single<MealEntity> =
+    operator fun invoke(strCategory: String): Single<List<MealEntity>> =
         mealsRepository.loadMealsData(strCategory)
 }
