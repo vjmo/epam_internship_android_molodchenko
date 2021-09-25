@@ -64,4 +64,6 @@ dependencies {
     //lect16
     implementation 'com.google.android.material:material:1.5.0-alpha03'
     implementation 'androidx.coordinatorlayout:coordinatorlayout:1.1.0'
+    //lect17
+    implementation "androidx.fragment:fragment-ktx:1.3.5"
 }
