@@ -1,16 +1,59 @@
 package com.example.epam_internship_android_molodchenko.exten_fun
 
 import com.example.epam_internship_android_molodchenko.data.database.model.DbModelCategory
+import com.example.epam_internship_android_molodchenko.data.model.meal.ModelCategoryListDto
+import com.example.epam_internship_android_molodchenko.data.model.meal.ModelMealDto
 import com.example.epam_internship_android_molodchenko.data.model.mealDetails.ModelMealDetailsDto
+import com.example.epam_internship_android_molodchenko.data.model.mealDetails.ModelMealDetailsListDto
 import com.example.epam_internship_android_molodchenko.domain.entity.CategoryEntity
 import com.example.epam_internship_android_molodchenko.domain.entity.MealDetailsEntity
+import com.example.epam_internship_android_molodchenko.domain.entity.MealEntity
+import io.reactivex.Single
 import java.util.*
 
 fun DbModelCategory.toCategoryEntity() =
     CategoryEntity(idCategory, nameCategory, strCategoryThumb, strCategoryDescription)
 
+fun List<DbModelCategory>.toCategoryEntity(): List<CategoryEntity> {
+    return map {
+        CategoryEntity(
+            id = it.idCategory,
+            titleCategory = it.nameCategory,
+            imageCategory = it.strCategoryThumb,
+            descriptionCategory = it.strCategoryDescription
+        )
+    }
+}
+
+
+fun List<CategoryEntity>.toDbModelCategory(): List<DbModelCategory> {
+    return map {
+        DbModelCategory(
+            idCategory = it.id,
+            nameCategory = it.titleCategory,
+            strCategoryThumb = it.imageCategory,
+            strCategoryDescription = it.descriptionCategory
+        )
+    }
+}
+
+fun ModelCategoryListDto.toDbModelCategory(): List<DbModelCategory> {
+    return this.categoryDbs.map {
+        DbModelCategory(
+            idCategory = it.idCategory,
+            nameCategory = it.nameCategory,
+            strCategoryThumb = it.strCategoryThumb,
+            strCategoryDescription = it.strCategoryDescription
+        )
+    }
+}
+
 fun CategoryEntity.toDbModelCategory() =
     DbModelCategory(id, titleCategory, imageCategory, descriptionCategory)
+
+fun ModelMealDto.toMealEntity(): MealEntity {
+    return MealEntity(idMeal, strMeal, strMealThumb)
+}
 
 fun ModelMealDetailsDto.toMealDetailsEntity(): MealDetailsEntity {
     val ingredientsMapPreview = mapOf(
@@ -48,6 +91,9 @@ fun ModelMealDetailsDto.toMealDetailsEntity(): MealDetailsEntity {
         ingredientsMeal = ingredientsMapResult,
         thumbMeal = strMealThumb,
         youtubeUrlMeal = strYoutube
+
     )
 }
+
+
 

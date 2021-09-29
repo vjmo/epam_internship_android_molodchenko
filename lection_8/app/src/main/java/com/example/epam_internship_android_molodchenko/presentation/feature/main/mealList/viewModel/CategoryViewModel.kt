@@ -30,8 +30,9 @@ class CategoryViewModel(
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
-                    mutableCategoryUIModel.value = it.map { it.toCategoryUIModel() }
-                }, { it.printStackTrace() })
+                    mutableCategoryUIModel.value = it.toCategoryUIModel()
+                },
+                    { it.printStackTrace() })
         )
     }
 

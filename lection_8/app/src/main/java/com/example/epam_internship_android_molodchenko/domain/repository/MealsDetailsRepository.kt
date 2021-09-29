@@ -7,5 +7,5 @@ import io.reactivex.Single
 
 interface MealsDetailsRepository {
 
-    fun loadDetailsData(idMeal: Int): Single<MealDetailsEntity>
+    fun loadDetailsData(idMeal: Int): Single<List<MealDetailsEntity>>
 }

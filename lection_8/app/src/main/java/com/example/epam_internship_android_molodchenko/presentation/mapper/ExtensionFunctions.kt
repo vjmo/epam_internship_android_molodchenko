@@ -7,11 +7,28 @@ import com.example.epam_internship_android_molodchenko.presentation.model.Catego
 import com.example.epam_internship_android_molodchenko.presentation.model.MealDetailsUIModel
 import com.example.epam_internship_android_molodchenko.presentation.model.MealUIModel
 
-fun CategoryEntity.toCategoryUIModel() =
-    CategoryUIModel(id, titleCategory, imageCategory, descriptionCategory)
+fun List<CategoryEntity>.toCategoryUIModel():
+        List<CategoryUIModel> {
+    return map {
+        CategoryUIModel(
+            id = it.id,
+            title = it.titleCategory,
+            imgCategory = it.imageCategory,
+            description = it.descriptionCategory
+        )
+    }
+}
 
-fun MealEntity.toMealUIModel() =
-    MealUIModel(id, titleMeal, imageMeal)
+fun List<MealEntity>.toMealUIModel():
+        List<MealUIModel> {
+    return map {
+        MealUIModel(
+            id = it.id,
+            title = it.titleMeal,
+            imgMeal = it.imageMeal
+        )
+    }
+}
 
 fun MealDetailsEntity.toMealDetailsUIModel() =
     MealDetailsUIModel(id, titleMeal, areaMeal, tagMeal, ingredientsMeal, thumbMeal, youtubeUrlMeal)

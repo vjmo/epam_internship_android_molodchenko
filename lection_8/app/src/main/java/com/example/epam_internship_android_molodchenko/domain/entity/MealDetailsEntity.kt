@@ -8,4 +8,5 @@ data class MealDetailsEntity(
     val ingredientsMeal: String,
     val thumbMeal: String,
     val youtubeUrlMeal: String?
-)
+) {
+}

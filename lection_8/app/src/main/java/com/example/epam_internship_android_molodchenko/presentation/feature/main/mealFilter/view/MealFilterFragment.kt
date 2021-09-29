@@ -22,7 +22,6 @@ class MealFilterFragment : BottomSheetDialogFragment() {
         return inflater.inflate(R.layout.bottom_sheet, container, false)
     }
 
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         //здесь эти 2 кнопки объявить
@@ -39,8 +38,6 @@ class MealFilterFragment : BottomSheetDialogFragment() {
         }
 
     }
-
-    //метод для сетта клика = присваивани
 
     companion object {
         fun newInstance(): MealFilterFragment = MealFilterFragment()

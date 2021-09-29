@@ -30,6 +30,12 @@ import io.reactivex.schedulers.Schedulers
 import java.util.*
 
 class MealListFragment : Fragment() {
+    // ресайкл и адаптер остаются во фрагменет ( что отвечает за отображение, то и остается)
+    private val mealAdapter = MealAdapter()
+    private val categoryAdapter = CategoryAdapter()
+
+    private val recyclerViewCategory by lazy { view?.findViewById<RecyclerView>(R.id.rv_category) }
+    private val recyclerViewMeal by lazy { view?.findViewById<RecyclerView>(R.id.rv_one) }
 
     private val toolbarList: Toolbar? by lazy { view?.findViewById(R.id.toolbar_list) }
 
@@ -41,19 +47,15 @@ class MealListFragment : Fragment() {
     }
         //конструктор
     private val compositeDisposable = CompositeDisposable()//экземляр
-    private val categoryRepository by lazy {
+  /*  private val categoryRepository by lazy {
         CategoryRepositoryImpl(
             RetrofitInstance.mealApi,
             TestApp.INSTANCE.db
         )
     }
-    private val mealsRepository by lazy { MealsRepositoryImpl(RetrofitInstance.mealApi) }
-// ресайкл и адаптер остаются во фрагменет ( что отвечает за отображение, то и остается)
-    private val mealAdapter = MealAdapter()
-    private val categoryAdapter = CategoryAdapter()
+    private val mealsRepository by lazy { MealsRepositoryImpl(RetrofitInstance.mealApi) }*/
 
-    private val recyclerViewCategory by lazy { view?.findViewById<RecyclerView>(R.id.rv_category) }
-    private val recyclerViewMeal by lazy { view?.findViewById<RecyclerView>(R.id.rv_one) }
+
 
     private val clickListenerMeal = object : OnItemClickListenerMeal {
         override fun onItemClick(mealDto: ModelMealDto) {
@@ -78,7 +80,8 @@ class MealListFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         initView(view)
 
-        compositeDisposable.add(
+// я думаю, что это дублирование, посиди пока так
+        /*compositeDisposable.add(
             categoryRepository.requestCategories()
                 .subscribeOn(Schedulers.io())
                 .subscribe({
@@ -86,8 +89,10 @@ class MealListFragment : Fragment() {
                 }, {
                     it.printStackTrace()
                 })
-        )
+        )*/
 
+
+        //выношу в VM
         compositeDisposable.add(
             categoryRepository.observeCategory()
                 .subscribeOn(Schedulers.io())
