@@ -15,7 +15,7 @@ class MealDetailsViewModel(private val mealDetailsUseCase: GetMealDetailsUseCase
     private val mutableMealDetailsUIModel: MutableLiveData<List<MealDetailsUIModel>> =
         MutableLiveData()
 
-    val mealUIModel: LiveData<List<MealDetailsUIModel>>
+    val mealDetailsUIModel: LiveData<List<MealDetailsUIModel>>
         get() = mutableMealDetailsUIModel
 
     private val compositeDisposable = CompositeDisposable()
@@ -23,13 +23,10 @@ class MealDetailsViewModel(private val mealDetailsUseCase: GetMealDetailsUseCase
     fun startReceivingMealDetails(idMeal: Int) {
         compositeDisposable.add(
             mealDetailsUseCase.invoke(idMeal)
-                .map { mealDetailsEntity ->
-                    mealDetailsEntity.toMealDetailsUIModel()
-                }
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
-                    mutableMealDetailsUIModel.value = listOf(it) //Я НЕ ЗНАЮ НАСЧЕТ ЛИСТ ОФ
+                    mutableMealDetailsUIModel.value = it.toMealDetailsUIModel()
                 }, { it.printStackTrace() })
         )
     }

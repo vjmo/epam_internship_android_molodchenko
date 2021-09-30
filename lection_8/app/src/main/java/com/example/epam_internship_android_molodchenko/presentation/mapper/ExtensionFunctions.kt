@@ -30,5 +30,20 @@ fun List<MealEntity>.toMealUIModel():
     }
 }
 
+fun List<MealDetailsEntity>.toMealDetailsUIModel():
+        List<MealDetailsUIModel> {
+    return map {
+        MealDetailsUIModel(
+            idMealDetails = it.id,
+            nameMealDetails = it.titleMeal,
+            area = it.areaMeal,
+            tags = it.tagMeal,
+            ingredients = it.ingredientsMeal,
+            mealThumb = it.thumbMeal,
+            youtube = it.youtubeUrlMeal
+        )
+    }
+}
+
 fun MealDetailsEntity.toMealDetailsUIModel() =
     MealDetailsUIModel(id, titleMeal, areaMeal, tagMeal, ingredientsMeal, thumbMeal, youtubeUrlMeal)
