@@ -54,13 +54,10 @@ class MealDetailsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-
         recyclerViewMealDetails?.adapter = mealDetailsAdapter
         recyclerViewMealDetails?.layoutManager =
             LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-
-
+        initView()
     }
 
 

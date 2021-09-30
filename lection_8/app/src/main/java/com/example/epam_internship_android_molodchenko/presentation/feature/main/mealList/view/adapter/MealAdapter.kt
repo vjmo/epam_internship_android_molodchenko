@@ -6,13 +6,14 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.epam_internship_android_molodchenko.R
 import com.example.epam_internship_android_molodchenko.data.model.meal.ModelMealDto
 import com.example.epam_internship_android_molodchenko.presentation.feature.main.mealList.view.clickListener.OnItemClickListenerMeal
+import com.example.epam_internship_android_molodchenko.presentation.model.MealUIModel
 
 class MealAdapter() : RecyclerView.Adapter<MealViewHolder>() {
 
-    private val mealDtoItemList: MutableList<ModelMealDto> = mutableListOf()
+    private val mealItemListUI: MutableList<MealUIModel> = mutableListOf()
 
     var clickListener: OnItemClickListenerMeal = object : OnItemClickListenerMeal {
-        override fun onItemClick(mealDto: ModelMealDto) {
+        override fun onItemClick(mealUIModel: MealUIModel) {
         }
     }
 
@@ -22,25 +23,25 @@ class MealAdapter() : RecyclerView.Adapter<MealViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: MealViewHolder, position: Int) {
-        holder.bind(mealDtoItemList[position], clickListener)
-        holder.title.text = mealDtoItemList[position].strMeal
+        holder.bind(mealItemListUI[position], clickListener)
+        holder.title.text = mealItemListUI[position].title
     }
 
-    override fun getItemCount(): Int = mealDtoItemList.size
+    override fun getItemCount(): Int = mealItemListUI.size
 
-    fun setList(mealDtoItemList: List<ModelMealDto>) {
-        this.mealDtoItemList.clear()
-        this.mealDtoItemList.addAll(mealDtoItemList)
+    fun setList(list: List<MealUIModel>) {
+        this.mealItemListUI.clear()
+        this.mealItemListUI.addAll(list)
         notifyDataSetChanged()
     }
 
 
     fun sortedByAscOrDesc(active: Boolean) {
         if (!active) {
-            val newList = mealDtoItemList.sortedBy { it.strMeal }.reversed()
+            val newList = mealItemListUI.sortedBy { it.title }.reversed()
             setList(newList)
         } else {
-            val newList = mealDtoItemList.sortedBy { it.strMeal }
+            val newList = mealItemListUI.sortedBy { it.title }
             setList(newList)
         }
 

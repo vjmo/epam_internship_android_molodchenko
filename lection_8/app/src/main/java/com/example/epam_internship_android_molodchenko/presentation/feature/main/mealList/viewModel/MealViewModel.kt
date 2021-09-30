@@ -35,39 +35,6 @@ class MealViewModel(private val mealUseCase: GetMealListUseCase) : ViewModel() {
         )
     }
 
-    private val sharedPreferences: SharedPreferences by lazy {
-        context.getSharedPreferences(
-            "settings_prefs",
-            Context.MODE_PRIVATE
-        )
-    }
-
-    private fun indexCC(){
-        compositeDisposable.add(
-            mealUseCase.invoke(strCategory = ).observeOn(Schedulers.io())
-                .subscribeOn(Schedulers.io())
-                .flatMap { list ->
-                    val lastIndexCategory = sharedPreferences.getInt("id_category", 1)
-                    val category = list[lastIndexCategory-1]
-                    return@flatMap mealUseCase.invoke(category.nameCategory)
-                        .doOnSuccess {
-                            sharedPreferences.edit()
-                                ?.putInt("id_category", category.idCategory)
-                                ?.apply()
-                        }
-                        .map { Pair(list, it) }
-                        .toFlowable()
-                }
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({
-                    categoryAdapter.setList(it.first)
-                    mealAdapter.setList(it.second.mealDtos)
-                }, {
-                    it.printStackTrace()
-                })
-        )
-    }
-
     override fun onCleared() {
         compositeDisposable.dispose()
         super.onCleared()

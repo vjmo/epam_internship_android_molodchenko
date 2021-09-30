@@ -8,6 +8,7 @@ import com.bumptech.glide.Glide
 import com.example.epam_internship_android_molodchenko.R
 
 import com.example.epam_internship_android_molodchenko.data.database.model.DbModelCategory
+import com.example.epam_internship_android_molodchenko.presentation.model.CategoryUIModel
 
 class CategoryViewHolder(view: View) :
     RecyclerView.ViewHolder(view) {
@@ -15,7 +16,7 @@ class CategoryViewHolder(view: View) :
     internal var cardCategory: CardView = view.findViewById(R.id.cardCategory)
     internal val imageCategory: ImageView = view.findViewById(R.id.imgCategory)
 
-    fun bind(categoryDb: DbModelCategory) {
-        Glide.with(itemView.context).load(categoryDb.strCategoryThumb).into(imageCategory)
+    fun bind(categoryUI: CategoryUIModel) {
+        Glide.with(itemView.context).load(categoryUI.imgCategory).into(imageCategory)
     }
 }
