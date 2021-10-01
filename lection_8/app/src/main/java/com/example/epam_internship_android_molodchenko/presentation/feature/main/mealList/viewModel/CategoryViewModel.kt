@@ -1,6 +1,9 @@
 package com.example.epam_internship_android_molodchenko.presentation.feature.main.mealList.viewModel
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.util.Log
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -14,7 +17,8 @@ import io.reactivex.schedulers.Schedulers
 
 class CategoryViewModel(
     private val categoryUseCase: GetCategoryUseCase,
-    private val categoryRequestUseCase: RequestCategoryUseCase
+    private val categoryRequestUseCase: RequestCategoryUseCase,
+    private val sharedPreferences: SharedPreferences
 ) : ViewModel() {
 
     private val mutableCategoryUIModel: MutableLiveData<List<CategoryUIModel>> = MutableLiveData()
@@ -31,6 +35,11 @@ class CategoryViewModel(
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
                     mutableCategoryUIModel.value = it.toCategoryUIModel()
+                    val getIndexCategory = sharedPreferences.getInt("id_category", 1)
+                    val lastCategory = it[getIndexCategory-1]
+                    sharedPreferences.edit()
+                        ?.putInt("id_category", lastCategory.id)
+                        ?.apply()
                 },
                     { it.printStackTrace() })
         )

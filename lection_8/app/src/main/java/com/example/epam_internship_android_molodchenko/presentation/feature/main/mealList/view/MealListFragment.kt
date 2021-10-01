@@ -45,7 +45,7 @@ class MealListFragment : Fragment() {
                 MealsRepositoryImpl(
                     (RetrofitInstance.mealApi)
                 )
-            )
+            ), sharedPreferences
         )
     }
 
@@ -60,10 +60,15 @@ class MealListFragment : Fragment() {
                 CategoryRepositoryImpl(
                     (RetrofitInstance.mealApi), (TestApp.INSTANCE.db)
                 )
-            )
+            ), sharedPreferences
         )
     }
-
+    private val sharedPreferences: SharedPreferences by lazy {
+        requireContext().getSharedPreferences(
+            "settings_prefs",
+            Context.MODE_PRIVATE
+        )
+    }
     private val mealAdapter = MealAdapter()
     private val categoryAdapter = CategoryAdapter()
 
@@ -72,12 +77,7 @@ class MealListFragment : Fragment() {
 
     private val toolbarList: Toolbar? by lazy { viewBinding.toolbarList }
 
-    private val sharedPreferences: SharedPreferences by lazy {
-        requireContext().getSharedPreferences(
-            "settings_prefs",
-            Context.MODE_PRIVATE
-        )
-    }
+
 
     //конструктор
     private val compositeDisposable = CompositeDisposable()//экземляр
@@ -132,18 +132,18 @@ class MealListFragment : Fragment() {
         //выношу в VM
         viewModelCategory.startReceivingCategory()
         viewModelCategory.categoryUIModel.observe(viewLifecycleOwner, {
-            val getIndexCategory = sharedPreferences.getInt("id_category", 1)
-            val lastCategory = it[getIndexCategory - 1]
-
-            viewModelMeal.mealUIModel.observe(viewLifecycleOwner, {
-                viewModelMeal.startReceivingMeal(lastCategory.title)
-                sharedPreferences.edit()
-                    ?.putInt("id_category", lastCategory.id)
-                    ?.apply()
-                mealAdapter.setList(it)
-            })
             categoryAdapter.setList(it)
         })
+        viewModelCategory.startRequestCategory()
+
+        viewModelMeal.mealUIModel.observe(viewLifecycleOwner, {
+           /* viewModelMeal.startReceivingMeal(lastCategory.title)
+            sharedPreferences.edit()
+                ?.putInt("id_category", lastCategory.id)
+                ?.apply()*/
+            mealAdapter.setList(it)
+        })
+
         /*compositeDisposable.add(
             categoryRepository.observeCategory()
                 .subscribeOn(Schedulers.io())
@@ -197,11 +197,9 @@ class MealListFragment : Fragment() {
 //VM
         categoryAdapter.clickListener = object : OnItemClickListenerCategory {
             override fun onItemClick(categoryUI: CategoryUIModel) {
-                viewModelMeal.startReceivingMeal(categoryUI.title)
+                viewModelMeal.startReceivingMeal(categoryUI, categoryUI.title)
                 viewModelMeal.mealUIModel.observe(viewLifecycleOwner, {
                     mealAdapter.setList(it)
-                    sharedPreferences.edit()?.putInt("id_category", categoryUI.id)
-                        ?.apply()
                 })
                 /*compositeDisposable.add(
                     mealsRepository.loadMealsData(categoryDb.nameCategory)
