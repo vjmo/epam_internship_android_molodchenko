@@ -35,7 +35,6 @@ import io.reactivex.disposables.CompositeDisposable
 import java.util.*
 
 class MealListFragment : Fragment() {
-    // ресайкл и адаптер остаются во фрагменет ( что отвечает за отображение, то и остается)
 
     private lateinit var viewBinding: FragmentMealListBinding
 
@@ -63,12 +62,14 @@ class MealListFragment : Fragment() {
             ), sharedPreferences
         )
     }
+
     private val sharedPreferences: SharedPreferences by lazy {
         requireContext().getSharedPreferences(
             "settings_prefs",
             Context.MODE_PRIVATE
         )
     }
+
     private val mealAdapter = MealAdapter()
     private val categoryAdapter = CategoryAdapter()
 
@@ -77,18 +78,7 @@ class MealListFragment : Fragment() {
 
     private val toolbarList: Toolbar? by lazy { viewBinding.toolbarList }
 
-
-
-    //конструктор
     private val compositeDisposable = CompositeDisposable()//экземляр
-    /*  private val categoryRepository by lazy {
-          CategoryRepositoryImpl(
-              RetrofitInstance.mealApi,
-              TestApp.INSTANCE.db
-          )
-      }
-      private val mealsRepository by lazy { MealsRepositoryImpl(RetrofitInstance.mealApi) }*/
-
 
     private val clickListenerMeal = object : OnItemClickListenerMeal {
         override fun onItemClick(mealUI: MealUIModel) {
@@ -106,30 +96,14 @@ class MealListFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
         viewBinding = FragmentMealListBinding.inflate(inflater, container, false)
-        //  return inflater.inflate(R.layout.fragment_meal_details, container, false)
         return viewBinding.root
-        // return inflater.inflate(R.layout.fragment_meal_list, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initView(view)
 
-// я думаю, что это дублирование, посиди пока так
-        /*compositeDisposable.add(
-            categoryRepository.requestCategories()
-                .subscribeOn(Schedulers.io())
-                .subscribe({
-                    Log.d("MealListFragment", "Success")
-                }, {
-                    it.printStackTrace()
-                })
-        )*/
-
-
-        //выношу в VM
         viewModelCategory.startReceivingCategory()
         viewModelCategory.categoryUIModel.observe(viewLifecycleOwner, {
             categoryAdapter.setList(it)
@@ -137,37 +111,8 @@ class MealListFragment : Fragment() {
         viewModelCategory.startRequestCategory()
 
         viewModelMeal.mealUIModel.observe(viewLifecycleOwner, {
-           /* viewModelMeal.startReceivingMeal(lastCategory.title)
-            sharedPreferences.edit()
-                ?.putInt("id_category", lastCategory.id)
-                ?.apply()*/
             mealAdapter.setList(it)
         })
-
-        /*compositeDisposable.add(
-            categoryRepository.observeCategory()
-                .subscribeOn(Schedulers.io())
-                .flatMap { list ->
-                    val lastIndexCategory = sharedPreferences.getInt("id_category", 1)
-                    val category = list[lastIndexCategory - 1]
-                    return@flatMap mealsRepository.loadMealsData(category.nameCategory)
-                        .doOnSuccess {
-                            sharedPreferences.edit()
-                                ?.putInt("id_category", category.idCategory)
-                                ?.apply()
-                        }
-                        .map { Pair(list, it) }
-                        .toFlowable()
-                }
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({
-                    categoryAdapter.setList(it.first)
-                    mealAdapter.setList(it.second.mealDtos)
-                }, {
-                    it.printStackTrace()
-                })
-        )
-        */
     }
 
     private fun initView(view: View) {
@@ -194,26 +139,12 @@ class MealListFragment : Fragment() {
             }
         }
 
-//VM
         categoryAdapter.clickListener = object : OnItemClickListenerCategory {
             override fun onItemClick(categoryUI: CategoryUIModel) {
                 viewModelMeal.startReceivingMeal(categoryUI, categoryUI.title)
                 viewModelMeal.mealUIModel.observe(viewLifecycleOwner, {
                     mealAdapter.setList(it)
                 })
-                /*compositeDisposable.add(
-                    mealsRepository.loadMealsData(categoryDb.nameCategory)
-                        .subscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe({ mealList ->
-                            mealAdapter.setList(mealList.mealDtos)
-                            sharedPreferences.edit()?.putInt("id_category", categoryDb.idCategory)
-                                ?.apply()
-                        },
-                            {
-                                it.printStackTrace()
-                            })
-                )*/
             }
         }
         mealAdapter.clickListener = clickListenerMeal

@@ -6,4 +6,3 @@ import com.example.epam_internship_android_molodchenko.presentation.model.Catego
 interface OnItemClickListenerCategory {
     fun onItemClick(categoryUI: CategoryUIModel)
 }
-// создать клик, булево знач(параметры), а  ретерн - юнит
