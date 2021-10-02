@@ -2,6 +2,8 @@ package com.example.epam_internship_android_molodchenko.presentation.feature.mai
 
 import android.content.Context
 import android.content.SharedPreferences
+import android.util.Log
+import android.widget.Toast
 import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -18,7 +20,7 @@ import java.security.Provider
 
 class MealViewModel(
     private val mealUseCase: GetMealListUseCase,
-    private val sharedPreferences: SharedPreferences) : ViewModel() {
+    private val sharedPreferences: SharedPreferences, private val context: Context) : ViewModel() {
 
     private val mutableMealUIModel: MutableLiveData<List<MealUIModel>> = MutableLiveData()
 
@@ -32,13 +34,15 @@ class MealViewModel(
             mealUseCase.invoke(strCategory)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({
-                    mutableMealUIModel.value = it.toMealUIModel()//Я НЕ ЗНАЮ НАСЧЕТ ЛИСТ ОФ
+                .subscribe({model->
+                    mutableMealUIModel.value = model.toMealUIModel()
                     sharedPreferences.edit()
                         ?.putInt("id_category", categoryUIModel.id)
                         ?.apply()
-
-                }, { it.printStackTrace() })
+                    Toast.makeText(context, "Размер списка: ${mealUIModel.value?.size}", Toast.LENGTH_LONG)
+                    Log.d("MealViewModel", "${mealUIModel.value?.size}")
+                }, {Toast.makeText(context, "Размер списка: ${mealUIModel.value?.size}", Toast.LENGTH_LONG)
+                    it.printStackTrace()})
         )
     }
 

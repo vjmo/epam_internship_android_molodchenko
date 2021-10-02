@@ -11,16 +11,6 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 class MealFilterFragment : BottomSheetDialogFragment() {
 
     private lateinit var viewBinding: BottomSheetBinding
-/*
-    private val viewModel: MealViewModel by viewModels {
-        MealViewModelFactory(
-            GetMealListUseCase(
-                MealsRepositoryImpl(
-                    (RetrofitInstance.mealApi)
-                )
-            )
-        )
-    }*/
 
     var clickListener: OnItemClickListenerFilter? = null
 

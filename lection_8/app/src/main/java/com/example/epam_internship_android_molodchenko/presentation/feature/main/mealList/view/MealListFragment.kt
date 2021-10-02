@@ -3,9 +3,11 @@ package com.example.epam_internship_android_molodchenko.presentation.feature.mai
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -44,7 +46,7 @@ class MealListFragment : Fragment() {
                 MealsRepositoryImpl(
                     (RetrofitInstance.mealApi)
                 )
-            ), sharedPreferences
+            ), sharedPreferences, requireContext()
         )
     }
 
@@ -112,6 +114,8 @@ class MealListFragment : Fragment() {
 
         viewModelMeal.mealUIModel.observe(viewLifecycleOwner, {
             mealAdapter.setList(it)
+            Toast.makeText(requireContext(), "Размер списка: ${mealAdapter.itemCount}", Toast.LENGTH_LONG)
+            Log.d("MealList", "${mealAdapter.itemCount}")
         })
     }
 
@@ -144,6 +148,8 @@ class MealListFragment : Fragment() {
                 viewModelMeal.startReceivingMeal(categoryUI, categoryUI.title)
                 viewModelMeal.mealUIModel.observe(viewLifecycleOwner, {
                     mealAdapter.setList(it)
+                    Toast.makeText(requireContext(), "Размер списка: ${mealAdapter.itemCount}", Toast.LENGTH_LONG)
+                    Log.d("MealList", "${mealAdapter.itemCount}")
                 })
             }
         }
