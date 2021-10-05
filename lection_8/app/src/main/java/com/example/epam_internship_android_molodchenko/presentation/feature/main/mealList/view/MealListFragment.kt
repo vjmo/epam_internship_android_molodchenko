@@ -7,7 +7,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -27,8 +26,6 @@ import com.example.epam_internship_android_molodchenko.presentation.feature.main
 import com.example.epam_internship_android_molodchenko.presentation.feature.main.mealList.view.adapter.MealAdapter
 import com.example.epam_internship_android_molodchenko.presentation.feature.main.mealList.view.clickListener.OnItemClickListenerCategory
 import com.example.epam_internship_android_molodchenko.presentation.feature.main.mealList.view.clickListener.OnItemClickListenerMeal
-import com.example.epam_internship_android_molodchenko.presentation.feature.main.mealList.viewModel.CategoryViewModel
-import com.example.epam_internship_android_molodchenko.presentation.feature.main.mealList.viewModel.CategoryViewModelFactory
 import com.example.epam_internship_android_molodchenko.presentation.feature.main.mealList.viewModel.MealViewModel
 import com.example.epam_internship_android_molodchenko.presentation.feature.main.mealList.viewModel.MealViewModelFactory
 import com.example.epam_internship_android_molodchenko.presentation.model.CategoryUIModel
@@ -40,37 +37,33 @@ class MealListFragment : Fragment() {
 
     private lateinit var viewBinding: FragmentMealListBinding
 
-    private val viewModelMeal: MealViewModel by viewModels {
-        MealViewModelFactory(
-            GetMealListUseCase(
-                MealsRepositoryImpl(
-                    (RetrofitInstance.mealApi)
-                )
-            ), sharedPreferences, requireContext()
-        )
-    }
-
-    private val viewModelCategory: CategoryViewModel by viewModels {
-        CategoryViewModelFactory(
-            GetCategoryUseCase(
-                CategoryRepositoryImpl(
-                    (RetrofitInstance.mealApi), (TestApp.INSTANCE.db)
-                )
-            ),
-            RequestCategoryUseCase(
-                CategoryRepositoryImpl(
-                    (RetrofitInstance.mealApi), (TestApp.INSTANCE.db)
-                )
-            ), sharedPreferences
-        )
-    }
-
     private val sharedPreferences: SharedPreferences by lazy {
         requireContext().getSharedPreferences(
             "settings_prefs",
             Context.MODE_PRIVATE
         )
     }
+
+    private val viewModelMeal: MealViewModel by viewModels {
+        MealViewModelFactory(
+            GetMealListUseCase(
+                MealsRepositoryImpl(
+                    RetrofitInstance.mealApi
+                )
+            ), GetCategoryUseCase(
+                CategoryRepositoryImpl(
+                    RetrofitInstance.mealApi, TestApp.INSTANCE.db, sharedPreferences
+                )
+            ),
+            RequestCategoryUseCase(
+                CategoryRepositoryImpl(
+                    RetrofitInstance.mealApi, TestApp.INSTANCE.db, sharedPreferences
+                )
+            )
+        )
+    }
+
+    private val fragment = MealFilterFragment.newInstance()
 
     private val mealAdapter = MealAdapter()
     private val categoryAdapter = CategoryAdapter()
@@ -80,7 +73,7 @@ class MealListFragment : Fragment() {
 
     private val toolbarList: Toolbar? by lazy { viewBinding.toolbarList }
 
-    private val compositeDisposable = CompositeDisposable()//экземляр
+    private val compositeDisposable = CompositeDisposable()
 
     private val clickListenerMeal = object : OnItemClickListenerMeal {
         override fun onItemClick(mealUI: MealUIModel) {
@@ -104,30 +97,24 @@ class MealListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initView(view)
 
-        viewModelCategory.startReceivingCategory()
-        viewModelCategory.categoryUIModel.observe(viewLifecycleOwner, {
+        initView()
+
+        viewModelMeal.start()
+        viewModelMeal.categoryUIModel.observe(viewLifecycleOwner, {
             categoryAdapter.setList(it)
         })
-        viewModelCategory.startRequestCategory()
-
         viewModelMeal.mealUIModel.observe(viewLifecycleOwner, {
             mealAdapter.setList(it)
-            Toast.makeText(requireContext(), "Размер списка: ${mealAdapter.itemCount}", Toast.LENGTH_LONG)
-            Log.d("MealList", "${mealAdapter.itemCount}")
         })
     }
 
-    private fun initView(view: View) {
+    private fun initView() {
 
         recyclerViewMeal.adapter = mealAdapter
         recyclerViewCategory.adapter = categoryAdapter
         recyclerViewMeal.layoutManager = LinearLayoutManager(context)
-        recyclerViewCategory.layoutManager =
-            LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-
-        val fragment = MealFilterFragment.newInstance()
+        recyclerViewCategory.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
 
         toolbarList?.inflateMenu(R.menu.main_menu)
         toolbarList?.setOnMenuItemClickListener {
@@ -145,12 +132,8 @@ class MealListFragment : Fragment() {
 
         categoryAdapter.clickListener = object : OnItemClickListenerCategory {
             override fun onItemClick(categoryUI: CategoryUIModel) {
-                viewModelMeal.startReceivingMeal(categoryUI, categoryUI.title)
-                viewModelMeal.mealUIModel.observe(viewLifecycleOwner, {
-                    mealAdapter.setList(it)
-                    Toast.makeText(requireContext(), "Размер списка: ${mealAdapter.itemCount}", Toast.LENGTH_LONG)
-                    Log.d("MealList", "${mealAdapter.itemCount}")
-                })
+                viewModelMeal.startReceivingMeal(categoryUI.title)
+
             }
         }
         mealAdapter.clickListener = clickListenerMeal

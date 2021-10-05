@@ -9,7 +9,7 @@ import retrofit2.http.GET
 import retrofit2.http.Query
 
 interface MealApi {
-    @GET("categoryDbs.php")
+    @GET("categories.php")
     fun getCategories(): Single<ModelCategoryListDto>
 
     @GET("filter.php")
