@@ -12,7 +12,7 @@ import io.reactivex.Flowable
 class CategoryRepositoryImpl(
     private val api: MealApi,
     private val db: AppDatabase,
-    private val sharedPreferences: SharedPreferences
+    private val sp: SharedPreferences
 ) : CategoryRepository {
 
     override fun observeCategory(): Flowable<List<CategoryEntity>> =
@@ -23,17 +23,18 @@ class CategoryRepositoryImpl(
     override fun requestCategories(): Completable =
         api.getCategories()
             .doOnSuccess {
-                if (!sharedPreferences.contains(KEY_CATEGORY) && it.categoryDbs.isNotEmpty())
-                    sharedPreferences
+                if (!sp.contains(KEY_CATEGORY) && it.categoryDbs.isNotEmpty()) {
+                    sp
                         .edit()
                         .putInt(KEY_CATEGORY, it.categoryDbs.first().idCategory)
                         .apply()
+                }
             }
             .flatMapCompletable {
                 db.getCategoryDao().insertCategoryDatabase(it.categoryDbs)
             }
 
     companion object {
-      private const val KEY_CATEGORY = "id_category"
+        const val KEY_CATEGORY = "id_category"
     }
 }

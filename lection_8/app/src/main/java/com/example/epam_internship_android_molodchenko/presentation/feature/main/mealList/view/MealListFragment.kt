@@ -1,13 +1,12 @@
 package com.example.epam_internship_android_molodchenko.presentation.feature.main.mealList.view
 
-import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.Toolbar
+import androidx.core.view.get
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -37,12 +36,7 @@ class MealListFragment : Fragment() {
 
     private lateinit var viewBinding: FragmentMealListBinding
 
-    private val sharedPreferences: SharedPreferences by lazy {
-        requireContext().getSharedPreferences(
-            "settings_prefs",
-            Context.MODE_PRIVATE
-        )
-    }
+    private val sharedPreferences: SharedPreferences by lazy { TestApp.INSTANCE.sp }
 
     private val viewModelMeal: MealViewModel by viewModels {
         MealViewModelFactory(
@@ -114,7 +108,8 @@ class MealListFragment : Fragment() {
         recyclerViewMeal.adapter = mealAdapter
         recyclerViewCategory.adapter = categoryAdapter
         recyclerViewMeal.layoutManager = LinearLayoutManager(context)
-        recyclerViewCategory.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+        recyclerViewCategory.layoutManager =
+            LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
 
         toolbarList?.inflateMenu(R.menu.main_menu)
         toolbarList?.setOnMenuItemClickListener {
@@ -133,12 +128,10 @@ class MealListFragment : Fragment() {
         categoryAdapter.clickListener = object : OnItemClickListenerCategory {
             override fun onItemClick(categoryUI: CategoryUIModel) {
                 viewModelMeal.startReceivingMeal(categoryUI.title)
-
             }
         }
         mealAdapter.clickListener = clickListenerMeal
     }
-
 
     override fun onDestroy() {
         compositeDisposable.clear()

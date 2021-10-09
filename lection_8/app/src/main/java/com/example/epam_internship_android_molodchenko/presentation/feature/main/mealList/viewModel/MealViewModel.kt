@@ -64,12 +64,9 @@ class MealViewModel(
             categoryRequestUseCase.invoke()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({
-
-                }, { it.printStackTrace() })
+                .subscribe({}, { it.printStackTrace() })
         )
     }
-
 
 
     override fun onCleared() {
