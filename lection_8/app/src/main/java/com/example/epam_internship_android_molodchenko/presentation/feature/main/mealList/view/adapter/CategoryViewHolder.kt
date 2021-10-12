@@ -7,7 +7,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.epam_internship_android_molodchenko.R
 
-import com.example.epam_internship_android_molodchenko.data.database.model.DbModelCategory
 import com.example.epam_internship_android_molodchenko.presentation.model.CategoryUIModel
 
 class CategoryViewHolder(view: View) :

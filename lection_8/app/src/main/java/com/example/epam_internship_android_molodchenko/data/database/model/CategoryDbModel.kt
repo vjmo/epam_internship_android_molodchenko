@@ -6,7 +6,7 @@ import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 
 @Entity(tableName = "category_data")
-data class DbModelCategory(
+data class CategoryDbModel(
     @PrimaryKey
     @ColumnInfo(name = "id")
     @SerializedName("idCategory")

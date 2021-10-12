@@ -1,20 +1,18 @@
 package com.example.epam_internship_android_molodchenko.exten_fun
 
-import com.example.epam_internship_android_molodchenko.data.database.model.DbModelCategory
-import com.example.epam_internship_android_molodchenko.data.model.meal.ModelCategoryListDto
-import com.example.epam_internship_android_molodchenko.data.model.meal.ModelMealDto
-import com.example.epam_internship_android_molodchenko.data.model.mealDetails.ModelMealDetailsDto
-import com.example.epam_internship_android_molodchenko.data.model.mealDetails.ModelMealDetailsListDto
+import com.example.epam_internship_android_molodchenko.data.database.model.CategoryDbModel
+import com.example.epam_internship_android_molodchenko.data.model.meal.CategoryListDto
+import com.example.epam_internship_android_molodchenko.data.model.meal.MealDto
+import com.example.epam_internship_android_molodchenko.data.model.mealDetails.MealDetailsDto
 import com.example.epam_internship_android_molodchenko.domain.entity.CategoryEntity
 import com.example.epam_internship_android_molodchenko.domain.entity.MealDetailsEntity
 import com.example.epam_internship_android_molodchenko.domain.entity.MealEntity
-import io.reactivex.Single
 import java.util.*
 
-fun DbModelCategory.toCategoryEntity() =
+fun CategoryDbModel.toCategoryEntity() =
     CategoryEntity(idCategory, nameCategory, strCategoryThumb, strCategoryDescription)
 
-fun List<DbModelCategory>.toCategoryEntity(): List<CategoryEntity> {
+fun List<CategoryDbModel>.toCategoryEntity(): List<CategoryEntity> {
     return map {
         CategoryEntity(
             id = it.idCategory,
@@ -26,9 +24,9 @@ fun List<DbModelCategory>.toCategoryEntity(): List<CategoryEntity> {
 }
 
 
-fun List<CategoryEntity>.toDbModelCategory(): List<DbModelCategory> {
+fun List<CategoryEntity>.toDbModelCategory(): List<CategoryDbModel> {
     return map {
-        DbModelCategory(
+        CategoryDbModel(
             idCategory = it.id,
             nameCategory = it.titleCategory,
             strCategoryThumb = it.imageCategory,
@@ -37,9 +35,9 @@ fun List<CategoryEntity>.toDbModelCategory(): List<DbModelCategory> {
     }
 }
 
-fun ModelCategoryListDto.toDbModelCategory(): List<DbModelCategory> {
+fun CategoryListDto.toDbModelCategory(): List<CategoryDbModel> {
     return this.categoryDbs.map {
-        DbModelCategory(
+        CategoryDbModel(
             idCategory = it.idCategory,
             nameCategory = it.nameCategory,
             strCategoryThumb = it.strCategoryThumb,
@@ -49,13 +47,13 @@ fun ModelCategoryListDto.toDbModelCategory(): List<DbModelCategory> {
 }
 
 fun CategoryEntity.toDbModelCategory() =
-    DbModelCategory(id, titleCategory, imageCategory, descriptionCategory)
+    CategoryDbModel(id, titleCategory, imageCategory, descriptionCategory)
 
-fun ModelMealDto.toMealEntity(): MealEntity {
+fun MealDto.toMealEntity(): MealEntity {
     return MealEntity(idMeal, strMeal, strMealThumb)
 }
 
-fun ModelMealDetailsDto.toMealDetailsEntity(): MealDetailsEntity {
+fun MealDetailsDto.toMealDetailsEntity(): MealDetailsEntity {
     val ingredientsMapPreview = mapOf(
         strIngredient1 to strMeasure1,
         strIngredient2 to strMeasure2,

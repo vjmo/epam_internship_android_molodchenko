@@ -36,8 +36,6 @@ class MealDetailsFragment : Fragment() {
 
     private val compositeDisposable = CompositeDisposable()
 
-    //private val mealsDetailsRepository by lazy { MealsDetailsRepositoryImpl(RetrofitInstance.mealApi) }
-
     private val mealDetailsAdapter = MealDetailsAdapter()
 
     private val recyclerViewMealDetails by lazy { view?.findViewById<RecyclerView>(R.id.rv_tags) }
@@ -48,7 +46,6 @@ class MealDetailsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         viewBinding = FragmentMealDetailsBinding.inflate(inflater, container, false)
-        //  return inflater.inflate(R.layout.fragment_meal_details, container, false)
         return viewBinding.root
     }
 
@@ -75,32 +72,6 @@ class MealDetailsFragment : Fragment() {
             mealDetailsAdapter.setList(it.first().tags)
         })
     }
-
-    //перенсти все ф. во VM
-    /*private fun callDetails() = arguments?.getInt(ID)?.let {
-        mealsDetailsRepository.loadDetailsData(it)
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .map { it..first().toMealDetailsEntity() }
-            .subscribe({ /*mealDetails ->
-                val nameDetailsTextView = view?.findViewById<TextView>(R.id.name)
-                val areaDetailsTextView = view?.findViewById<TextView>(R.id.area)
-                val ingridientsDetailsTextView = view?.findViewById<TextView>(R.id.ingridients)
-
-                nameDetailsTextView?.text = mealDetails.titleMeal
-                areaDetailsTextView?.text = mealDetails?.areaMeal
-                ingridientsDetailsTextView?.text = mealDetails?.ingredientsMeal
-
-                Glide.with(view?.context).load(mealDetails.thumbMeal)
-                    .into(view?.findViewById(R.id.details_img_id))
-
-                mealDetailsAdapter.setList(mealDetails.tagMeal)*/
-            },
-                {
-                    Log.e("MealDetails", "Error")
-                    it.printStackTrace()
-                })
-    }?.let { compositeDisposable.add(it) }*/
 
     companion object {
         private const val ID = "ID"

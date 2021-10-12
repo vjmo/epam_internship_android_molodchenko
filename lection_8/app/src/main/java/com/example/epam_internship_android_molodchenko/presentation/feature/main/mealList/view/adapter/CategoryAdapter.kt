@@ -5,7 +5,6 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.epam_internship_android_molodchenko.R
-import com.example.epam_internship_android_molodchenko.data.database.model.DbModelCategory
 import com.example.epam_internship_android_molodchenko.presentation.feature.main.mealList.view.clickListener.OnItemClickListenerCategory
 import com.example.epam_internship_android_molodchenko.presentation.model.CategoryUIModel
 

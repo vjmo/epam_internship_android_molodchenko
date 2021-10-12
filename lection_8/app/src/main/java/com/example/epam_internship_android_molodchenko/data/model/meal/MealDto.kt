@@ -2,7 +2,7 @@ package com.example.epam_internship_android_molodchenko.data.model.meal
 
 import com.google.gson.annotations.SerializedName
 
-data class ModelMealDto(
+data class MealDto(
     @SerializedName("idMeal")
     val idMeal: Int,
     @SerializedName("strMeal")
