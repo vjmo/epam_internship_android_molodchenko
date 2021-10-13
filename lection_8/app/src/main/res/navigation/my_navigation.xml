@@ -15,6 +15,9 @@
             app:destination="@id/mealDetailsFragment"
             app:enterAnim="@android:anim/fade_in"
             app:exitAnim="@android:anim/fade_out"/>
+        <argument
+            android:name="mealId"
+            app:argType="integer" />
 
 
     </fragment>

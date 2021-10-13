@@ -10,6 +10,7 @@ import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.Navigation
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.epam_internship_android_molodchenko.*
 import com.example.epam_internship_android_molodchenko.data.network.RetrofitInstance
@@ -72,7 +73,7 @@ class MealListFragment : Fragment() {
     private val clickListenerMeal = object : OnItemClickListenerMeal {
          override fun onItemClick(mealUI: MealUIModel) {
              view?.setOnClickListener {
-                 Navigation.findNavController(view!!).navigate(
+                 findNavController().navigate(
                      R.id.action_mealListFragment_to_mealDetailsFragment,
                      bundleOf(ID to mealUI.id)
                  )

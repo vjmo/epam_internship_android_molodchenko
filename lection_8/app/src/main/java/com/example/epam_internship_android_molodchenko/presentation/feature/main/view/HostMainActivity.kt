@@ -11,11 +11,11 @@ class HostMainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_host_main)
-      val navHostFragment = supportFragmentManager.findFragmentById(R.id.host_activity) as NavHostFragment
+    /*  val navHostFragment = supportFragmentManager.findFragmentById(R.id.host_activity) as NavHostFragment
         val navController = navHostFragment.navController
         /*fragmentManager
             .beginTransaction()
             .replace(R.id.host_activity, HostFragment.newInstance())
-            .commit()*/
+            .commit()*/*/
     }
 }
