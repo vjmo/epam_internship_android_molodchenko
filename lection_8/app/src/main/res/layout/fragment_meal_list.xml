@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MealListFragment"
+    tools:context=".presentation.feature.main.mealList.view.MealListFragment"
     tools:ignore="ExtraText">
 
     <androidx.appcompat.widget.Toolbar
@@ -41,7 +41,7 @@
         app:layout_constraintTop_toBottomOf="@id/rv_category">
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_one"
+            android:id="@+id/rv_meal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
