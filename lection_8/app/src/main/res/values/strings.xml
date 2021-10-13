@@ -20,6 +20,7 @@
 <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="filter">Filter</string>
+    <string name="back">Back</string>
     <string name="filter_txt_view">Фильтр</string>
     <string name="sort_by_alpha">Сортировка по алфавиту</string>
     <string name="sort_by_asc">По возрастанию</string>

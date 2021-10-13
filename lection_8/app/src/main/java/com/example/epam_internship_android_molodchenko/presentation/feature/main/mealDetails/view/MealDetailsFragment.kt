@@ -4,9 +4,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.widget.Toolbar
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -40,6 +42,8 @@ class MealDetailsFragment : Fragment() {
 
     private val recyclerViewMealDetails by lazy { view?.findViewById<RecyclerView>(R.id.rv_tags) }
 
+    private val toolbarDetails: Toolbar? by lazy { viewBinding.toolbarDetails }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -59,6 +63,15 @@ class MealDetailsFragment : Fragment() {
 
 
     private fun initView() {
+
+        toolbarDetails?.inflateMenu(R.menu.details_menu)
+        toolbarDetails?.setOnMenuItemClickListener {
+            when (it.itemId) {
+                R.id.back -> findNavController().navigate(R.id.action_mealDetailsFragment_to_mealListFragment)//fragment.show(childFragmentManager, null)
+            }
+            return@setOnMenuItemClickListener true
+        }
+
         requireArguments().getInt(ID).let { viewModel.startReceivingMealDetails(it) }
         viewModel.mealDetailsUIModel.observe(viewLifecycleOwner, {
 

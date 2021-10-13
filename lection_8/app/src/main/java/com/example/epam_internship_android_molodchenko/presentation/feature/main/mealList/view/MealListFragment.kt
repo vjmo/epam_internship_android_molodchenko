@@ -6,9 +6,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.Toolbar
-import androidx.core.view.get
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.epam_internship_android_molodchenko.*
 import com.example.epam_internship_android_molodchenko.data.network.RetrofitInstance
@@ -18,7 +19,6 @@ import com.example.epam_internship_android_molodchenko.databinding.FragmentMealL
 import com.example.epam_internship_android_molodchenko.domain.useCase.GetCategoryUseCase
 import com.example.epam_internship_android_molodchenko.domain.useCase.GetMealListUseCase
 import com.example.epam_internship_android_molodchenko.domain.useCase.RequestCategoryUseCase
-import com.example.epam_internship_android_molodchenko.presentation.feature.main.mealDetails.view.MealDetailsFragment
 import com.example.epam_internship_android_molodchenko.presentation.feature.main.mealFilter.view.MealFilterFragment
 import com.example.epam_internship_android_molodchenko.presentation.feature.main.mealFilter.view.clickListener.OnItemClickListenerFilter
 import com.example.epam_internship_android_molodchenko.presentation.feature.main.mealList.view.adapter.CategoryAdapter
@@ -70,15 +70,21 @@ class MealListFragment : Fragment() {
     private val compositeDisposable = CompositeDisposable()
 
     private val clickListenerMeal = object : OnItemClickListenerMeal {
-        override fun onItemClick(mealUI: MealUIModel) {
-            parentFragmentManager.beginTransaction()
-                .replace(
-                    R.id.host_fragment, MealDetailsFragment.newInstance(mealUI.id)
-                )
-                .addToBackStack(null)
-                .commit()
-        }
-    }
+         override fun onItemClick(mealUI: MealUIModel) {
+             view?.setOnClickListener {
+                 Navigation.findNavController(view!!).navigate(
+                     R.id.action_mealListFragment_to_mealDetailsFragment,
+                     bundleOf(ID to mealUI.id)
+                 )
+             }
+             /*parentFragmentManager.beginTransaction()
+                 .replace(
+                     R.id.host_fragment, MealDetailsFragment.newInstance(mealUI.id)
+                 )
+                 .addToBackStack(null)
+                 .commit()*/
+         }
+     }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -101,6 +107,7 @@ class MealListFragment : Fragment() {
         viewModelMeal.mealUIModel.observe(viewLifecycleOwner, {
             mealAdapter.setList(it)
         })
+
     }
 
     private fun initView() {
@@ -139,6 +146,7 @@ class MealListFragment : Fragment() {
     }
 
     companion object {
+        private const val ID = "ID"
         fun newInstance(): MealListFragment = MealListFragment()
     }
 }
