@@ -19,10 +19,10 @@ class HostFragment : Fragment((R.layout.fragment_host)) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-       /* parentFragmentManager
+        parentFragmentManager
             .beginTransaction()
             .replace(R.id.host_fragment, MealListFragment.newInstance())
-            .commit()*/
+            .commit()
     }
 
     companion object {
