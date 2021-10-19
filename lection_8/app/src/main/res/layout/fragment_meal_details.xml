@@ -6,6 +6,15 @@
     android:layout_height="match_parent"
     tools:context=".presentation.feature.main.mealDetails.view.MealDetailsFragment">
 
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar_details"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/Widget.AppCompat.Light.ActionBar.Solid"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
