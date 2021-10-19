@@ -20,7 +20,7 @@ class MealFilterFragment : BottomSheetDialogFragment() {
         savedInstanceState: Bundle?
     ): View? {
         viewBinding = BottomSheetBinding.inflate(inflater, container, false)
-        return viewBinding.root//inflater.inflate(R.layout.bottom_sheet, container, false)
+        return viewBinding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

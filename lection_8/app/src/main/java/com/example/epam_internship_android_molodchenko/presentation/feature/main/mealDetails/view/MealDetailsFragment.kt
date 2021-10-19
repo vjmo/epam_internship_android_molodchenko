@@ -68,9 +68,7 @@ class MealDetailsFragment : Fragment() {
         toolbarDetails?.inflateMenu(R.menu.details_menu)
         toolbarDetails?.setOnMenuItemClickListener {
             when (it.itemId) {
-                R.id.back -> fragment.show(childFragmentManager, null)
-              //  findNavController().navigate(R.id.action_mealDetailsFragment_to_mealListFragment)
-
+                R.id.back -> findNavController().popBackStack()
             }
             return@setOnMenuItemClickListener true
         }

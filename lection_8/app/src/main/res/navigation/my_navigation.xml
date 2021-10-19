@@ -15,24 +15,22 @@
             app:destination="@id/mealDetailsFragment"
             app:enterAnim="@android:anim/fade_in"
             app:exitAnim="@android:anim/fade_out"/>
+
         <argument
             android:name="mealId"
             app:argType="integer" />
 
 
     </fragment>
-
     <fragment
         android:id="@+id/mealDetailsFragment"
         android:name="com.example.epam_internship_android_molodchenko.presentation.feature.main.mealDetails.view.MealDetailsFragment"
         android:label="fragment_meal_details"
-        tools:layout="@layout/fragment_meal_details">
-
+        tools:layout="@layout/fragment_meal_details" >
         <action
             android:id="@+id/action_mealDetailsFragment_to_mealListFragment"
-            app:destination="@id/mealListFragment"
-            app:enterAnim="@android:anim/fade_in"
-            app:exitAnim="@android:anim/fade_out"/>
-
+            app:destination="@id/mealListFragment" />
     </fragment>
+
+
 </navigation>
