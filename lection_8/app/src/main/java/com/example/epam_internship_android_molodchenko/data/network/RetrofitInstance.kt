@@ -6,7 +6,7 @@ import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 
-
+//удалить , через модуль
 object RetrofitInstance {
 
     private const val BASE_URL = "https://www.themealdb.com/api/json/v1/1/"

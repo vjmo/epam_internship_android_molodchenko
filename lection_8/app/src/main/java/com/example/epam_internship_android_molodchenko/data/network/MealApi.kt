@@ -7,6 +7,7 @@ import com.example.epam_internship_android_molodchenko.data.model.meal.MealListD
 import io.reactivex.Single
 import retrofit2.http.GET
 import retrofit2.http.Query
+import javax.inject.Inject
 
 interface MealApi {
     @GET("categories.php")
@@ -18,3 +19,4 @@ interface MealApi {
     @GET("lookup.php")
     fun getDetails(@Query("i") idMeal: Int): Single<MealDetailsListDto>
 }
+//у меня здесь интерфейс, а не класс

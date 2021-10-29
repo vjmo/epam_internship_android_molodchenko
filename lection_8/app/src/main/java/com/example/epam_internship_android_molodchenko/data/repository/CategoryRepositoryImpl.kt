@@ -8,8 +8,9 @@ import com.example.epam_internship_android_molodchenko.domain.repository.Categor
 import com.example.epam_internship_android_molodchenko.exten_fun.toCategoryEntity
 import io.reactivex.Completable
 import io.reactivex.Flowable
+import javax.inject.Inject
 
-class CategoryRepositoryImpl(
+class CategoryRepositoryImpl @Inject constructor(
     private val api: MealApi,
     private val db: AppDatabase,
     private val sp: SharedPreferences

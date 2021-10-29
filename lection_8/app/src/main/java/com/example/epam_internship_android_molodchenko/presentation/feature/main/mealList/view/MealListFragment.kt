@@ -16,6 +16,7 @@ import com.example.epam_internship_android_molodchenko.data.network.RetrofitInst
 import com.example.epam_internship_android_molodchenko.data.repository.CategoryRepositoryImpl
 import com.example.epam_internship_android_molodchenko.data.repository.MealsRepositoryImpl
 import com.example.epam_internship_android_molodchenko.databinding.FragmentMealListBinding
+import com.example.epam_internship_android_molodchenko.di.component.App
 import com.example.epam_internship_android_molodchenko.domain.useCase.GetCategoryUseCase
 import com.example.epam_internship_android_molodchenko.domain.useCase.GetMealListUseCase
 import com.example.epam_internship_android_molodchenko.domain.useCase.RequestCategoryUseCase
@@ -36,7 +37,7 @@ class MealListFragment : Fragment() {
 
     private lateinit var viewBinding: FragmentMealListBinding
 
-    private val sharedPreferences: SharedPreferences by lazy { TestApp.INSTANCE.sp }
+    private val sharedPreferences: SharedPreferences by lazy { App.INSTANCE.sp }
 
     private val viewModelMeal: MealViewModel by viewModels {
         MealViewModelFactory(
@@ -46,12 +47,12 @@ class MealListFragment : Fragment() {
                 )
             ), GetCategoryUseCase(
                 CategoryRepositoryImpl(
-                    RetrofitInstance.mealApi, TestApp.INSTANCE.db, sharedPreferences
+                    RetrofitInstance.mealApi, App.INSTANCE.db, sharedPreferences
                 )
             ),
             RequestCategoryUseCase(
                 CategoryRepositoryImpl(
-                    RetrofitInstance.mealApi, TestApp.INSTANCE.db, sharedPreferences
+                    RetrofitInstance.mealApi, App.INSTANCE.db, sharedPreferences
                 )
             )
         )
