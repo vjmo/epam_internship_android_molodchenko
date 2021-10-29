@@ -30,7 +30,7 @@ class App : Application() {
     companion object {
         lateinit var INSTANCE: App
 
-        private const val DB_NAME = "meal"
+        internal const val DB_NAME = "meal"
         private const val SH_NAME = "settings_prefs"
     }
 

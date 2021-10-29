@@ -9,12 +9,12 @@ import retrofit2.converter.gson.GsonConverterFactory
 //удалить , через модуль
 object RetrofitInstance {
 
-    private const val BASE_URL = "https://www.themealdb.com/api/json/v1/1/"
+    internal const val BASE_URL = "https://www.themealdb.com/api/json/v1/1/"
 
-    private val logging = HttpLoggingInterceptor().apply {
+    internal val logging = HttpLoggingInterceptor().apply {
         setLevel(HttpLoggingInterceptor.Level.BODY)
     }
-    private val client: OkHttpClient = OkHttpClient.Builder()
+    internal val client: OkHttpClient = OkHttpClient.Builder()
         .addInterceptor(logging)
         .build()
 
