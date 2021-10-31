@@ -14,8 +14,6 @@ import javax.inject.Singleton
         BindModule::class,
         DatabaseModule::class,
         MealApiModule::class,
-        RepositoryModule::class,
-        UseCaseModule::class,
         SharedPreferencesModule::class
     ]
 )
