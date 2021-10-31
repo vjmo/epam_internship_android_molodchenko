@@ -9,8 +9,10 @@ import com.example.epam_internship_android_molodchenko.presentation.model.MealDe
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
+import javax.inject.Inject
 
-class MealDetailsViewModel(private val mealDetailsUseCase: GetMealDetailsUseCase) : ViewModel() {
+class MealDetailsViewModel @Inject constructor(private val mealDetailsUseCase: GetMealDetailsUseCase) :
+    ViewModel() {
 
     private val mutableMealDetailsUIModel: MutableLiveData<List<MealDetailsUIModel>> =
         MutableLiveData()

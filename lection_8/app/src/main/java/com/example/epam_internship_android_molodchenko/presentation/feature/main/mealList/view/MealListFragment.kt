@@ -1,6 +1,5 @@
 package com.example.epam_internship_android_molodchenko.presentation.feature.main.mealList.view
 
-import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -12,13 +11,8 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.epam_internship_android_molodchenko.*
-import com.example.epam_internship_android_molodchenko.data.network.RetrofitInstance
-import com.example.epam_internship_android_molodchenko.data.repository.CategoryRepositoryImpl
-import com.example.epam_internship_android_molodchenko.data.repository.MealsRepositoryImpl
 import com.example.epam_internship_android_molodchenko.databinding.FragmentMealListBinding
-import com.example.epam_internship_android_molodchenko.domain.useCase.GetCategoryUseCase
-import com.example.epam_internship_android_molodchenko.domain.useCase.GetMealListUseCase
-import com.example.epam_internship_android_molodchenko.domain.useCase.RequestCategoryUseCase
+import com.example.epam_internship_android_molodchenko.di.component.App
 import com.example.epam_internship_android_molodchenko.presentation.feature.main.mealFilter.view.MealFilterFragment
 import com.example.epam_internship_android_molodchenko.presentation.feature.main.mealFilter.view.clickListener.OnItemClickListenerFilter
 import com.example.epam_internship_android_molodchenko.presentation.feature.main.mealList.view.adapter.CategoryAdapter
@@ -31,30 +25,17 @@ import com.example.epam_internship_android_molodchenko.presentation.model.Catego
 import com.example.epam_internship_android_molodchenko.presentation.model.MealUIModel
 import io.reactivex.disposables.CompositeDisposable
 import java.util.*
+import javax.inject.Inject
 
 class MealListFragment : Fragment() {
 
+    @Inject
+    lateinit var mealViewModelFactory: MealViewModelFactory
+
     private lateinit var viewBinding: FragmentMealListBinding
 
-    private val sharedPreferences: SharedPreferences by lazy { TestApp.INSTANCE.sp }
-
     private val viewModelMeal: MealViewModel by viewModels {
-        MealViewModelFactory(
-            GetMealListUseCase(
-                MealsRepositoryImpl(
-                    RetrofitInstance.mealApi
-                )
-            ), GetCategoryUseCase(
-                CategoryRepositoryImpl(
-                    RetrofitInstance.mealApi, TestApp.INSTANCE.db, sharedPreferences
-                )
-            ),
-            RequestCategoryUseCase(
-                CategoryRepositoryImpl(
-                    RetrofitInstance.mealApi, TestApp.INSTANCE.db, sharedPreferences
-                )
-            )
-        )
+        mealViewModelFactory
     }
 
     private val fragment = MealFilterFragment.newInstance()
@@ -88,6 +69,7 @@ class MealListFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        App.INSTANCE.component.inject(this)
         super.onViewCreated(view, savedInstanceState)
         initView()
         viewModelMeal.start()

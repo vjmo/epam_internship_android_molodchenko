@@ -3,8 +3,9 @@ package com.example.epam_internship_android_molodchenko.presentation.feature.mai
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.epam_internship_android_molodchenko.domain.useCase.GetMealDetailsUseCase
+import javax.inject.Inject
 
-class MealDetailsViewModelFactory(private val mealDetailsUseCase: GetMealDetailsUseCase) :
+class MealDetailsViewModelFactory @Inject constructor(private val mealDetailsUseCase: GetMealDetailsUseCase) :
     ViewModelProvider.Factory {
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         return MealDetailsViewModel(mealDetailsUseCase) as T

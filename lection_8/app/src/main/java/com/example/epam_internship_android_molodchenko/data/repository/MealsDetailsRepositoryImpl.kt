@@ -5,8 +5,10 @@ import com.example.epam_internship_android_molodchenko.domain.entity.MealDetails
 import com.example.epam_internship_android_molodchenko.domain.repository.MealsDetailsRepository
 import com.example.epam_internship_android_molodchenko.exten_fun.toMealDetailsEntity
 import io.reactivex.Single
+import javax.inject.Inject
 
-class MealsDetailsRepositoryImpl(private val api: MealApi) : MealsDetailsRepository {
+class MealsDetailsRepositoryImpl @Inject constructor(private val api: MealApi) :
+    MealsDetailsRepository {
 
     override fun loadDetailsData(idMeal: Int): Single<List<MealDetailsEntity>> =
         api.getDetails(idMeal)

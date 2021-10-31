@@ -13,8 +13,9 @@ import com.example.epam_internship_android_molodchenko.presentation.model.MealUI
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
+import javax.inject.Inject
 
-class MealViewModel(
+class MealViewModel @Inject constructor(
     private val mealUseCase: GetMealListUseCase,
     private val categoryUseCase: GetCategoryUseCase,
     private val categoryRequestUseCase: RequestCategoryUseCase
