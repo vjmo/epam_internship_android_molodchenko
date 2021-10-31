@@ -11,7 +11,7 @@ class MealViewModelFactory @Inject constructor(
     private val mealUseCase: GetMealListUseCase,
     private val categoryUseCase: GetCategoryUseCase,
     private val categoryRequestUseCase: RequestCategoryUseCase,
-) ://inject
+) :
     ViewModelProvider.Factory {
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         return MealViewModel(mealUseCase, categoryUseCase, categoryRequestUseCase) as T

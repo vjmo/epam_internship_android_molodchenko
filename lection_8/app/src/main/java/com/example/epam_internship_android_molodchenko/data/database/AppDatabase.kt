@@ -11,5 +11,5 @@ import com.example.epam_internship_android_molodchenko.data.database.model.Categ
     exportSchema = false
 )
 abstract class AppDatabase : RoomDatabase() {
-    abstract fun getCategoryDao(): CategoryDao// удалить из application
+    abstract fun getCategoryDao(): CategoryDao
 }

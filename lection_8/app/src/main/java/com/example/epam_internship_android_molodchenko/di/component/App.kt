@@ -10,17 +10,6 @@ class App : Application() {
 
     lateinit var component: AppComponent
 
-    val db: AppDatabase by lazy {
-        Room.databaseBuilder(this, AppDatabase::class.java, DB_NAME).build()
-    }
-
-    val sp: SharedPreferences by lazy {
-        this.getSharedPreferences(
-            SH_NAME,
-            Context.MODE_PRIVATE
-        )
-    }
-
     override fun onCreate() {
         super.onCreate()
         component = DaggerAppComponent.factory().create(this)
@@ -31,7 +20,7 @@ class App : Application() {
         lateinit var INSTANCE: App
 
         internal const val DB_NAME = "meal"
-        private const val SH_NAME = "settings_prefs"
+        internal const val SH_NAME = "settings_prefs"
     }
 
 }

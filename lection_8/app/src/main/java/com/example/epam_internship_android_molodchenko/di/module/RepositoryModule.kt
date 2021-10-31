@@ -3,6 +3,7 @@ package com.example.epam_internship_android_molodchenko.di.module
 import android.content.SharedPreferences
 import com.example.epam_internship_android_molodchenko.data.database.AppDatabase
 import com.example.epam_internship_android_molodchenko.data.network.MealApi
+import com.example.epam_internship_android_molodchenko.data.preferences.CategorySharedPreferences
 import com.example.epam_internship_android_molodchenko.data.repository.CategoryRepositoryImpl
 import com.example.epam_internship_android_molodchenko.data.repository.MealsDetailsRepositoryImpl
 import com.example.epam_internship_android_molodchenko.data.repository.MealsRepositoryImpl
@@ -16,7 +17,7 @@ class RepositoryModule {
     fun provideCategoryRepositoryImpl(
         mealApi: MealApi,
         appDatabase: AppDatabase,
-        sharedPreferences: SharedPreferences
+        sharedPreferences: CategorySharedPreferences
     ) =
         CategoryRepositoryImpl(mealApi, appDatabase, sharedPreferences)
 

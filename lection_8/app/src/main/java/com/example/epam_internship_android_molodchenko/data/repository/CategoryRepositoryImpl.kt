@@ -1,8 +1,8 @@
 package com.example.epam_internship_android_molodchenko.data.repository
 
-import android.content.SharedPreferences
 import com.example.epam_internship_android_molodchenko.data.database.AppDatabase
 import com.example.epam_internship_android_molodchenko.data.network.MealApi
+import com.example.epam_internship_android_molodchenko.data.preferences.CategorySharedPreferences
 import com.example.epam_internship_android_molodchenko.domain.entity.CategoryEntity
 import com.example.epam_internship_android_molodchenko.domain.repository.CategoryRepository
 import com.example.epam_internship_android_molodchenko.exten_fun.toCategoryEntity
@@ -13,7 +13,7 @@ import javax.inject.Inject
 class CategoryRepositoryImpl @Inject constructor(
     private val api: MealApi,
     private val db: AppDatabase,
-    private val sp: SharedPreferences
+    private val sp: CategorySharedPreferences
 ) : CategoryRepository {
 
     override fun observeCategory(): Flowable<List<CategoryEntity>> =
@@ -24,18 +24,12 @@ class CategoryRepositoryImpl @Inject constructor(
     override fun requestCategories(): Completable =
         api.getCategories()
             .doOnSuccess {
-                if (!sp.contains(KEY_CATEGORY) && it.categoryDbs.isNotEmpty()) {
-                    sp
-                        .edit()
-                        .putInt(KEY_CATEGORY, it.categoryDbs.first().idCategory)
-                        .apply()
+                if (it.categoryDbs.isNotEmpty()) {
+                    sp.setLastCategory(it.categoryDbs.first().idCategory)
+                    sp.getLastCategory()
                 }
             }
             .flatMapCompletable {
                 db.getCategoryDao().insertCategoryDatabase(it.categoryDbs)
             }
-
-    companion object {
-        const val KEY_CATEGORY = "id_category"
-    }
 }

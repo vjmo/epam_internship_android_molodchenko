@@ -19,4 +19,3 @@ interface MealApi {
     @GET("lookup.php")
     fun getDetails(@Query("i") idMeal: Int): Single<MealDetailsListDto>
 }
-//у меня здесь интерфейс, а не класс
