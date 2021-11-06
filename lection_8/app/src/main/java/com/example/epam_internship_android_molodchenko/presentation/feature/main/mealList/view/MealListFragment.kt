@@ -48,8 +48,6 @@ class MealListFragment : Fragment() {
 
     private val toolbarList: Toolbar? by lazy { viewBinding.toolbarList }
 
-    private val compositeDisposable = CompositeDisposable()
-
     private val clickListenerMeal = object : OnItemClickListenerMeal {
         override fun onItemClick(mealUI: MealUIModel) {
             findNavController().navigate(
@@ -112,7 +110,6 @@ class MealListFragment : Fragment() {
     }
 
     override fun onDestroy() {
-        compositeDisposable.clear()
         super.onDestroy()
     }
 

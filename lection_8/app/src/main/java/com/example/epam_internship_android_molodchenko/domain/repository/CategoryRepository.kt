@@ -4,7 +4,7 @@ import com.example.epam_internship_android_molodchenko.domain.entity.CategoryEnt
 import io.reactivex.Completable
 import io.reactivex.Flowable
 
-interface CategoryRepository {//bind module
+interface CategoryRepository {
 
     fun requestCategories(): Completable
 

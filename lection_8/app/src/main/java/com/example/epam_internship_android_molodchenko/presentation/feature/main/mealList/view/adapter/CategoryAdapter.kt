@@ -1,16 +1,21 @@
 package com.example.epam_internship_android_molodchenko.presentation.feature.main.mealList.view.adapter
 
+import android.content.Context
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.epam_internship_android_molodchenko.R
+import com.example.epam_internship_android_molodchenko.data.preferences.SharedPreferencesProvider
 import com.example.epam_internship_android_molodchenko.presentation.feature.main.mealList.view.clickListener.OnItemClickListenerCategory
 import com.example.epam_internship_android_molodchenko.presentation.model.CategoryUIModel
 
 class CategoryAdapter() : RecyclerView.Adapter<CategoryViewHolder>() {
 
-    val categoryItemListUI: MutableList<CategoryUIModel> = mutableListOf()
+
+    private val categoryItemListUI: MutableList<CategoryUIModel> = mutableListOf()
+
+    private var selectedItemPosition: Int = 0
 
     var clickListener: OnItemClickListenerCategory? = null
 
@@ -23,37 +28,47 @@ class CategoryAdapter() : RecyclerView.Adapter<CategoryViewHolder>() {
     override fun onBindViewHolder(holder: CategoryViewHolder, position: Int) {
         holder.bind(categoryItemListUI[position])
 
-        val selectPosition: Int = holder.adapterPosition
-
-        holder.cardCategory.isSelected = !holder.cardCategory.isSelected
-        holder.cardCategory.setOnClickListener {
-            if (selectPosition == position) {
-                holder.cardCategory.setCardBackgroundColor(
-                    ContextCompat.getColor(
-                        holder.itemView.context,
-                        R.color.pink
-                    )
+        fun saveColorCurrentCard() {
+            val preferences = SharedPreferencesProvider(
+                holder.itemView.context.getSharedPreferences(
+                    "MyPreferences",
+                    Context.MODE_PRIVATE
                 )
-            } else {
-                holder.cardCategory.setCardBackgroundColor(
-                    ContextCompat.getColor(
-                        holder.itemView.context,
-                        R.color.btn_meat_casserole
-                    )
-                )
-            }
+            )
 
-            notifyItemChanged(position)
-            clickListener?.onItemClick(categoryItemListUI[position])
+                //preferences.saveStr(KEY_CATEGORY, holder.cardCategory.cardBackgroundColor.toString())
+            //preferences.str(KEY_CATEGORY, holder.cardCategory.cardBackgroundColor.toString())
         }
+
+        if (selectedItemPosition == holder.adapterPosition) {
+            holder.cardCategory.setBackgroundColor(Color.parseColor("#FF7070"))
+            saveColorCurrentCard()
+
+        } else {
+            holder.cardCategory.setBackgroundColor(Color.parseColor("#F5F2FC"))
+            saveColorCurrentCard()
+        }
+
+        holder.itemView.setOnClickListener {
+            selectedItemPosition = holder.adapterPosition
+            clickListener?.onItemClick(categoryItemListUI[position])
+            saveColorCurrentCard()
+            notifyDataSetChanged()
+        }
+
     }
 
     override fun getItemCount(): Int = categoryItemListUI.size
+
 
     fun setList(list: List<CategoryUIModel>) {
         this.categoryItemListUI.clear()
         this.categoryItemListUI.addAll(list)
         notifyDataSetChanged()
+    }
+
+    companion object {
+        const val KEY_CATEGORY = "idCategory"
     }
 
 }

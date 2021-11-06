@@ -3,6 +3,8 @@ package com.example.epam_internship_android_molodchenko.presentation.feature.mai
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.epam_internship_android_molodchenko.data.preferences.SharedPreferencesProvider
+import com.example.epam_internship_android_molodchenko.data.repository.MealsRepositoryImpl
 import com.example.epam_internship_android_molodchenko.domain.useCase.GetCategoryUseCase
 import com.example.epam_internship_android_molodchenko.domain.useCase.GetMealListUseCase
 import com.example.epam_internship_android_molodchenko.domain.useCase.RequestCategoryUseCase
@@ -18,7 +20,8 @@ import javax.inject.Inject
 class MealViewModel @Inject constructor(
     private val mealUseCase: GetMealListUseCase,
     private val categoryUseCase: GetCategoryUseCase,
-    private val categoryRequestUseCase: RequestCategoryUseCase
+    private val categoryRequestUseCase: RequestCategoryUseCase,
+    private val sp: SharedPreferencesProvider
 ) : ViewModel() {
 
     private val mutableMealUIModel: MutableLiveData<List<MealUIModel>> = MutableLiveData()
@@ -44,6 +47,10 @@ class MealViewModel @Inject constructor(
     }
 
     fun start() {
+        val category = sp.str(MealsRepositoryImpl.KEY_CATEGORY, null)
+        if(category != null){
+            startReceivingMeal(category)
+        }
         observeCategory()
         requestCategory()
     }

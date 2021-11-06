@@ -1,4 +1,5 @@
-package com.example.epam_internship_android_molodchenko.exten_fun
+
+package com.example.epam_internship_android_molodchenko.data.mapper
 
 import com.example.epam_internship_android_molodchenko.data.database.model.CategoryDbModel
 import com.example.epam_internship_android_molodchenko.data.model.meal.CategoryListDto

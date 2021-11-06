@@ -1,20 +1,31 @@
 package com.example.epam_internship_android_molodchenko.data.preferences
 
+import android.content.Context
 import android.content.SharedPreferences
 import javax.inject.Inject
 
-class SharedPreferencesProvider @Inject constructor(private val sp: SharedPreferences) {
+class SharedPreferencesProvider @Inject constructor(private val sp: SharedPreferences) :
+    IntSharedPreferences, StringSharedPreferences {
 
-    fun setInt(lastIndex: Int){
+    override fun saveInt(key: String, value: Int) {
         sp
             .edit()
-            .putInt(KEY_CATEGORY, lastIndex)
+            .putInt(key, value)
             .apply()
     }
 
-    fun getInt(): Int = sp.getInt(KEY_CATEGORY, 0)
+    override fun int(key: String, default: Int): Int {
+        return sp.getInt(key, default)
+    }
 
-    companion object {
-        const val KEY_CATEGORY = "id_category"
+    override fun saveStr(key: String, value: String?) {
+        sp
+            .edit()
+            .putString(key, value)
+            .apply()
+    }
+
+    override fun str(key: String, default: String?): String? {
+        return sp.getString(key, default) ?: default
     }
 }
