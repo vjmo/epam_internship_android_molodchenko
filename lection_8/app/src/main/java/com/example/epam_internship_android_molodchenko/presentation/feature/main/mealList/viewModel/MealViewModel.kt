@@ -26,6 +26,7 @@ class MealViewModel @Inject constructor(
 
     private val mutableMealUIModel: MutableLiveData<List<MealUIModel>> = MutableLiveData()
     private val mutableCategoryUIModel: MutableLiveData<List<CategoryUIModel>> = MutableLiveData()
+    private val mutableTitleCategory: MutableLiveData<String> = MutableLiveData()
 
     val mealUIModel: LiveData<List<MealUIModel>>
         get() = mutableMealUIModel
@@ -33,9 +34,12 @@ class MealViewModel @Inject constructor(
     val categoryUIModel: LiveData<List<CategoryUIModel>>
         get() = mutableCategoryUIModel
 
+    val titleCategory: LiveData<String>
+        get() = mutableTitleCategory
+
     private val compositeDisposable = CompositeDisposable()
 
-    fun startReceivingMeal(strCategory: String) {
+    private fun startReceivingMeal(strCategory: String) {
         compositeDisposable.add(
             mealUseCase.invoke(strCategory)
                 .subscribeOn(Schedulers.io())
@@ -47,21 +51,31 @@ class MealViewModel @Inject constructor(
     }
 
     fun start() {
-        val category = sp.str(MealsRepositoryImpl.KEY_CATEGORY, null)
-        if(category != null){
-            startReceivingMeal(category)
+        val categorySharedPreferences = sp.str(MealsRepositoryImpl.KEY_CATEGORY, null)
+
+        if (categorySharedPreferences != null) {
+            saveLastCategory(categorySharedPreferences)
+            observeCategory(categorySharedPreferences)
         }
-        observeCategory()
+
+
         requestCategory()
     }
 
-    private fun observeCategory() {
+    fun saveLastCategory(strCategory: String) {
+        mutableTitleCategory.value = strCategory
+        startReceivingMeal(strCategory)
+    }
+
+    private fun observeCategory(strCategory: String) {
         compositeDisposable.add(
             categoryUseCase.invoke()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
-                    mutableCategoryUIModel.value = it.toCategoryUIModel()
+                    mutableCategoryUIModel.value = it.toCategoryUIModel().map { categoryUIModel ->
+                        categoryUIModel.copy(activeCategory = strCategory == categoryUIModel.title)
+                    }
                 },
                     { it.printStackTrace() })
         )
@@ -75,7 +89,6 @@ class MealViewModel @Inject constructor(
                 .subscribe({}, { it.printStackTrace() })
         )
     }
-
 
     override fun onCleared() {
         compositeDisposable.dispose()

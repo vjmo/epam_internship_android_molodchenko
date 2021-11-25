@@ -17,7 +17,7 @@ class MealViewHolder(view: View) :
 
     fun bind(mealUI: MealUIModel, clickListener: OnItemClickListenerMeal) {
         title.text = mealUI.title
-        Glide.with(itemView.context).load(mealUI.title).into(image)
+        Glide.with(itemView.context).load(mealUI.imgMeal).into(image)
         itemView.setOnClickListener {
             clickListener.onItemClick(mealUI)
         }

@@ -1,6 +1,5 @@
 package com.example.epam_internship_android_molodchenko.data.preferences
 
-import android.content.Context
 import android.content.SharedPreferences
 import javax.inject.Inject
 
