@@ -58,7 +58,6 @@ class MealViewModel @Inject constructor(
             observeCategory(categorySharedPreferences)
         }
 
-
         requestCategory()
     }
 

@@ -19,7 +19,7 @@ class MealAdapter() : RecyclerView.Adapter<MealViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: MealViewHolder, position: Int) {
-        holder.bind(mealItemListUI[position], clickListener!!)
+        clickListener?.let { holder.bind(mealItemListUI[position], it) }
         holder.title.text = mealItemListUI[position].title
     }
 
