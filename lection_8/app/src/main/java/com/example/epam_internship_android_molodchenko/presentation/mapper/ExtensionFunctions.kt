@@ -14,7 +14,8 @@ fun List<CategoryEntity>.toCategoryUIModel():
             id = it.id,
             title = it.titleCategory,
             imgCategory = it.imageCategory,
-            description = it.descriptionCategory
+            description = it.descriptionCategory,
+            activeCategory = it.activeCategory
         )
     }
 }

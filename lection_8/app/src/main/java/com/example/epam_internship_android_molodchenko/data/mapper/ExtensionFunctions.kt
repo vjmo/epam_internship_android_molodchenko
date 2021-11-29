@@ -1,4 +1,4 @@
-package com.example.epam_internship_android_molodchenko.exten_fun
+package com.example.epam_internship_android_molodchenko.data.mapper
 
 import com.example.epam_internship_android_molodchenko.data.database.model.CategoryDbModel
 import com.example.epam_internship_android_molodchenko.data.model.meal.CategoryListDto
@@ -10,7 +10,13 @@ import com.example.epam_internship_android_molodchenko.domain.entity.MealEntity
 import java.util.*
 
 fun CategoryDbModel.toCategoryEntity() =
-    CategoryEntity(idCategory, nameCategory, strCategoryThumb, strCategoryDescription)
+    CategoryEntity(
+        idCategory,
+        nameCategory,
+        strCategoryThumb,
+        strCategoryDescription,
+        activeCategory
+    )
 
 fun List<CategoryDbModel>.toCategoryEntity(): List<CategoryEntity> {
     return map {
@@ -18,7 +24,8 @@ fun List<CategoryDbModel>.toCategoryEntity(): List<CategoryEntity> {
             id = it.idCategory,
             titleCategory = it.nameCategory,
             imageCategory = it.strCategoryThumb,
-            descriptionCategory = it.strCategoryDescription
+            descriptionCategory = it.strCategoryDescription,
+            activeCategory = it.activeCategory
         )
     }
 }
@@ -30,7 +37,8 @@ fun List<CategoryEntity>.toDbModelCategory(): List<CategoryDbModel> {
             idCategory = it.id,
             nameCategory = it.titleCategory,
             strCategoryThumb = it.imageCategory,
-            strCategoryDescription = it.descriptionCategory
+            strCategoryDescription = it.descriptionCategory,
+            activeCategory = it.activeCategory
         )
     }
 }
@@ -41,13 +49,14 @@ fun CategoryListDto.toDbModelCategory(): List<CategoryDbModel> {
             idCategory = it.idCategory,
             nameCategory = it.nameCategory,
             strCategoryThumb = it.strCategoryThumb,
-            strCategoryDescription = it.strCategoryDescription
+            strCategoryDescription = it.strCategoryDescription,
+            activeCategory = it.activeCategory
         )
     }
 }
 
 fun CategoryEntity.toDbModelCategory() =
-    CategoryDbModel(id, titleCategory, imageCategory, descriptionCategory)
+    CategoryDbModel(id, titleCategory, imageCategory, descriptionCategory, activeCategory)
 
 fun MealDto.toMealEntity(): MealEntity {
     return MealEntity(idMeal, strMeal, strMealThumb)

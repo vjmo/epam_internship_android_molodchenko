@@ -21,5 +21,5 @@ data class CategoryDbModel(
     @SerializedName("strCategoryDescription")
     val strCategoryDescription: String,
     @ColumnInfo(name = "active")
-    var activeCategory: Boolean = false
+    val activeCategory: Boolean
 )

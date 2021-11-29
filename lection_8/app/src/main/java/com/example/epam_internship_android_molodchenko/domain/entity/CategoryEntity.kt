@@ -4,5 +4,6 @@ data class CategoryEntity(
     val id: Int,
     val titleCategory: String,
     val imageCategory: String,
-    val descriptionCategory: String
+    val descriptionCategory: String,
+    var activeCategory: Boolean
 )

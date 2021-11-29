@@ -21,9 +21,7 @@ import com.example.epam_internship_android_molodchenko.presentation.feature.main
 import com.example.epam_internship_android_molodchenko.presentation.feature.main.mealList.view.clickListener.OnItemClickListenerMeal
 import com.example.epam_internship_android_molodchenko.presentation.feature.main.mealList.viewModel.MealViewModel
 import com.example.epam_internship_android_molodchenko.presentation.feature.main.mealList.viewModel.MealViewModelFactory
-import com.example.epam_internship_android_molodchenko.presentation.model.CategoryUIModel
 import com.example.epam_internship_android_molodchenko.presentation.model.MealUIModel
-import io.reactivex.disposables.CompositeDisposable
 import java.util.*
 import javax.inject.Inject
 
@@ -47,8 +45,6 @@ class MealListFragment : Fragment() {
     private val recyclerViewMeal by lazy { viewBinding.rvMeal }
 
     private val toolbarList: Toolbar? by lazy { viewBinding.toolbarList }
-
-    private val compositeDisposable = CompositeDisposable()
 
     private val clickListenerMeal = object : OnItemClickListenerMeal {
         override fun onItemClick(mealUI: MealUIModel) {
@@ -75,6 +71,9 @@ class MealListFragment : Fragment() {
         viewModelMeal.start()
         viewModelMeal.categoryUIModel.observe(viewLifecycleOwner, {
             categoryAdapter.setList(it)
+        })
+        viewModelMeal.titleCategory.observe(viewLifecycleOwner, {
+            categoryAdapter.selectItem(it)
         })
         viewModelMeal.mealUIModel.observe(viewLifecycleOwner, {
             mealAdapter.setList(it)
@@ -104,22 +103,15 @@ class MealListFragment : Fragment() {
         }
 
         categoryAdapter.clickListener = object : OnItemClickListenerCategory {
-            override fun onItemClick(categoryUI: CategoryUIModel) {
-                viewModelMeal.startReceivingMeal(categoryUI.title)
+            override fun onItemClick(strCategory: String) {
+                viewModelMeal.saveLastCategory(strCategory)
             }
         }
         mealAdapter.clickListener = clickListenerMeal
-    }
-
-    override fun onDestroy() {
-        compositeDisposable.clear()
-        super.onDestroy()
     }
 
     companion object {
         private const val ID = "ID"
         fun newInstance(): MealListFragment = MealListFragment()
     }
-
-
 }

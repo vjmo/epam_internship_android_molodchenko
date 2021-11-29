@@ -5,7 +5,7 @@ import com.example.epam_internship_android_molodchenko.data.network.MealApi
 import com.example.epam_internship_android_molodchenko.data.preferences.SharedPreferencesProvider
 import com.example.epam_internship_android_molodchenko.domain.entity.CategoryEntity
 import com.example.epam_internship_android_molodchenko.domain.repository.CategoryRepository
-import com.example.epam_internship_android_molodchenko.exten_fun.toCategoryEntity
+import com.example.epam_internship_android_molodchenko.data.mapper.toCategoryEntity
 import io.reactivex.Completable
 import io.reactivex.Flowable
 import javax.inject.Inject
@@ -23,12 +23,6 @@ class CategoryRepositoryImpl @Inject constructor(
 
     override fun requestCategories(): Completable =
         api.getCategories()
-            .doOnSuccess {
-                if (it.categoryDbs.isNotEmpty()) {
-                    sp.setInt(it.categoryDbs.first().idCategory)
-                    sp.getInt()
-                }
-            }
             .flatMapCompletable {
                 db.getCategoryDao().insertCategoryDatabase(it.categoryDbs)
             }

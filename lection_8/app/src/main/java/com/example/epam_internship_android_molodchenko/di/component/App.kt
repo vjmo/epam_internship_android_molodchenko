@@ -17,6 +17,7 @@ class App : Application() {
     }
 
     companion object {
+
         lateinit var INSTANCE: App
 
         internal const val DB_NAME = "meal"

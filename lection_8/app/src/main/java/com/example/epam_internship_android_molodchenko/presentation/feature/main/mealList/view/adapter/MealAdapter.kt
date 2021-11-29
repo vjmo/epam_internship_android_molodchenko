@@ -11,10 +11,7 @@ class MealAdapter() : RecyclerView.Adapter<MealViewHolder>() {
 
     private val mealItemListUI: MutableList<MealUIModel> = mutableListOf()
 
-    var clickListener: OnItemClickListenerMeal = object : OnItemClickListenerMeal {
-        override fun onItemClick(mealUIModel: MealUIModel) {
-        }
-    }
+    var clickListener: OnItemClickListenerMeal? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MealViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_list, parent, false)
@@ -22,7 +19,7 @@ class MealAdapter() : RecyclerView.Adapter<MealViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: MealViewHolder, position: Int) {
-        holder.bind(mealItemListUI[position], clickListener)
+        clickListener?.let { holder.bind(mealItemListUI[position], it) }
         holder.title.text = mealItemListUI[position].title
     }
 
